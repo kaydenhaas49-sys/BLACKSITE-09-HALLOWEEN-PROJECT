@@ -473,18 +473,9 @@ function targetForCommand(parts){
  if(cmd==="wake")return "Screen Wake Lock API";
  if(cmd==="pulse")return "Vibration API";
  return "Local browser";
-} var cmd=parts[0]||"",arg=parts[1]||"";
- if(cmd==="dns"||cmd==="rdap")return arg||"TARGET REQUIRED";
- if(cmd==="netcheck")return "dns.google";
- if(cmd==="weather")return "api.open-meteo.com (after location permission)";
- if(cmd==="hash")return "LOCAL / WEB CRYPTO";
- if(cmd==="motion")return "DEVICE MOTION API";
- if(cmd==="compass")return "DEVICE ORIENTATION API";
- if(cmd==="battery")return "BATTERY STATUS API";
- if(cmd==="wake")return "SCREEN WAKE LOCK API";
- if(cmd==="pulse")return "VIBRATION API";
- return "LOCAL BROWSER";
-}window.addEventListener("online",updateHeader);window.addEventListener("offline",updateHeader);
+}
+window.addEventListener("online",updateHeader);
+window.addEventListener("offline",updateHeader);
 function output(text,kind){var el=document.createElement("div");el.className="line";var ts=document.createElement("span");ts.className="ts";ts.textContent="["+nowTime()+"] ";var content=document.createElement("span");content.className=kind||"plain";content.textContent=text;el.append(ts,content);$("terminal-output").append(el);while($("terminal-output").children.length>140)$("terminal-output").removeChild($("terminal-output").firstElementChild);$("terminal-output").scrollTop=$("terminal-output").scrollHeight;return content}
 function blank(){var el=document.createElement("div");el.className="line";el.textContent=" ";$("terminal-output").append(el)}
 function reportError(msg){output("ERR: "+msg,"bad")}
