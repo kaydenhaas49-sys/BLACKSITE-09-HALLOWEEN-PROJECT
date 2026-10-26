@@ -108,7 +108,7 @@ function jumpTo(id){var target=$(id);if(!target)return;target.scrollIntoView({be
 document.querySelectorAll("[data-target]").forEach(function(b){b.addEventListener("click",function(){jumpTo(b.dataset.target)})});
 $("hamb").addEventListener("click",function(){$("sidebar").classList.toggle("open");$("mobile-backdrop").classList.toggle("show")});
 $("mobile-backdrop").addEventListener("click",function(){$("sidebar").classList.remove("open");this.classList.remove("show")});
-if("IntersectionObserver" in window){var observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){document.querySelectorAll(".nav-btn[data-target]").forEach(function(b){b.classList.toggle("active",b.dataset.target===entry.target.id)})}}),{rootMargin:"-22% 0px -60% 0px",threshold:0});sections.forEach(function(id){var el=$(id);if(el)observer.observe(el)})}
+if("IntersectionObserver" in window){var observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){document.querySelectorAll(".nav-btn[data-target]").forEach(function(b){b.classList.toggle("active",b.dataset.target===entry.target.id)})}})},{rootMargin:"-22% 0px -60% 0px",threshold:0});sections.forEach(function(id){var el=$(id);if(el)observer.observe(el)})}
 function pad(n){return String(n).padStart(2,"0")}
 function updateClock(){
  var now=new Date(),h=pad(now.getHours()),m=pad(now.getMinutes()),sec=pad(now.getSeconds());
