@@ -297,88 +297,183 @@ body:before{opacity:.2;background-image:radial-gradient(#8e956d 0.45px,transpare
 @media(max-width:390px){
  .hud-panel{padding:9px 8px}.session-grid{gap:4px}.session-card{padding:7px 6px}.session-card small{font-size:6px}.session-stats{gap:6px}.session-stats>div{flex:1}.session-stats strong{font-size:8px}.session-activity{padding-top:7px}
 }
+
+/* RESEARCH-LED TERMINAL LAYOUT: command-first, dense results, real status only. */
+.device{width:min(100%,1080px);padding:13px 13px 15px;border-radius:18px}
+.device-mark{display:none}.side-rails{opacity:.45}
+.screen{
+ min-height:650px;
+ grid-template-columns:minmax(0,1fr) 235px;
+ grid-template-rows:auto auto auto auto minmax(320px,1fr) auto auto;
+ grid-template-areas:"status status" "masthead masthead" "hud controls" "term controls" "output controls" "command controls" "footer footer";
+}
+.statusbar{padding:8px 13px;font-size:8px}
+.masthead{padding:15px 16px 14px}
+.device-title{font-size:clamp(25px,3vw,34px);letter-spacing:.07em}
+.subtitle{font-size:8px;letter-spacing:.12em}
+.unit-stamp{font-size:7px}
+.unit-stamp b{font-size:10px}
+.hud-panel{padding:10px 13px;background:#080d07}
+.hud-topline{margin-bottom:8px}
+.session-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.session-card{padding:8px;border-radius:0;box-shadow:none;background:#070b06;border-color:#283b24;gap:4px}
+.session-card strong{font-size:11px}
+.session-card small{font-size:7px;color:#708567}
+.session-label{font-size:7px}
+.session-lower{margin-top:6px;padding:7px 9px;background:#050805;border-color:#202f1d}
+.last-operation strong{font-size:10px}
+.target-value{display:block;margin-top:4px;color:#718b65;font-size:8px;overflow-wrap:anywhere}
+.control-bank{padding:10px 9px;gap:10px;border-left:1px solid #293c24;background:#080d07}
+.control-topline{padding-bottom:8px}
+.tool-shortcuts{display:grid;grid-template-columns:1fr;gap:5px}
+.tool-shortcut{display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:left;padding:9px 9px 8px;border:1px solid #263b22;background:#0b1209;color:#b6d1a4;transition:background .15s,border-color .15s}
+.tool-shortcut span{font-size:8px;letter-spacing:.08em}
+.tool-shortcut small{font-size:7px;color:#6d865f}
+.tool-shortcut:hover{background:#121f0e;border-color:#73975b;color:#d6efc1}
+.capability-heading{font-size:7px;letter-spacing:.12em;padding-top:8px;border-top:1px solid #293a23;margin-top:0}
+.control-leds{gap:8px;padding:0 2px 4px}
+.control-leds>div{font-size:7px;grid-template-columns:7px minmax(0,1fr) auto}
+.control-leds b{font-size:7px}
+.functionbar{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;padding-top:7px;border-top:1px solid #293a23}
+.function-key{min-height:38px;flex-direction:row;gap:5px;padding:6px 4px;box-shadow:none;border-color:#2f4429;background:#0b1208;font-size:7px}
+.function-key:hover{background:#182514}
+.function-key b{font-size:7px}
+.control-bank-bottom{padding-top:8px;font-size:6px;margin-top:auto}
+.terminal-head{padding:9px 13px;background:#0a1108;border-bottom:1px solid #293d24}
+.terminal-head strong{color:#91b47a}
+.output{min-height:320px;max-height:none;padding:12px 13px;line-height:1.65;font-size:10px;background:#040804}
+.line{font-size:10px;animation:output-in .08s ease-out both}
+.line .ts{color:#526b4a}
+.line .prompt{color:#c5d9a7}
+.commandbar{padding:10px 12px}
+.command-input{font-size:11px}
+.submit{border-radius:0}
+.footer{padding:7px 12px;font-size:6px;color:#52654b;letter-spacing:.06em}
+.quickbar,.dial-stage,.side-vents,.scan-sweep{display:none!important}
+.hardware{color:#89917a}
+@media(max-width:760px){
+ body{padding:0}
+ .device{width:100%;min-height:100dvh;border-radius:0;border:0;padding:0;box-shadow:none}
+ .device:before,.device:after,.side-rails,.hardware{display:none}
+ .screen{min-height:100dvh;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto minmax(220px,1fr) auto auto auto;grid-template-areas:"status" "masthead" "hud" "term" "output" "command" "controls" "footer";border:0;outline:0;box-shadow:none}
+ .statusbar{padding-top:max(10px,env(safe-area-inset-top))}
+ .masthead{padding:12px}
+ .hud-panel{padding:9px}
+ .session-card{padding:7px 6px}
+ .session-card strong{font-size:10px}
+ .control-bank{border-left:0;border-top:1px solid #293c24;padding:9px;display:flex}
+ .tool-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .tool-shortcut{padding:8px 7px}
+ .control-leds{display:grid;grid-template-columns:1fr}
+ .functionbar{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .function-key{flex-direction:column;min-height:39px}
+ .control-bank-bottom{margin-top:0;flex-direction:row;justify-content:space-between}
+ .output{min-height:220px;max-height:none;padding:10px}
+ .footer{padding-bottom:max(8px,env(safe-area-inset-bottom))}
+ .device:fullscreen{padding:0}
+ .device:fullscreen .screen{height:100dvh;min-height:0}
+}
+@media(max-width:390px){
+ .device-title{font-size:24px}
+ .subtitle{font-size:7px;letter-spacing:.07em}
+ .unit-stamp{display:none}
+ .session-grid{gap:4px}
+ .session-card small{font-size:6px}
+ .session-label{font-size:6px}
+ .session-lower{padding:7px}
+ .tool-shortcut span{font-size:7px}
+}
+
 </style>
 </head>
 <body>
-<main class="device" aria-label="BLACKSITE-09 wrist terminal">
-<div class="side-rails left"></div><div class="side-rails right"></div><div class="device-mark">FIELD DEVICE / TYPE 09</div><div class="device-mark right">OPERATOR TERMINAL</div>
+<main class="device" aria-label="BLACKSITE-09 browser security terminal">
+<div class="side-rails left"></div><div class="side-rails right"></div>
 <div class="screen">
-<div class="statusbar"><div class="status-left"><span class="brand-id">BS09</span><span>WRIST TERMINAL</span></div><div class="status-right"><span><i class="led" id="link-led"></i><span id="link-label">LINK ?</span></span><span id="clock-mini">--:--:--</span></div></div>
-<div class="masthead"><div class="masthead-main"><div class="overline">BROWSER-BASED SECURITY TOOLS</div><div class="device-title" data-text="BLACKSITE-09">BLACKSITE-09</div><div class="subtitle">DNS · RDAP · SHA-256 · CONNECTIVITY</div></div><div class="unit-stamp">RUNTIME<b>WEB APP</b>CONTEXT<b id="context-stamp">CHECKING</b></div></div>
+<div class="statusbar"><div class="status-left"><span class="brand-id">BS09</span><span>SECURITY TERMINAL</span></div><div class="status-right"><span><i class="led" id="link-led"></i><span id="link-label">LINK ?</span></span><span id="clock-mini">--:--:--</span></div></div>
+<div class="masthead"><div class="masthead-main"><div class="overline">SECURITY WORKBENCH / BROWSER TOOLS</div><div class="device-title" data-text="BLACKSITE-09">BLACKSITE-09</div><div class="subtitle">DNS LOOKUP / RDAP / SHA-256 / NETWORK CHECK</div></div><div class="unit-stamp">RUNTIME<b>WEB APP</b>CONTEXT<b id="context-stamp">CHECKING</b></div></div>
 
-<section class="hud-panel" aria-label="Live browser session diagnostics">
-<div class="hud-topline"><span><i class="mini-led"></i> SESSION DIAGNOSTICS</span><span id="session-mode">LIVE / BROWSER-SCOPED</span></div>
+<section class="hud-panel" aria-label="Live session status">
+<div class="hud-topline"><span><i class="mini-led"></i> SESSION</span><span id="session-mode">BROWSER / LIVE STATE</span></div>
 <div class="session-grid">
-<article class="session-card"><span class="session-label">NETWORK STATE</span><strong id="dash-network">CHECKING</strong><small id="dash-network-note">Browser network hint only</small></article>
-<article class="session-card"><span class="session-label">SECURITY CONTEXT</span><strong id="dash-transport">CHECKING</strong><small id="dash-transport-note">Checking secure context</small></article>
-<article class="session-card"><span class="session-label">CURRENT ORIGIN</span><strong id="dash-origin">LOCAL</strong><small>Page host / origin</small></article>
-<article class="session-card"><span class="session-label">LAST TARGET</span><strong id="dash-target">None selected</strong><small>Set by the last command</small></article>
+<article class="session-card"><span class="session-label">NETWORK</span><strong id="dash-network">CHECKING</strong><small id="dash-network-note">Browser network status</small></article>
+<article class="session-card"><span class="session-label">SECURITY CONTEXT</span><strong id="dash-transport">CHECKING</strong><small id="dash-transport-note">Secure context status</small></article>
+<article class="session-card"><span class="session-label">ORIGIN</span><strong id="dash-origin">LOCAL</strong><small>Current page host</small></article>
 </div>
 <div class="session-lower">
-<div class="last-operation"><span class="session-label">LAST COMMAND</span><strong id="last-command">No command run</strong></div>
-<div class="session-stats"><div><span class="session-label">SESSION UPTIME</span><strong id="session-uptime">00:00:00</strong></div><div><span class="session-label">COMMANDS RUN</span><strong id="command-count">0</strong></div><div><span class="session-label">WEB CRYPTO</span><strong id="crypto-status">CHECKING</strong></div></div>
+<div class="last-operation"><span class="session-label">LAST COMMAND / TARGET</span><strong id="last-command">No command run</strong><small id="dash-target" class="target-value">No target selected</small></div>
 </div>
-<div class="session-activity"><div class="activity-caption"><span>LOCAL COMMAND HISTORY</span><span>LAST 16 INPUTS</span></div><div class="command-ticks" id="command-ticks" aria-label="Recent command activity"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
 </section>
-<div class="scan-sweep" aria-hidden="true"></div>
-<aside class="control-bank" aria-label="Wrist computer hardware controls">
-  <div class="control-topline"><span>TOOL CAPABILITIES</span><span class="module-code">WEB API</span></div>
-  <div class="dial-stage" aria-hidden="true">
-    <div class="dial-housing"><div class="dial-ticks"></div><div class="dial-knob"><span>I/O</span><i></i></div></div>
-    <div class="dial-caption">INPUT / OUTPUT</div>
-  </div>
-  <div class="capability-heading">BROWSER API AVAILABILITY</div>
+
+<aside class="control-bank" aria-label="Tools and browser capabilities">
+<div class="control-topline"><span>QUICK TOOLS</span><span class="module-code">RUN</span></div>
+<nav class="tool-shortcuts" aria-label="Common commands">
+<button class="tool-shortcut" data-command="dns example.com"><span>DNS LOOKUP</span><small>example.com / A</small></button>
+<button class="tool-shortcut" data-command="rdap example.com"><span>RDAP LOOKUP</span><small>Domain registration</small></button>
+<button class="tool-shortcut" data-command="hash hello world"><span>SHA-256</span><small>Local text fingerprint</small></button>
+<button class="tool-shortcut" data-command="netcheck"><span>NETWORK CHECK</span><small>Public resolver request</small></button>
+</nav>
+<div class="capability-heading">BROWSER API STATUS</div>
 <div class="control-leds" aria-label="Browser capability status">
 <div><i id="api-crypto-led" class="control-led"></i><span>WEB CRYPTO</span><b id="api-crypto-state">CHECK</b></div>
-<div><i id="api-fetch-led" class="control-led"></i><span>FETCH API</span><b id="api-fetch-state">CHECK</b></div>
+<div><i id="api-fetch-led" class="control-led"></i><span>FETCH</span><b id="api-fetch-state">CHECK</b></div>
 <div><i id="api-location-led" class="control-led led-amber"></i><span>GEOLOCATION</span><b id="api-location-state">CHECK</b></div>
 </div>
-  <div class="side-vents" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-  <nav class="functionbar" aria-label="Terminal shortcuts"><button class="function-key" data-command="help"><b>F1</b> HELP</button><button class="function-key" data-command="status"><b>F2</b> STATUS</button><button class="function-key" data-command="tools"><b>F3</b> TOOLS</button><button class="function-key" data-command="fullscreen"><b>F4</b> FULLSCREEN</button></nav>
-  <div class="control-bank-bottom"><span>RUNS IN BROWSER</span><span>NO OS ACCESS</span></div>
+<nav class="functionbar" aria-label="Terminal shortcuts">
+<button class="function-key" data-command="help"><b>F1</b> HELP</button>
+<button class="function-key" data-command="status"><b>F2</b> STATUS</button>
+<button class="function-key" data-command="tools"><b>F3</b> APIS</button>
+<button class="function-key" data-command="fullscreen"><b>F4</b> FULLSCREEN</button>
+</nav>
+<div class="control-bank-bottom"><span>LOCAL BROWSER SESSION</span><span>NO OS SHELL</span></div>
 </aside>
 <div class="terminal-head"><span>COMMAND CONSOLE <strong>// TOOL OUTPUT</strong></span><span><i class="cursor-led"></i> READY</span></div>
 <div class="output" id="terminal-output" role="log" aria-live="polite" aria-label="Terminal output"></div>
 <form class="commandbar" id="command-form"><label class="prompt" for="command-input">BS09:&gt;</label><input class="command-input" id="command-input" name="command" type="text" maxlength="160" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type help" aria-label="Command input"><button class="submit" type="submit">ENTER ↵</button></form>
-<div class="quickbar" aria-label="Quick commands"><button class="quick" data-command="dns example.com">DNS A TEST</button><button class="quick" data-command="rdap example.com">RDAP LOOKUP</button><button class="quick" data-command="hash hello world">SHA-256 TEST</button><button class="quick" data-command="netcheck">NET CHECK</button><button class="quick" data-command="motion on">MOTION API</button><button class="quick" data-command="pulse">HAPTIC TEST</button><button class="quick" data-command="battery">BATTERY API</button><button class="quick" data-command="weather">WEATHER API</button><button class="quick" data-command="clear">CLEAR LOG</button></div>
-<div class="footer"><span>BLACKSITE-09 / BROWSER SECURITY WORKBENCH</span><span>NO SHELL · NO UNREQUESTED SCANS</span></div>
+
+<div class="footer"><span>BLACKSITE-09 / SECURITY TOOLS</span><span>LOCAL SESSION</span></div>
 </div>
-<div class="hardware"><span class="screw"></span><span>BS09 / SECURITY TOOLS</span><span>BROWSER-ONLY I/O</span><span class="screw"></span></div>
+<div class="hardware"><span class="screw"></span><span>BS09 / SECURITY WORKBENCH</span><span>TERMINAL</span><span class="screw"></span></div>
 </main>
 <script>
 (function(){
 "use strict";
 var $=function(id){return document.getElementById(id)};
 var battery=null,wakeLock=null,wakeWanted=false,wakeBusy=false,weatherBusy=false,compassOn=false,compassSeen=false,compassHandler=null,compassTimer=null,compassOutput=null,motionOn=false,motionSeen=false,motionHandler=null,motionOutput=null,motionLast=0,commandHistory=[],historyIndex=0;
-var sessionStarted=Date.now(),commandCount=0,lastCommandText="No command run",activeTargetText="None selected",commandActivity=[];
+var lastCommandText="No command run",activeTargetText="No target selected";
 function pad(n){return String(n).padStart(2,"0")}
 function nowTime(){var d=new Date();return pad(d.getHours())+":"+pad(d.getMinutes())+":"+pad(d.getSeconds())}
-function updateHeader(){var on=navigator.onLine;$("link-led").style.background=on?"var(--green)":"var(--red)";$("link-label").textContent=on?"NET HINT: ONLINE":"NET HINT: OFFLINE";$("link-label").className=on?"status-value":"status-value offline";$("clock-mini").textContent=nowTime();updateSessionPanel()}
+function updateHeader(){var on=navigator.onLine;$("link-led").style.background=on?"var(--green)":"var(--red)";$("link-label").textContent=on?"ONLINE":"OFFLINE";$("link-label").className=on?"status-value":"status-value offline";$("clock-mini").textContent=nowTime();updateSessionPanel()}
 function setApiIndicator(ledId,stateId,state,tone){var led=$(ledId),label=$(stateId);if(led)led.className="control-led"+(tone?" "+tone:"");if(label)label.textContent=state}
 function updateSessionPanel(){
  var net=$("dash-network"),transport=$("dash-transport"),origin=$("dash-origin");if(!net)return;
  var online=navigator.onLine,secure=window.isSecureContext===true,protocol=location.protocol||"unknown:";
  net.textContent=online?"ONLINE":"OFFLINE";net.className=online?"telemetry-value is-good":"telemetry-value is-bad";
- $("dash-network-note").textContent=online?"Browser reports a network connection":"Browser reports offline";
+ $("dash-network-note").textContent=online?"Browser reports network available":"Browser reports offline";
  transport.textContent=secure?"SECURE":"INSECURE";transport.className=secure?"telemetry-value is-good":"telemetry-value is-bad";
- $("dash-transport-note").textContent=protocol+" / "+(secure?"secure context enabled":"secure context unavailable");$("context-stamp").textContent=secure?(protocol==="https:"?"HTTPS":"SECURE"):(protocol==="file:"?"LOCAL FILE":"INSECURE");
+ $("dash-transport-note").textContent=protocol+" / "+(secure?"secure context enabled":"secure context unavailable");
  origin.textContent=location.host||((protocol==="file:")?"LOCAL FILE":"LOCAL ORIGIN");
+ $("context-stamp").textContent=secure?(protocol==="https:"?"HTTPS":"SECURE"):(protocol==="file:"?"LOCAL FILE":"INSECURE");
  $("dash-target").textContent=activeTargetText;$("last-command").textContent=lastCommandText;
- var elapsed=Math.max(0,Math.floor((Date.now()-sessionStarted)/1000)),hh=String(Math.floor(elapsed/3600)).padStart(2,"0"),mm=String(Math.floor((elapsed%3600)/60)).padStart(2,"0"),ss=String(elapsed%60).padStart(2,"0");
- $("session-uptime").textContent=hh+":"+mm+":"+ss;$("command-count").textContent=String(commandCount);
  var cryptoReady=!!(secure&&window.crypto&&window.crypto.subtle);
- $("crypto-status").textContent=cryptoReady?"AVAILABLE":"UNAVAILABLE";$("crypto-status").className=cryptoReady?"telemetry-value is-good":"telemetry-value is-bad";
+ $("crypto-status") && ($("crypto-status").textContent=cryptoReady?"AVAILABLE":"UNAVAILABLE");
  setApiIndicator("api-crypto-led","api-crypto-state",cryptoReady?"READY":"N/A",cryptoReady?"":"led-red");
  setApiIndicator("api-fetch-led","api-fetch-state",typeof window.fetch==="function"?"EXPOSED":"N/A",typeof window.fetch==="function"?"":"led-red");
  setApiIndicator("api-location-led","api-location-state",navigator.geolocation?"EXPOSED":"N/A",navigator.geolocation?"led-amber":"led-red");
- updateCommandTicks();
-}
-function updateCommandTicks(){
- var ticks=document.querySelectorAll("#command-ticks i"),offset=Math.max(0,ticks.length-commandActivity.length);
- ticks.forEach(function(tick,i){tick.className="";tick.removeAttribute("title");tick.removeAttribute("aria-label");var h=i-offset;if(h>=0&&h<commandActivity.length){var item=commandActivity[h];tick.className="active";tick.title=item;tick.setAttribute("aria-label",item)}});
 }
 function targetForCommand(parts){
  var cmd=parts[0]||"",arg=parts[1]||"";
+ if(cmd==="dns"||cmd==="rdap")return arg||"Target required";
+ if(cmd==="netcheck")return "dns.google";
+ if(cmd==="weather")return "api.open-meteo.com (after location permission)";
+ if(cmd==="hash")return "Local / Web Crypto";
+ if(cmd==="motion")return "Device motion API";
+ if(cmd==="compass")return "Device orientation API";
+ if(cmd==="battery")return "Battery API";
+ if(cmd==="wake")return "Screen Wake Lock API";
+ if(cmd==="pulse")return "Vibration API";
+ return "Local browser";
+} var cmd=parts[0]||"",arg=parts[1]||"";
  if(cmd==="dns"||cmd==="rdap")return arg||"TARGET REQUIRED";
  if(cmd==="netcheck")return "dns.google";
  if(cmd==="weather")return "api.open-meteo.com (after location permission)";
@@ -393,10 +488,33 @@ function targetForCommand(parts){
 function output(text,kind){var el=document.createElement("div");el.className="line";var ts=document.createElement("span");ts.className="ts";ts.textContent="["+nowTime()+"] ";var content=document.createElement("span");content.className=kind||"plain";content.textContent=text;el.append(ts,content);$("terminal-output").append(el);while($("terminal-output").children.length>140)$("terminal-output").removeChild($("terminal-output").firstElementChild);$("terminal-output").scrollTop=$("terminal-output").scrollHeight;return content}
 function blank(){var el=document.createElement("div");el.className="line";el.textContent=" ";$("terminal-output").append(el)}
 function reportError(msg){output("ERR: "+msg,"bad")}
-function runStatus(){var online=navigator.onLine,secure=window.isSecureContext===true;output("CONNECTION  "+(online?"ONLINE (BROWSER REPORT)":"OFFLINE (BROWSER REPORT)"),online?"good":"warn");output("SECURE CTX  "+(secure?"YES":"NO"),secure?"good":"warn");output("LOCAL TIME  "+nowTime());output("TIME ZONE   "+(Intl.DateTimeFormat().resolvedOptions().timeZone||"Not exposed"));output("BROWSER     "+(navigator.userAgentData&&navigator.userAgentData.platform||navigator.platform||"Platform not exposed"));output("NOTE        Online state does not guarantee internet access.","dim")}
-function help(){output("AVAILABLE COMMANDS","good");output("  dns domain [type]    real DNS-over-HTTPS lookup");output("  rdap domain          public registration information");output("  hash text            local SHA-256 fingerprint");output("  netcheck             real request to public DNS resolver");output("  motion on|off|status live device motion sensor");output("  pulse                request device vibration");output("  time / date          device time and timezone");output("  status               browser connection/security status");output("  battery              real battery, if exposed");output("  wake on|off|status   screen wake-lock control");output("  weather              request location and weather");output("  compass on|off|status real compass, if available");output("  fullscreen           enter/exit fullscreen");output("  tools / clear / about");output("Requests can fail due to permissions, network, or CORS.","dim")}
+function runStatus(){
+ var online=navigator.onLine,secure=window.isSecureContext===true;
+ output("NETWORK   "+(online?"ONLINE":"OFFLINE")+" (browser state)",online?"good":"warn");
+ output("CONTEXT   "+(secure?"SECURE":"INSECURE")+" / "+location.protocol,secure?"good":"warn");
+ output("ORIGIN    "+(location.host||"LOCAL FILE"));
+ output("WEB CRYPTO "+(secure&&window.crypto&&window.crypto.subtle?"AVAILABLE":"UNAVAILABLE"),secure&&window.crypto&&window.crypto.subtle?"good":"warn");
+}
+function help(){
+ output("COMMANDS","good");
+ output("dns domain [type]   DNS record lookup");
+ output("rdap domain         Domain registration data");
+ output("hash text           SHA-256 fingerprint");
+ output("netcheck            Test request to public DNS");
+ output("status / tools      Session and browser API status");
+ output("battery / wake      Battery and screen wake lock");
+ output("weather             Weather after location permission");
+ output("motion / compass    Device sensors, if supported");
+ output("pulse               Request vibration, if supported");
+ output("time / date         Local time and date");
+ output("fullscreen / clear  Display and output controls");
+}
 function showTime(){var d=new Date();output("LOCAL TIME  "+nowTime(),"good");output("LOCAL DATE  "+d.toLocaleDateString(undefined,{weekday:"long",year:"numeric",month:"long",day:"2-digit"}));output("TIME ZONE   "+(Intl.DateTimeFormat().resolvedOptions().timeZone||"Not exposed"));output("UTC OFFSET  "+(d.getTimezoneOffset()<=0?"+":"-")+pad(Math.floor(Math.abs(d.getTimezoneOffset())/60))+":"+pad(Math.abs(d.getTimezoneOffset())%60))}
-function about(){output("BLACKSITE-09 / BROWSER FIELD CONSOLE","good");output("This page can call only browser-exposed APIs and","dim");output("the weather service after the operator requests it.","dim");output("It is not a shell and cannot execute OS commands,","dim");output("inspect private system processes, or scan hosts.","dim")}
+function about(){
+ output("BLACKSITE-09 / BROWSER SECURITY TOOLS","good");
+ output("Runs only browser-accessible features and requested public lookups.","dim");
+ output("It is not an OS shell or a network scanner.","dim");
+}
 function showTools(){output("API CAPABILITY CHECK","good");output("DNS OVER HTTPS     CONFIGURED / NETWORK REQUIRED","good");output("RDAP LOOKUP        CONFIGURED / NETWORK REQUIRED","good");output("WEB CRYPTO SHA-256 "+(!!(window.isSecureContext&&window.crypto&&window.crypto.subtle)?"AVAILABLE":"UNAVAILABLE"),window.isSecureContext&&window.crypto&&window.crypto.subtle?"good":"warn");output("SCREEN WAKE LOCK   "+("wakeLock" in navigator?"EXPOSED":"UNAVAILABLE"),"wakeLock" in navigator?"good":"warn");output("BATTERY API        "+(typeof navigator.getBattery==="function"?"EXPOSED":"UNAVAILABLE"),typeof navigator.getBattery==="function"?"good":"warn");output("GEOLOCATION        "+(!!navigator.geolocation?"EXPOSED / PERMISSION REQUIRED":"UNAVAILABLE"),navigator.geolocation?"good":"warn");output("MOTION SENSOR      "+("DeviceMotionEvent" in window?"EXPOSED / PERMISSION MAY APPLY":"UNAVAILABLE"),"DeviceMotionEvent" in window?"good":"warn");output("VIBRATION API      "+(typeof navigator.vibrate==="function"?"EXPOSED":"UNAVAILABLE"),typeof navigator.vibrate==="function"?"good":"warn");output("ORIENTATION API    "+("DeviceOrientationEvent" in window?"EXPOSED":"UNAVAILABLE"),"DeviceOrientationEvent" in window?"good":"warn");output("SECURE CONTEXT     "+(window.isSecureContext?"YES":"NO"),window.isSecureContext?"good":"warn");output("API presence does not guarantee hardware or remote-service access.","dim")}
 function loadBattery(onResult){if(battery){onResult(battery);return}if(typeof navigator.getBattery!=="function"){onResult(null);return}navigator.getBattery().then(function(b){battery=b;onResult(b)}).catch(function(){onResult(null)})}
 function showBattery(){output("BATTERY STATUS REQUEST","good");loadBattery(function(b){if(!b){output("Battery status is not exposed by this browser.","warn");return}output("LEVEL      "+Math.round(b.level*100)+"%","good");output("CHARGING   "+(b.charging?"YES":"NO"),b.charging?"good":"plain");if(Number.isFinite(b.chargingTime)&&b.chargingTime!==Infinity)output("TO FULL    "+Math.round(b.chargingTime/60)+" MIN");if(Number.isFinite(b.dischargingTime)&&b.dischargingTime!==Infinity)output("REMAINING  "+Math.round(b.dischargingTime/60)+" MIN")})}
@@ -623,11 +741,11 @@ document.addEventListener("fullscreenchange",function(){
  document.querySelectorAll('[data-command="fullscreen"]').forEach(function(button){button.innerHTML=active?"<b>F4</b> EXIT FULLSCREEN":"<b>F4</b> FULLSCREEN"});
 });
 
-function runCommand(raw,fromButton){var original=String(raw||"").trim();if(!original)return;if(!fromButton){commandHistory.push(original);if(commandHistory.length>50)commandHistory.shift();historyIndex=commandHistory.length}output("BS09:> "+original,"prompt");var parts=original.toLowerCase().split(/\s+/),cmd=parts[0],arg=parts[1]||"";commandCount++;lastCommandText=original;activeTargetText=targetForCommand(parts);commandActivity.push(original);if(commandActivity.length>16)commandActivity.shift();updateSessionPanel();switch(cmd){case "help":case "?":help();break;case "time":case "date":showTime();break;case "status":runStatus();break;case "battery":showBattery();break;case "wake":if(arg==="on")setWake(true);else if(arg==="off")setWake(false);else wakeStatus();break;case "weather":getWeather();break;case "compass":if(arg==="on")startCompass();else if(arg==="off")stopCompass();else compassStatus();break;case "motion":if(arg==="on")motionStart();else if(arg==="off")motionStop();else motionStatus();break;case "pulse":vibrationPulse();break;case "dns":dnsLookup(original);break;case "rdap":rdapLookup(original);break;case "hash":hashText(original);break;case "netcheck":netCheck();break;case "tools":showTools();break;case "fullscreen":toggleFullscreen();break;case "clear":$("terminal-output").textContent="";compassOutput=null;motionOutput=null;break;case "about":about();break;default:reportError("unknown command '"+parts[0]+"'; enter help")}}
+function runCommand(raw,fromButton){var original=String(raw||"").trim();if(!original)return;if(!fromButton){commandHistory.push(original);if(commandHistory.length>50)commandHistory.shift();historyIndex=commandHistory.length}output("BS09:> "+original,"prompt");var parts=original.toLowerCase().split(/\s+/),cmd=parts[0],arg=parts[1]||"";commandCount++;lastCommandText=original;activeTargetText=targetForCommand(parts);commandActivity.push(original);if(commandActivity.length>16)commandActivity.shift();updateSessionPanel();lastCommandText=original;activeTargetText=targetForCommand(parts);updateSessionPanel();switch(cmd){case "help":case "?":help();break;case "time":case "date":showTime();break;case "status":runStatus();break;case "battery":showBattery();break;case "wake":if(arg==="on")setWake(true);else if(arg==="off")setWake(false);else wakeStatus();break;case "weather":getWeather();break;case "compass":if(arg==="on")startCompass();else if(arg==="off")stopCompass();else compassStatus();break;case "motion":if(arg==="on")motionStart();else if(arg==="off")motionStop();else motionStatus();break;case "pulse":vibrationPulse();break;case "dns":dnsLookup(original);break;case "rdap":rdapLookup(original);break;case "hash":hashText(original);break;case "netcheck":netCheck();break;case "tools":showTools();break;case "fullscreen":toggleFullscreen();break;case "clear":$("terminal-output").textContent="";compassOutput=null;motionOutput=null;break;case "about":about();break;default:reportError("unknown command '"+parts[0]+"'; enter help")}}
 $("command-form").addEventListener("submit",function(e){e.preventDefault();var input=$("command-input"),value=input.value;input.value="";runCommand(value,false)});
 $("command-input").addEventListener("keydown",function(e){if(e.key==="ArrowUp"){e.preventDefault();historyIndex=Math.max(0,historyIndex-1);this.value=commandHistory[historyIndex]||"";this.setSelectionRange(this.value.length,this.value.length)}else if(e.key==="ArrowDown"){e.preventDefault();historyIndex=Math.min(commandHistory.length,historyIndex+1);this.value=commandHistory[historyIndex]||"";this.setSelectionRange(this.value.length,this.value.length)}});
 document.querySelectorAll("[data-command]").forEach(function(button){button.addEventListener("click",function(){runCommand(button.dataset.command,true)})});
-function boot(){output("BLACKSITE-09 / WRIST TERMINAL","good");output("LOCAL BROWSER CONSOLE READY","good");output("CLOCK SOURCE: DEVICE TIME","dim");output("TYPE 'help' FOR AVAILABLE COMMANDS.","plain");output("NOTE: NO OS SHELL OR HOST SCANNING.","dim");blank();runStatus()}
+function boot(){output("Console ready. Type help for commands.","good");runStatus()}
 updateHeader();setInterval(updateHeader,1000);boot();
 })();
 </script>
