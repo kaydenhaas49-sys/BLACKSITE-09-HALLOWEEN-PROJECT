@@ -259,6 +259,44 @@ body:before{opacity:.2;background-image:radial-gradient(#8e956d 0.45px,transpare
  .dial-knob{width:40px;height:40px}
 }
 
+
+/* Truthful security-workbench dashboard: live browser data, no synthetic sensor claims. */
+.hud-panel{padding:13px 15px 12px;background:linear-gradient(135deg,#091108,#060b06 65%,#0b1008);border-bottom:1px solid #31442b}
+.hud-topline{margin-bottom:10px;color:#8aa777}
+#session-mode{color:#c7b079;font-size:7px;letter-spacing:.09em}
+.mini-led{background:#b8f36f;box-shadow:0 0 7px #b8f36f;animation:blink 1.8s steps(2,start) infinite}
+.session-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.session-card{min-width:0;padding:9px;border:1px solid #2a3e25;background:linear-gradient(180deg,#0d170b,#070c06);box-shadow:inset 0 1px 0 #859b5910;display:flex;flex-direction:column;gap:5px}
+.session-label{display:block;color:#718964;font-size:7px;line-height:1.3;letter-spacing:.1em;white-space:nowrap}
+.session-card strong,.session-stats strong{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:clamp(9px,1.3vw,12px);font-weight:500;letter-spacing:.04em;color:#d2e9b8}
+.session-card small{display:block;color:#63805b;font-size:7px;line-height:1.4;overflow-wrap:anywhere}
+.telemetry-value.is-good{color:#c6f2a1!important;text-shadow:0 0 8px #a7e77712}
+.telemetry-value.is-bad{color:#efaa81!important}
+.session-lower{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;margin-top:9px;padding:9px 10px;border:1px solid #273a23;background:#050a05}
+.last-operation{min-width:0}
+.last-operation strong{display:block;margin-top:4px;color:#b8d9a5;font-size:10px;font-weight:400;overflow-wrap:anywhere}
+.session-stats{display:flex;gap:13px}
+.session-stats>div{min-width:45px}
+.session-stats strong{font-size:9px;margin-top:5px}
+.session-activity{padding-top:9px}
+.activity-caption{display:flex;justify-content:space-between;gap:7px;color:#617a56;font-size:6px;letter-spacing:.14em}
+.command-ticks{height:16px;display:flex;align-items:flex-end;gap:3px;margin-top:5px;padding:0 1px 2px;border-bottom:1px solid #2c4227}
+.command-ticks i{display:block;flex:1;height:var(--tick-height,25%);background:#182718;border:1px solid #1d321a;opacity:.65;transition:background .18s,box-shadow .18s,opacity .18s}
+.command-ticks i:nth-child(3n){--tick-height:58%}.command-ticks i:nth-child(4n){--tick-height:92%}.command-ticks i:nth-child(5n){--tick-height:38%}.command-ticks i:nth-child(7n){--tick-height:72%}
+.command-ticks i.active{background:linear-gradient(180deg,#c6f98d,#61964a);border-color:#91c76a;opacity:1;box-shadow:0 0 6px #9fe86c18}
+.control-bank{background:linear-gradient(90deg,#11180d,#0a1008 18%,#11170d);gap:10px}
+.capability-heading{position:relative;z-index:1;color:#829970;font-size:6px;letter-spacing:.1em;padding:0 2px;margin-top:-3px}
+.control-leds{gap:9px}.control-leds>div{grid-template-columns:8px minmax(0,1fr) auto;gap:5px;font-size:6px}.control-leds b{font-size:6px}
+.control-led.led-red{background:#ab5543;box-shadow:0 0 5px #ab554344}.control-led.led-amber{background:#d5a85d;box-shadow:0 0 6px #d5a85d62}
+.control-bank-bottom{font-size:6px;letter-spacing:.07em}.device-title{letter-spacing:.09em}.terminal-head{letter-spacing:.08em}
+.output{background:linear-gradient(135deg,#050b05,#030703 65%,#060c05)}.line .prompt{color:#d0b579}.quick{font-size:7px;letter-spacing:.04em}
+@media(max-width:760px){
+ .session-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.session-card{padding:8px}.session-card strong{font-size:10px}
+ .session-lower{grid-template-columns:minmax(0,1fr);gap:9px}.session-stats{justify-content:space-between;gap:8px}.session-stats>div{min-width:0}.session-stats strong{font-size:9px}.session-label{font-size:6px}
+}
+@media(max-width:390px){
+ .hud-panel{padding:9px 8px}.session-grid{gap:4px}.session-card{padding:7px 6px}.session-card small{font-size:6px}.session-stats{gap:6px}.session-stats>div{flex:1}.session-stats strong{font-size:8px}.session-activity{padding-top:7px}
+}
 </style>
 </head>
 <body>
@@ -266,52 +304,44 @@ body:before{opacity:.2;background-image:radial-gradient(#8e956d 0.45px,transpare
 <div class="side-rails left"></div><div class="side-rails right"></div><div class="device-mark">FIELD DEVICE / TYPE 09</div><div class="device-mark right">OPERATOR TERMINAL</div>
 <div class="screen">
 <div class="statusbar"><div class="status-left"><span class="brand-id">BS09</span><span>WRIST TERMINAL</span></div><div class="status-right"><span><i class="led" id="link-led"></i><span id="link-label">LINK ?</span></span><span id="clock-mini">--:--:--</span></div></div>
-<div class="masthead"><div class="masthead-main"><div class="overline">FIELD INTERFACE / LOCAL UNIT</div><div class="device-title" data-text="BLACKSITE-09">BLACKSITE-09</div><div class="subtitle">OPERATOR CONSOLE // REV 03</div></div><div class="unit-stamp">UNIT SERIAL<b>09-A</b>MODE<b>LOCAL</b></div></div>
+<div class="masthead"><div class="masthead-main"><div class="overline">BROWSER-BASED SECURITY TOOLS</div><div class="device-title" data-text="BLACKSITE-09">BLACKSITE-09</div><div class="subtitle">DNS · RDAP · SHA-256 · CONNECTIVITY</div></div><div class="unit-stamp">UNIT SERIAL<b>09-A</b>MODE<b>LOCAL</b></div></div>
 
-<section class="hud-panel" aria-label="Animated visual heads-up display">
-  <div class="hud-topline"><span><i class="mini-led"></i> VISUAL SCOPE</span><span class="hud-top-right">PASSIVE SWEEP <b>/// 09</b></span></div>
-  <div class="hud-core">
-    <div class="radar" aria-hidden="true">
-      <span class="radar-ring ring-one"></span><span class="radar-ring ring-two"></span><span class="radar-ring ring-three"></span>
-      <span class="radar-cross cross-x"></span><span class="radar-cross cross-y"></span>
-      <span class="radar-sweep"></span><i class="radar-point point-a"></i><i class="radar-point point-b"></i><i class="radar-point point-c"></i><i class="radar-center"></i>
-    </div>
-    <div class="hud-data" aria-hidden="true">
-      <div class="hud-metrics">
-        <div class="hud-metric"><span class="hud-label">DISPLAY</span><strong>PHOSPHOR <i>G</i></strong></div>
-        <div class="hud-metric"><span class="hud-label">SCAN CYCLE</span><strong>4.8 <i>SEC</i></strong></div>
-        <div class="hud-metric"><span class="hud-label">INTERFACE</span><strong>ACTIVE <i class="tiny-live">●</i></strong></div>
-        <div class="hud-metric"><span class="hud-label">SENSOR FEED</span><strong class="amber-text">VISUAL ONLY</strong></div>
-      </div>
-      <div class="spectrum-label"><span>FREQUENCY PROFILE</span><span>SIM / 09</span></div>
-      <div class="spectrum" aria-hidden="true">
-        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      </div>
-      <div class="hud-status"><span><b class="hud-status-dot"></b> SYSTEM VISUALS NOMINAL</span><span>NO LOCK</span></div>
-    </div>
-  </div>
+<section class="hud-panel" aria-label="Live browser session diagnostics">
+<div class="hud-topline"><span><i class="mini-led"></i> SESSION DIAGNOSTICS</span><span id="session-mode">LIVE / BROWSER-SCOPED</span></div>
+<div class="session-grid">
+<article class="session-card"><span class="session-label">NETWORK STATE</span><strong id="dash-network">CHECKING</strong><small id="dash-network-note">Browser network hint only</small></article>
+<article class="session-card"><span class="session-label">SECURITY CONTEXT</span><strong id="dash-transport">CHECKING</strong><small id="dash-transport-note">Checking secure context</small></article>
+<article class="session-card"><span class="session-label">CURRENT ORIGIN</span><strong id="dash-origin">LOCAL</strong><small>Page host / origin</small></article>
+<article class="session-card"><span class="session-label">LAST TARGET</span><strong id="dash-target">None selected</strong><small>Set by the last command</small></article>
+</div>
+<div class="session-lower">
+<div class="last-operation"><span class="session-label">LAST COMMAND</span><strong id="last-command">No command run</strong></div>
+<div class="session-stats"><div><span class="session-label">SESSION UPTIME</span><strong id="session-uptime">00:00:00</strong></div><div><span class="session-label">COMMANDS RUN</span><strong id="command-count">0</strong></div><div><span class="session-label">WEB CRYPTO</span><strong id="crypto-status">CHECKING</strong></div></div>
+</div>
+<div class="session-activity"><div class="activity-caption"><span>LOCAL COMMAND HISTORY</span><span>LAST 16 INPUTS</span></div><div class="command-ticks" id="command-ticks" aria-label="Recent command activity"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
 </section>
 <div class="scan-sweep" aria-hidden="true"></div>
 <aside class="control-bank" aria-label="Wrist computer hardware controls">
-  <div class="control-topline"><span>FIELD MODULE</span><span class="module-code">09 / A</span></div>
+  <div class="control-topline"><span>TOOL CAPABILITIES</span><span class="module-code">WEB API</span></div>
   <div class="dial-stage" aria-hidden="true">
-    <div class="dial-housing"><div class="dial-ticks"></div><div class="dial-knob"><span>09</span><i></i></div></div>
-    <div class="dial-caption">MODE / SELECT</div>
+    <div class="dial-housing"><div class="dial-ticks"></div><div class="dial-knob"><span>I/O</span><i></i></div></div>
+    <div class="dial-caption">INPUT / OUTPUT</div>
   </div>
-  <div class="control-leds" aria-hidden="true">
-    <div><i class="control-led led-green"></i><span>SYS READY</span><b>ON</b></div>
-    <div><i class="control-led led-amber"></i><span>RADIO</span><b>STBY</b></div>
-    <div><i class="control-led led-red"></i><span>ALERT</span><b>CLR</b></div>
-  </div>
+  <div class="capability-heading">BROWSER API AVAILABILITY</div>
+<div class="control-leds" aria-label="Browser capability status">
+<div><i id="api-crypto-led" class="control-led"></i><span>WEB CRYPTO</span><b id="api-crypto-state">CHECK</b></div>
+<div><i id="api-fetch-led" class="control-led"></i><span>FETCH API</span><b id="api-fetch-state">CHECK</b></div>
+<div><i id="api-location-led" class="control-led led-amber"></i><span>GEOLOCATION</span><b id="api-location-state">CHECK</b></div>
+</div>
   <div class="side-vents" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
   <nav class="functionbar" aria-label="Terminal shortcuts"><button class="function-key" data-command="help"><b>F1</b> HELP</button><button class="function-key" data-command="status"><b>F2</b> STATUS</button><button class="function-key" data-command="tools"><b>F3</b> TOOLS</button><button class="function-key" data-command="fullscreen"><b>F4</b> FULLSCREEN</button></nav>
-  <div class="control-bank-bottom"><span>TACTICAL I/O</span><span><i></i> LOCK / 09</span></div>
+  <div class="control-bank-bottom"><span>RUNS IN BROWSER</span><span>NO OS ACCESS</span></div>
 </aside>
-<div class="terminal-head"><span>TTY-01 <strong>// COMMAND INTERFACE</strong></span><span><i class="cursor-led"></i> LOCAL SESSION</span></div>
+<div class="terminal-head"><span>COMMAND CONSOLE <strong>// TOOL OUTPUT</strong></span><span><i class="cursor-led"></i> READY</span></div>
 <div class="output" id="terminal-output" role="log" aria-live="polite" aria-label="Terminal output"></div>
 <form class="commandbar" id="command-form"><label class="prompt" for="command-input">BS09:&gt;</label><input class="command-input" id="command-input" name="command" type="text" maxlength="160" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type help" aria-label="Command input"><button class="submit" type="submit">ENTER ↵</button></form>
-<div class="quickbar" aria-label="Quick commands"><button class="quick" data-command="dns example.com">DNS</button><button class="quick" data-command="rdap example.com">RDAP</button><button class="quick" data-command="hash hello world">HASH</button><button class="quick" data-command="netcheck">NETCHECK</button><button class="quick" data-command="motion on">MOTION</button><button class="quick" data-command="pulse">PULSE</button><button class="quick" data-command="battery">BATTERY</button><button class="quick" data-command="weather">WEATHER</button><button class="quick" data-command="clear">CLEAR</button></div>
-<div class="footer"><span>LOCAL BROWSER CONSOLE</span><span>NO OS SHELL / NO HOST SCAN</span></div>
+<div class="quickbar" aria-label="Quick commands"><button class="quick" data-command="dns example.com">DNS A TEST</button><button class="quick" data-command="rdap example.com">RDAP LOOKUP</button><button class="quick" data-command="hash hello world">SHA-256 TEST</button><button class="quick" data-command="netcheck">NET CHECK</button><button class="quick" data-command="motion on">MOTION API</button><button class="quick" data-command="pulse">HAPTIC TEST</button><button class="quick" data-command="battery">BATTERY API</button><button class="quick" data-command="weather">WEATHER API</button><button class="quick" data-command="clear">CLEAR LOG</button></div>
+<div class="footer"><span>BLACKSITE-09 / BROWSER SECURITY WORKBENCH</span><span>NO SHELL · NO UNREQUESTED SCANS</span></div>
 </div>
 <div class="hardware"><span class="screw"></span><span>BS09 / FIELD SYSTEMS</span><span>SEALED DISPLAY</span><span class="screw"></span></div>
 </main>
@@ -320,10 +350,46 @@ body:before{opacity:.2;background-image:radial-gradient(#8e956d 0.45px,transpare
 "use strict";
 var $=function(id){return document.getElementById(id)};
 var battery=null,wakeLock=null,wakeWanted=false,wakeBusy=false,weatherBusy=false,compassOn=false,compassSeen=false,compassHandler=null,compassTimer=null,compassOutput=null,motionOn=false,motionSeen=false,motionHandler=null,motionOutput=null,motionLast=0,commandHistory=[],historyIndex=0;
+var sessionStarted=Date.now(),commandCount=0,lastCommandText="No command run",activeTargetText="None selected",commandActivity=[];
 function pad(n){return String(n).padStart(2,"0")}
 function nowTime(){var d=new Date();return pad(d.getHours())+":"+pad(d.getMinutes())+":"+pad(d.getSeconds())}
-function updateHeader(){var on=navigator.onLine;$("link-led").style.background=on?"var(--green)":"var(--red)";$("link-label").textContent=on?"NET HINT: ONLINE":"NET HINT: OFFLINE";$("link-label").className=on?"status-value":"status-value offline";$("clock-mini").textContent=nowTime()}
-window.addEventListener("online",updateHeader);window.addEventListener("offline",updateHeader);
+function updateHeader(){var on=navigator.onLine;$("link-led").style.background=on?"var(--green)":"var(--red)";$("link-label").textContent=on?"NET HINT: ONLINE":"NET HINT: OFFLINE";$("link-label").className=on?"status-value":"status-value offline";$("clock-mini").textContent=nowTime();updateSessionPanel()}
+function setApiIndicator(ledId,stateId,state,tone){var led=$(ledId),label=$(stateId);if(led)led.className="control-led"+(tone?" "+tone:"");if(label)label.textContent=state}
+function updateSessionPanel(){
+ var net=$("dash-network"),transport=$("dash-transport"),origin=$("dash-origin");if(!net)return;
+ var online=navigator.onLine,secure=window.isSecureContext===true,protocol=location.protocol||"unknown:";
+ net.textContent=online?"ONLINE":"OFFLINE";net.className=online?"telemetry-value is-good":"telemetry-value is-bad";
+ $("dash-network-note").textContent=online?"Browser reports a network connection":"Browser reports offline";
+ transport.textContent=secure?"SECURE":"INSECURE";transport.className=secure?"telemetry-value is-good":"telemetry-value is-bad";
+ $("dash-transport-note").textContent=protocol+" / "+(secure?"secure context enabled":"secure context unavailable");
+ origin.textContent=location.host||((protocol==="file:")?"LOCAL FILE":"LOCAL ORIGIN");
+ $("dash-target").textContent=activeTargetText;$("last-command").textContent=lastCommandText;
+ var elapsed=Math.max(0,Math.floor((Date.now()-sessionStarted)/1000)),hh=String(Math.floor(elapsed/3600)).padStart(2,"0"),mm=String(Math.floor((elapsed%3600)/60)).padStart(2,"0"),ss=String(elapsed%60).padStart(2,"0");
+ $("session-uptime").textContent=hh+":"+mm+":"+ss;$("command-count").textContent=String(commandCount);
+ var cryptoReady=!!(secure&&window.crypto&&window.crypto.subtle);
+ $("crypto-status").textContent=cryptoReady?"AVAILABLE":"UNAVAILABLE";$("crypto-status").className=cryptoReady?"telemetry-value is-good":"telemetry-value is-bad";
+ setApiIndicator("api-crypto-led","api-crypto-state",cryptoReady?"READY":"N/A",cryptoReady?"":"led-red");
+ setApiIndicator("api-fetch-led","api-fetch-state",typeof window.fetch==="function"?"EXPOSED":"N/A",typeof window.fetch==="function"?"":"led-red");
+ setApiIndicator("api-location-led","api-location-state",navigator.geolocation?"EXPOSED":"N/A",navigator.geolocation?"led-amber":"led-red");
+ updateCommandTicks();
+}
+function updateCommandTicks(){
+ var ticks=document.querySelectorAll("#command-ticks i"),offset=Math.max(0,ticks.length-commandActivity.length);
+ ticks.forEach(function(tick,i){tick.className="";tick.removeAttribute("title");tick.removeAttribute("aria-label");var h=i-offset;if(h>=0&&h<commandActivity.length){var item=commandActivity[h];tick.className="active";tick.title=item;tick.setAttribute("aria-label",item)}});
+}
+function targetForCommand(parts){
+ var cmd=parts[0]||"",arg=parts[1]||"";
+ if(cmd==="dns"||cmd==="rdap")return arg||"TARGET REQUIRED";
+ if(cmd==="netcheck")return "dns.google";
+ if(cmd==="weather")return "api.open-meteo.com (after location permission)";
+ if(cmd==="hash")return "LOCAL / WEB CRYPTO";
+ if(cmd==="motion")return "DEVICE MOTION API";
+ if(cmd==="compass")return "DEVICE ORIENTATION API";
+ if(cmd==="battery")return "BATTERY STATUS API";
+ if(cmd==="wake")return "SCREEN WAKE LOCK API";
+ if(cmd==="pulse")return "VIBRATION API";
+ return "LOCAL BROWSER";
+}window.addEventListener("online",updateHeader);window.addEventListener("offline",updateHeader);
 function output(text,kind){var el=document.createElement("div");el.className="line";var ts=document.createElement("span");ts.className="ts";ts.textContent="["+nowTime()+"] ";var content=document.createElement("span");content.className=kind||"plain";content.textContent=text;el.append(ts,content);$("terminal-output").append(el);while($("terminal-output").children.length>140)$("terminal-output").removeChild($("terminal-output").firstElementChild);$("terminal-output").scrollTop=$("terminal-output").scrollHeight;return content}
 function blank(){var el=document.createElement("div");el.className="line";el.textContent=" ";$("terminal-output").append(el)}
 function reportError(msg){output("ERR: "+msg,"bad")}
@@ -557,7 +623,7 @@ document.addEventListener("fullscreenchange",function(){
  document.querySelectorAll('[data-command="fullscreen"]').forEach(function(button){button.innerHTML=active?"<b>F4</b> EXIT FULLSCREEN":"<b>F4</b> FULLSCREEN"});
 });
 
-function runCommand(raw,fromButton){var original=String(raw||"").trim();if(!original)return;if(!fromButton){commandHistory.push(original);if(commandHistory.length>50)commandHistory.shift();historyIndex=commandHistory.length}output("BS09:> "+original,"prompt");var parts=original.toLowerCase().split(/\s+/),cmd=parts[0],arg=parts[1]||"";switch(cmd){case "help":case "?":help();break;case "time":case "date":showTime();break;case "status":runStatus();break;case "battery":showBattery();break;case "wake":if(arg==="on")setWake(true);else if(arg==="off")setWake(false);else wakeStatus();break;case "weather":getWeather();break;case "compass":if(arg==="on")startCompass();else if(arg==="off")stopCompass();else compassStatus();break;case "motion":if(arg==="on")motionStart();else if(arg==="off")motionStop();else motionStatus();break;case "pulse":vibrationPulse();break;case "dns":dnsLookup(original);break;case "rdap":rdapLookup(original);break;case "hash":hashText(original);break;case "netcheck":netCheck();break;case "tools":showTools();break;case "fullscreen":toggleFullscreen();break;case "clear":$("terminal-output").textContent="";compassOutput=null;motionOutput=null;break;case "about":about();break;default:reportError("unknown command '"+parts[0]+"'; enter help")}}
+function runCommand(raw,fromButton){var original=String(raw||"").trim();if(!original)return;if(!fromButton){commandHistory.push(original);if(commandHistory.length>50)commandHistory.shift();historyIndex=commandHistory.length}output("BS09:> "+original,"prompt");var parts=original.toLowerCase().split(/\s+/),cmd=parts[0],arg=parts[1]||"";commandCount++;lastCommandText=original;activeTargetText=targetForCommand(parts);commandActivity.push(original);if(commandActivity.length>16)commandActivity.shift();updateSessionPanel();switch(cmd){case "help":case "?":help();break;case "time":case "date":showTime();break;case "status":runStatus();break;case "battery":showBattery();break;case "wake":if(arg==="on")setWake(true);else if(arg==="off")setWake(false);else wakeStatus();break;case "weather":getWeather();break;case "compass":if(arg==="on")startCompass();else if(arg==="off")stopCompass();else compassStatus();break;case "motion":if(arg==="on")motionStart();else if(arg==="off")motionStop();else motionStatus();break;case "pulse":vibrationPulse();break;case "dns":dnsLookup(original);break;case "rdap":rdapLookup(original);break;case "hash":hashText(original);break;case "netcheck":netCheck();break;case "tools":showTools();break;case "fullscreen":toggleFullscreen();break;case "clear":$("terminal-output").textContent="";compassOutput=null;motionOutput=null;break;case "about":about();break;default:reportError("unknown command '"+parts[0]+"'; enter help")}}
 $("command-form").addEventListener("submit",function(e){e.preventDefault();var input=$("command-input"),value=input.value;input.value="";runCommand(value,false)});
 $("command-input").addEventListener("keydown",function(e){if(e.key==="ArrowUp"){e.preventDefault();historyIndex=Math.max(0,historyIndex-1);this.value=commandHistory[historyIndex]||"";this.setSelectionRange(this.value.length,this.value.length)}else if(e.key==="ArrowDown"){e.preventDefault();historyIndex=Math.min(commandHistory.length,historyIndex+1);this.value=commandHistory[historyIndex]||"";this.setSelectionRange(this.value.length,this.value.length)}});
 document.querySelectorAll("[data-command]").forEach(function(button){button.addEventListener("click",function(){runCommand(button.dataset.command,true)})});
