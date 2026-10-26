@@ -141,7 +141,7 @@ button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid var(--
       <div class="utility-row"><div class="weather-icon" id="weather-icon" aria-hidden="true">☼</div><div class="utility-copy"><div class="utility-title">Local weather</div><div class="weather-temp" id="weather-temp">--°<small>C</small></div></div></div>
       <p class="utility-desc" id="weather-detail">Tap below to request your location and fetch current conditions.</p>
       <button class="utility-action" id="weather-refresh" type="button">GET LOCAL WEATHER</button>
-      <div class="utility-subline">Weather by Open-Meteo · internet required</div>
+      <div class="utility-subline">Location is sent to Open-Meteo only when you request weather.</div>
     </article>
     <article class="utility-card">
       <div class="utility-top"><span>ORIENTATION / 04</span><span class="utility-pill" id="compass-state">STANDBY</span></div>
@@ -333,7 +333,6 @@ async function fetchWeatherFor(position){
     var description=weatherDescription(current.weather_code);
     $("weather-temp").innerHTML=Math.round(current.temperature_2m)+'°<small>C</small>';
     $("weather-icon").textContent=description[1];
-    $("weather-title");
     $("weather-detail").textContent=description[0]+" · Feels like "+Math.round(current.apparent_temperature)+"°C";
     $("weather-state").textContent="UPDATED";
     $("weather-state").className="utility-pill active";
@@ -341,7 +340,6 @@ async function fetchWeatherFor(position){
     $("weather-refresh").disabled=false;
     var highs=daily&&daily.temperature_2m_max&&daily.temperature_2m_max[0];
     var lows=daily&&daily.temperature_2m_min&&daily.temperature_2m_min[0];
-    $("weather-sub-extra");
     if(highs!==undefined&&lows!==undefined){$("weather-detail").textContent=description[0]+" · Feels "+Math.round(current.apparent_temperature)+"°C · H "+Math.round(highs)+"° / L "+Math.round(lows)+"°"}
     weatherBusy=false;
   }catch(err){setWeatherError("Weather could not load. Check your connection and retry.")}
