@@ -1,25 +1,27 @@
-# BLACKSITE-09 — Unified Operations Console
+# BLACKSITE-09 — Field Console
 
-A code-generated, animated fictional cyber-operations interface built with vanilla HTML, CSS, SVG, Canvas, and JavaScript. Every module lives on **one continuous, scrollable console screen**. The sidebar is one menu that jumps to each section instead of switching between separate pages.
+A single-page, code-generated field terminal built with vanilla HTML, CSS, and JavaScript. The interface keeps the BLACKSITE visual style while only showing information available to the browser or explicitly retrieved after user action.
 
-## Console modules
+## Features
 
-- **Overview:** status tiles, clickable network topology, node intelligence, animated demo telemetry, command terminal, and event stream.
-- **Network map:** expanded procedural node graph with selectable nodes and a registry.
-- **Signal lab:** animated Canvas spectrum and a sweep simulation that generates fictional readings.
-- **Data archive:** fictional dossiers with animated local decode effects and clearance requirements.
-- **Access control:** animated clearance handshake and simulated access levels.
-- **Field tools:** screen wake lock, battery status, on-demand local weather, and device compass, where supported by the browser and hardware.
+- **Live clock:** local device time, date, timezone, local-day progress, and time since this page was opened.
+- **Browser/device status:** browser-reported online/offline state, optional connection type, browser platform, current viewport dimensions, pixel ratio, language, and secure-context state.
+- **Screen wake lock:** asks the browser to keep the display awake when supported.
+- **Battery status:** current percentage and charging state when the browser exposes the Battery Status API.
+- **Weather:** on button press, requests browser location permission and uses Open-Meteo to retrieve current weather and daily high/low.
+- **Compass:** requests permission where applicable and displays a heading only when the browser provides an absolute heading source.
+- **Unified scrolling menu:** jumps between sections and updates its highlight as you scroll.
+- **Responsive layout:** adapts to mobile, desktop, and reduced-motion preferences.
 
-## Terminal commands
+## Important limitations
 
-Type `help` in the console for the full list. Common commands include `status`, `scan`, `nodes`, `trace`, `decrypt`, `access`, `clock`, `sysinfo`, `whoami`, and `clear`.
+The browser does not generally expose system CPU load, RAM usage, true device uptime, local IP addresses, nearby Wi-Fi networks, or detailed hardware telemetry to a normal web page. BLACKSITE-09 does not invent those values.
 
-All terminal commands, network nodes, telemetry, signal scans, archive records, and clearance changes are simulations. The network diagram does not represent real hosts, and the app does not scan or contact external targets.
+The page contains no fake network topology, fictional scan results, simulated shell, fake decryption, or pretend clearance system. It has no backend, account, analytics, or local-storage persistence.
 
 ## Run it locally
 
-Open `index.html` in a modern browser. No framework, package manager, build step, or backend is required.
+Open `index.html` in a modern browser. No framework, package manager, build step, or backend is required. Some device APIs require HTTPS or localhost; browser support varies.
 
 ## Publish with GitHub Pages
 
@@ -32,13 +34,13 @@ Open `index.html` in a modern browser. No framework, package manager, build step
 
 Publishing may take a few minutes after Pages is enabled.
 
-## Browser features and privacy
+## Privacy
 
-- Screen wake lock, battery access, and compass availability vary by browser and device.
-- HTTPS is needed for certain APIs, including location and device sensors.
-- Weather requests location only after the user presses the weather button. Coordinates are sent to Open-Meteo to retrieve weather; they are not stored by this app.
-- Network maps, signal values, system telemetry, logs, and archive content are generated locally in the page.
+- Local time and browser/device status are processed in the page.
+- Weather asks for location only when the user presses **Get Weather**. Coordinates are sent to Open-Meteo to retrieve weather; this page does not save them.
+- No location is requested for any other feature.
+- Battery, orientation, and wake-lock access only use browser APIs and user interactions. Availability depends on the device and browser.
 
 ## Project file
 
-- `index.html` — the complete interface, effects, and logic.
+- `index.html` — complete interface, styling, and functionality.
