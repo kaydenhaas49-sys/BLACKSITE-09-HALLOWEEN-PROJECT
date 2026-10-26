@@ -3,198 +3,308 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#171b12">
-<meta name="description" content="BLACKSITE-09 rugged wrist computer interface with animated monochrome display and local browser tools.">
-<title>BLACKSITE-09 // Wrist Terminal</title>
+<meta name="theme-color" content="#080b09">
+<meta name="description" content="BLACKSITE-09 browser security workbench with terminal commands for DNS, RDAP, SHA-256, and connectivity.">
+<title>BLACKSITE-09 // Security Workbench</title>
 <style>
 :root{
- color-scheme:dark;--bg:#070907;--case:#23291f;--screen:#050805;--panel:#090e08;
- --line:#293a26;--line-strong:#3a5031;--text:#d2e5c6;--green:#b7ee83;
- --green-soft:#8dbb70;--muted:#718368;--dim:#4d6047;--amber:#d8b778;--red:#e78b75;
+ color-scheme:dark;
+ --bg:#080b09;--surface:#0c110e;--surface-2:#101712;--surface-3:#151e17;
+ --line:#202d24;--line-2:#2b3e30;--text:#d9e7dc;--muted:#809286;--dim:#53685a;
+ --green:#9ee76d;--green-2:#6fae4f;--amber:#e4bd72;--red:#e78a78;
  --mono:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace;
+ --sans:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 *{box-sizing:border-box}
 html{min-height:100%;background:var(--bg);scroll-behavior:smooth}
 body{
- margin:0;min-height:100vh;padding:24px 14px 30px;display:flex;align-items:center;justify-content:center;
- background:radial-gradient(ellipse at 50% 15%,#20271a 0,transparent 53%),#070907;
+ margin:0;min-height:100vh;padding:24px;background:
+ radial-gradient(ellipse at 14% 0%,#203021 0,transparent 36%),
+ radial-gradient(ellipse at 100% 100%,#17241a 0,transparent 32%),var(--bg);
  color:var(--text);font:12px var(--mono);overflow-x:hidden
 }
+body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.13;background-image:linear-gradient(#75956e12 1px,transparent 1px),linear-gradient(90deg,#75956e12 1px,transparent 1px);background-size:36px 36px;mask-image:linear-gradient(to bottom,#000,transparent 90%)}
 button,input{font:inherit}button{cursor:pointer}
-button:focus-visible,input:focus-visible{outline:1px solid var(--green);outline-offset:2px}
-::selection{background:var(--green);color:#071007}
+button:focus-visible,input:focus-visible{outline:1px solid var(--green);outline-offset:3px}
+::selection{background:var(--green);color:#081008}
 .device{
- position:relative;width:min(100%,1080px);padding:12px;border:1px solid #46503c;border-radius:17px;
- background:linear-gradient(145deg,#444b39 0,#23291f 8%,#141810 18%,#242b20 55%,#151a12 82%,#3d4432 100%);
- box-shadow:0 30px 75px #000b,inset 0 0 0 2px #0a0c08,inset 0 0 0 5px #303827,inset 0 -6px 14px #0009;
- animation:device-in .35s ease-out both
+ width:min(1500px,100%);min-height:calc(100vh - 48px);margin:0 auto;padding:24px;
+ border:1px solid #28382c;border-radius:18px;
+ background:linear-gradient(145deg,#0d130f,#090d0a 65%,#0b100c);
+ box-shadow:0 28px 90px #0008,inset 0 1px 0 #ffffff08;
 }
-.device:before,.device:after{
- content:"";position:absolute;top:6px;width:8px;height:8px;border-radius:50%;
- background:radial-gradient(circle at 35% 30%,#a9ab92,#555b48 42%,#171b13 75%);
- border:1px solid #11140e;box-shadow:0 0 0 1px #505743
-}
-.device:before{left:7px}.device:after{right:7px}
-.screen{
- min-height:650px;display:grid;grid-template-columns:minmax(0,1fr) 235px;
- grid-template-rows:auto auto auto minmax(320px,1fr) auto;
- grid-template-areas:"status status" "masthead masthead" "hud controls" "term controls" "output controls" "command controls";
- overflow:hidden;position:relative;border:2px solid #050705;outline:1px solid #4d6044;outline-offset:-4px;
- background:var(--screen);box-shadow:inset 0 0 0 1px #20291b,inset 0 0 23px #7da55c0a
-}
-.statusbar,.masthead,.hud-panel,.control-bank,.terminal-head,.output,.commandbar,.footer{position:relative;min-width:0}
-.statusbar{
- grid-area:status;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 13px;
- border-bottom:1px solid var(--line);background:#090e08;color:#849776;font-size:8px;letter-spacing:.1em
-}
-.status-left,.status-right{display:flex;align-items:center;gap:12px}.brand-id{color:var(--green);font-weight:700}
-.led{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 5px #b7ee8360;margin-right:5px}
-.status-value{color:var(--green-soft)}.status-value.offline{color:var(--red)}
-.masthead{
- grid-area:masthead;display:flex;justify-content:space-between;align-items:flex-end;gap:14px;padding:15px 16px 14px;
- border-bottom:1px solid var(--line);background:linear-gradient(110deg,#11190d,#080d07 66%,#0c1209)
-}
-.masthead-main{min-width:0}.overline{margin-bottom:6px;color:var(--muted);font-size:8px;letter-spacing:.16em}
-.device-title{font-size:clamp(24px,3vw,34px);line-height:1.05;color:#d6e8c7;font-weight:700;letter-spacing:.06em}
-.device-title:before,.device-title:after{display:none}
-.subtitle{margin-top:7px;color:#79916e;font-size:8px;letter-spacing:.12em;line-height:1.5}
-.unit-stamp{flex:none;border-left:1px solid var(--line-strong);padding-left:12px;text-align:right;color:var(--muted);font-size:7px;line-height:1.7}
-.unit-stamp b{display:block;font-size:10px;color:var(--text);font-weight:500;letter-spacing:.08em}
-.hud-panel{grid-area:hud;min-width:0;padding:10px 12px;border-bottom:1px solid var(--line);background:#070c06}
-.hud-topline{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;color:#91a582;font-size:7px;letter-spacing:.12em}
-#session-mode{color:#718664;font-size:7px;letter-spacing:.07em}
-.mini-led{display:inline-block;width:5px;height:5px;margin-right:5px;background:var(--green-soft);border-radius:50%;box-shadow:0 0 4px #9ed67755}
-.session-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
-.session-card{min-width:0;display:flex;flex-direction:column;gap:4px;padding:8px;border:1px solid #253621;background:#080d07}
-.session-label{display:block;color:#718665;font-size:7px;letter-spacing:.09em;line-height:1.35;white-space:nowrap}
-.session-card strong{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#d0e6bf;font-size:11px;font-weight:500;letter-spacing:.03em}
-.session-card small{display:block;overflow-wrap:anywhere;color:#718469;font-size:7px;line-height:1.4}
-.telemetry-value.is-good{color:#c4e6ac!important}.telemetry-value.is-bad{color:#e9a18a!important}
-.session-lower{margin-top:6px;padding:7px 9px;border:1px solid #243520;background:#050805}
-.last-operation{min-width:0}.last-operation strong{display:block;margin-top:3px;overflow-wrap:anywhere;color:#c2dcb0;font-size:9px;line-height:1.45;font-weight:400}
-.target-value{display:block;margin-top:3px;color:#778a6d;font-size:8px;overflow-wrap:anywhere}
-.control-bank{
- grid-area:controls;min-width:0;display:flex;flex-direction:column;gap:10px;padding:10px 9px;
- border-left:1px solid #2a3b25;background:#080d07
-}
-.control-topline{display:flex;justify-content:space-between;align-items:center;gap:6px;padding-bottom:8px;border-bottom:1px solid var(--line);color:#8ca57b;font-size:7px;letter-spacing:.12em}
-.module-code{color:#b7c8a8;font-size:7px}
-.tool-shortcuts{display:grid;grid-template-columns:1fr;gap:5px}
-.tool-shortcut{
- display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:left;min-width:0;padding:9px;
- border:1px solid #293c24;background:#0a1008;color:#c0d9af;transition:background .12s,border-color .12s
-}
-.tool-shortcut span{font-size:8px;letter-spacing:.06em}.tool-shortcut small{font-size:7px;color:#728968;line-height:1.3}
-.tool-shortcut:hover{border-color:#658451;background:#121c0e}
-.capability-heading{padding-top:9px;border-top:1px solid var(--line);color:#7d956e;font-size:7px;letter-spacing:.1em}
-.control-leds{display:flex;flex-direction:column;gap:8px}
-.control-leds>div{display:grid;grid-template-columns:7px minmax(0,1fr) auto;align-items:center;gap:6px;color:#8ea27f;font-size:7px;letter-spacing:.05em}
-.control-leds b{color:#b6cba7;font-size:7px;font-weight:500}
-.control-led{display:block;width:6px;height:6px;border-radius:50%;background:#acd982;box-shadow:0 0 5px #acd98235}
-.control-led.led-red{background:#b96953;box-shadow:0 0 4px #b9695330}
-.control-led.led-amber{background:#c4a35f;box-shadow:0 0 4px #c4a35f30}
-.functionbar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin-top:3px;padding-top:9px;border-top:1px solid var(--line)}
-.function-key{display:flex;align-items:center;justify-content:center;gap:5px;min-height:36px;padding:6px 4px;border:1px solid #2d4227;background:#0a1008;color:#a9c297;font-size:7px;letter-spacing:.04em}
-.function-key b{color:#7d976e;font-size:7px;font-weight:500}
-.function-key:hover{border-color:#658451;background:#121c0e}
-.terminal-head{grid-area:term;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 12px;border-bottom:1px solid #273822;background:#0a1008;color:#8ba17b;font-size:8px;letter-spacing:.08em}
-.terminal-head strong{color:#b4d29e;font-weight:500}.cursor-led{display:inline-block;width:5px;height:5px;background:var(--green);box-shadow:0 0 4px #b7ee8360;margin-right:5px}
+.app-header{display:flex;align-items:center;gap:22px;min-height:58px;padding:0 0 19px;border-bottom:1px solid var(--line)}
+.brand-lockup{display:flex;align-items:center;gap:12px;min-width:240px}
+.brand-mark{width:42px;height:42px;display:grid;place-items:center;border:1px solid #43613d;border-radius:9px;background:linear-gradient(145deg,#1a2a18,#0d170d);color:var(--green);font-weight:800;font-size:14px;letter-spacing:-.05em;box-shadow:inset 0 0 18px #a1ec6610}
+.brand-name{display:block;color:#e5eee4;font-family:var(--sans);font-size:15px;font-weight:750;letter-spacing:.045em}
+.brand-name span{color:var(--green)}
+.brand-subtitle{display:block;margin-top:4px;color:#6e8174;font-size:8px;letter-spacing:.16em}
+.header-state{display:flex;align-items:center;gap:8px;margin-left:auto;color:var(--muted);font-size:10px;letter-spacing:.08em}
+.state-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 9px #9ee76d55}
+.header-clock{padding-left:18px;border-left:1px solid var(--line);color:#c4d2c7;font-size:12px;font-variant-numeric:tabular-nums}
+.header-action{display:inline-flex;align-items:center;gap:8px;margin-left:2px;padding:9px 12px;border:1px solid var(--line-2);border-radius:7px;background:#111811;color:#aebdaf;font-size:9px;letter-spacing:.08em;transition:border-color .15s,background .15s}
+.header-action b{color:var(--green);font-size:8px;font-weight:500}
+.header-action:hover{border-color:#56794a;background:#172217;color:#e1eddc}
+.page-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding:23px 0 20px}
+.heading-kicker{margin:0 0 7px;color:#8bb276;font-size:9px;letter-spacing:.15em}
+.page-heading h1{margin:0;color:#e2ebe2;font-family:var(--sans);font-size:clamp(23px,3vw,31px);font-weight:620;letter-spacing:-.045em;line-height:1.2}
+.heading-description{margin:7px 0 0;color:#839387;font-family:var(--sans);font-size:12px;line-height:1.5}
+.heading-pills{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px}
+.heading-pills span{padding:6px 8px;border:1px solid #26372a;border-radius:5px;color:#93a999;background:#0b120d;font-size:8px;letter-spacing:.07em}
+.workbench{display:grid;grid-template-columns:218px minmax(0,1fr) 248px;gap:14px;align-items:stretch}
+.left-rail,.right-rail,.terminal-card{min-width:0;border:1px solid var(--line);border-radius:11px;background:var(--surface);overflow:hidden}
+.left-rail{display:flex;flex-direction:column}
+.rail-section{padding:15px}
+.rail-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px;color:#95a99a;font-size:9px;font-weight:600;letter-spacing:.12em}
+.rail-heading small{color:#5f7664;font-size:8px;font-weight:400}
+.tool-list{display:grid;gap:7px}
+.tool-card{display:flex;align-items:center;gap:10px;width:100%;min-width:0;padding:10px 9px;border:1px solid #1d2b21;border-radius:7px;background:#0a100c;color:var(--text);text-align:left;transition:background .15s,border-color .15s,transform .15s}
+.tool-card:hover{transform:translateY(-1px);border-color:#3b5d36;background:#101a11}
+.tool-icon{flex:none;width:34px;height:34px;display:grid;place-items:center;border:1px solid #2a402a;border-radius:6px;background:#111c11;color:var(--green);font-size:8px;font-weight:600;letter-spacing:-.04em}
+.tool-copy{min-width:0;flex:1}
+.tool-copy strong{display:block;overflow:hidden;color:#d1dfd3;font-size:10px;font-weight:550;text-overflow:ellipsis;white-space:nowrap}
+.tool-copy small{display:block;margin-top:4px;color:#728579;font-size:8px;line-height:1.4}
+.tool-arrow{color:#617d5a;font-size:13px}
+.rail-divider{height:1px;margin:0 15px;background:var(--line)}
+.api-list{display:grid;gap:12px}
+.api-row{display:grid;grid-template-columns:8px minmax(0,1fr) auto;align-items:center;gap:8px;color:#9aa99e;font-size:9px}
+.api-row b{color:#b8c9bc;font-size:8px;font-weight:500}
+.control-led{display:block;width:6px;height:6px;border-radius:50%;background:var(--green-2);box-shadow:0 0 5px #6fae4f40}
+.control-led.led-red{background:var(--red);box-shadow:0 0 5px #e78a7835}
+.control-led.led-amber{background:var(--amber);box-shadow:0 0 5px #e4bd7230}
+.api-note{margin:13px 0 0;color:#65766a;font-size:8px;line-height:1.55}
+.terminal-card{display:flex;flex-direction:column;min-height:635px;background:#070a08}
+.terminal-topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:48px;padding:0 14px;border-bottom:1px solid #202c23;background:#0b110d}
+.terminal-name{display:flex;align-items:center;gap:9px;color:#cbd9ce;font-size:10px;font-weight:600;letter-spacing:.08em}
+.terminal-name .state-dot{width:6px;height:6px}
+.terminal-branch{padding:5px 7px;border:1px solid #25352a;border-radius:4px;color:#829487;font-size:8px;font-weight:400;letter-spacing:.04em}
+.terminal-actions{display:flex;gap:5px}
+.small-action{padding:6px 8px;border:1px solid #25342a;border-radius:5px;background:#0a100c;color:#829689;font-size:8px;letter-spacing:.08em}
+.small-action:hover{border-color:#476640;color:#d1e3cc}
+.terminal-info{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 14px;border-bottom:1px solid #18231b;color:#65766a;font-size:8px}
+.terminal-info strong{color:#93a997;font-weight:500}
+.terminal-info-right{display:flex;align-items:center;gap:6px;color:#9ec28c}
+.terminal-info-right i{width:5px;height:5px;border-radius:50%;background:var(--green-2)}
 .output{
- grid-area:output;min-width:0;min-height:320px;max-height:none;overflow:auto;padding:12px;
- background:#040704;color:var(--text);font-size:10px;line-height:1.65;
- scrollbar-width:thin;scrollbar-color:#344c2b #070b06
+ flex:1;min-height:330px;max-height:590px;overflow:auto;padding:16px 15px;
+ background:linear-gradient(180deg,#070b08,#060907);color:#bdcdbf;
+ font-size:11px;line-height:1.75;scrollbar-width:thin;scrollbar-color:#344936 #080c09;
 }
-.line{display:block;min-height:1em;overflow-wrap:anywhere;white-space:pre-wrap;font-size:10px}
+.line{display:block;min-height:1em;overflow-wrap:anywhere;white-space:pre-wrap;font-size:11px;animation:line-enter .12s ease-out both}
 .line+.line{margin-top:2px}
-.line .prompt{color:#d6c18b}.line .good{color:var(--green)}.line .warn{color:var(--amber)}.line .bad{color:var(--red)}
-.line .plain{color:#c3d7b5}.line .dim{color:#7c8e72}.line .ts{color:#506748}.line .working{color:#c7ddad}
-.divider-line{color:#33482d!important}
-.commandbar{grid-area:command;display:flex;align-items:center;gap:8px;padding:10px 12px;border-top:1px solid #2c4026;background:#080e07}
-.prompt{color:var(--green);white-space:nowrap;font-size:11px}
-.command-input{min-width:0;flex:1;padding:4px 0;border:0;outline:0!important;background:transparent;color:#e0efd6;font:11px var(--mono);caret-color:var(--green)}
-.command-input::placeholder{color:#607458}
-.submit{padding:8px 10px;border:1px solid #3e5832;background:#0c160a;color:#c5e7b0;font-size:8px;letter-spacing:.06em}
-.submit:hover{background:#182513;border-color:#6d9254}
-@keyframes device-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-.line{animation:line-in .08s ease-out both}
-@keyframes line-in{from{opacity:.45}to{opacity:1}}
-.device:fullscreen{width:100vw;height:100dvh;max-width:none;min-height:0;margin:0;padding:10px;border-radius:0}
-.device:fullscreen .screen{height:100%;min-height:0;flex:1}
-.device:fullscreen .output{min-height:0}
+.line .prompt{color:#d7c18e}
+.line .good{color:#b7eb8f}
+.line .warn{color:#e4bd72}
+.line .bad{color:#f08d7e}
+.line .plain{color:#c1d1c3}
+.line .dim{color:#758779}
+.line .ts{color:#566a5b}
+.line .working{animation:work-pulse 1s ease-in-out infinite}
+.commandbar{display:flex;align-items:center;gap:9px;padding:12px;border-top:1px solid #26382a;background:#0b110d}
+.prompt{flex:none;white-space:nowrap;color:var(--green);font-size:11px}
+.prompt span{color:#74976a}
+.command-input{flex:1;min-width:0;padding:10px 2px;border:0;outline:0!important;background:transparent;color:#e1eee0;font:11px var(--mono);caret-color:var(--green)}
+.command-input::placeholder{color:#5d7060}
+.submit{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid #41623a;border-radius:6px;background:#172516;color:#c7e9b5;font-size:9px;font-weight:600;letter-spacing:.1em;transition:background .15s,border-color .15s}
+.submit:hover{border-color:#689b56;background:#20341b}
+.submit span:last-child{color:#7ca56a;font-size:12px}
+.terminal-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 13px;border-top:1px solid #19251c;background:#080d09;color:#607366;font-size:8px}
+.terminal-footer span{display:flex;align-items:center;gap:5px}
+.terminal-footer b{color:#8ea58f;font-weight:500}
+.right-rail{display:flex;flex-direction:column}
+.rail-panel{padding:15px}
+.panel-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;color:#97ac9b;font-size:9px;font-weight:600;letter-spacing:.12em}
+.live-tag{padding:4px 6px;border:1px solid #2b4429;border-radius:4px;background:#101910;color:#98ca7c;font-size:7px;font-weight:500;letter-spacing:.06em}
+.session-metric{padding:11px 0;border-bottom:1px solid #1b2820}
+.session-metric:first-of-type{padding-top:0}
+.session-metric:last-of-type{border-bottom:0;padding-bottom:0}
+.metric-label{display:block;color:#687e6e;font-size:8px;letter-spacing:.1em}
+.metric-value{display:block;margin-top:5px;overflow:hidden;color:#cbdbcf;font-size:11px;font-weight:500;text-overflow:ellipsis;white-space:nowrap}
+.metric-note{display:block;margin-top:4px;color:#718477;font-size:8px;line-height:1.45;overflow-wrap:anywhere}
+.metric-value.is-good{color:#b9e69b}.metric-value.is-bad{color:#eb9787}
+.right-divider{height:1px;background:var(--line)}
+.session-empty{margin-top:auto;padding:13px 15px;border-top:1px solid var(--line);color:#718377;font-size:8px;line-height:1.6}
+.session-empty strong{color:#a6b8aa;font-weight:500}
+@keyframes line-enter{from{opacity:.45;transform:translateY(2px)}to{opacity:1;transform:translateY(0)}}
+@keyframes work-pulse{0%,100%{opacity:.55}50%{opacity:1}}
+.device:fullscreen{width:100vw;height:100dvh;max-width:none;min-height:0;margin:0;padding:15px;border:0;border-radius:0}
+.device:fullscreen .workbench{flex:1;min-height:0}
+.device:fullscreen .terminal-card{min-height:0;height:100%}
+.device:fullscreen .output{max-height:none;min-height:0}
+@media(max-width:1240px){
+ body{padding:14px}
+ .device{padding:18px}
+ .workbench{grid-template-columns:205px minmax(0,1fr)}
+ .right-rail{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .session-empty{margin-top:0;border-top:0;border-left:1px solid var(--line)}
+}
 @media(max-width:760px){
- body{padding:0;align-items:stretch;background:#050805}
- .device{width:100%;min-height:100dvh;padding:0;border:0;border-radius:0;box-shadow:none}
- .device:before,.device:after{display:none}
- .screen{min-height:100dvh;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto minmax(220px,1fr) auto auto;grid-template-areas:"status" "masthead" "hud" "term" "output" "command" "controls";border:0;outline:0;box-shadow:none}
- .statusbar{padding-top:max(10px,env(safe-area-inset-top))}
- .masthead{padding:12px}
- .hud-panel{padding:9px}
- .session-card{padding:7px 6px}.session-card strong{font-size:10px}
- .control-bank{border-left:0;border-top:1px solid #293c24;padding:9px}
- .tool-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr))}
- .tool-shortcut{padding:8px 7px}
- .functionbar{grid-template-columns:repeat(4,minmax(0,1fr))}
- .function-key{flex-direction:column;gap:4px;min-height:39px;padding:5px 2px}
-  .output{min-height:220px;padding:10px}
-  .device:fullscreen{padding:0}
- .device:fullscreen .screen{height:100dvh;min-height:0}
+ body{padding:0;background:#080b09}
+ .device{width:100%;min-height:100dvh;padding:13px;border:0;border-radius:0;box-shadow:none}
+ .app-header{gap:12px;padding-bottom:14px;flex-wrap:wrap}
+ .brand-lockup{min-width:0;flex:1}
+ .brand-mark{width:37px;height:37px}
+ .header-state{order:3;width:100%;margin:0;padding-top:10px;border-top:1px solid var(--line);font-size:9px}
+ .header-clock{margin-left:auto;padding-left:12px}
+ .header-action{padding:8px}
+ .page-heading{align-items:flex-start;flex-direction:column;gap:13px;padding:19px 0 15px}
+ .heading-pills{justify-content:flex-start}
+ .workbench{display:flex;flex-direction:column;gap:12px}
+ .terminal-card{order:1;min-height:540px}
+ .left-rail{order:2}
+ .right-rail{order:3;display:flex}
+ .rail-section,.rail-panel{padding:12px}
+ .tool-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+ .tool-card{align-items:flex-start;padding:9px 7px;gap:7px}
+ .tool-icon{width:29px;height:29px}
+ .tool-copy strong{font-size:9px;white-space:normal}
+ .tool-copy small{font-size:7px}
+ .api-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+ .api-row{grid-template-columns:7px minmax(0,1fr);gap:5px;font-size:7px}
+ .api-row b{grid-column:2;font-size:7px}
+ .api-note{margin-top:9px}
+ .output{min-height:270px;max-height:55dvh;padding:12px 10px}
+ .terminal-info{font-size:7px}
+ .terminal-footer{font-size:7px}
+ .session-empty{border-left:0;border-top:1px solid var(--line)}
+ .device:fullscreen{padding:10px}
 }
 @media(max-width:390px){
- .device-title{font-size:23px}.subtitle{font-size:7px;letter-spacing:.06em} .session-grid{gap:4px}.session-card small{font-size:6px}.session-label{font-size:6px}
- .session-lower{padding:6px 7px}.tool-shortcut span{font-size:7px}.tool-shortcut small{font-size:6px}
+ .brand-name{font-size:13px}
+ .brand-subtitle{font-size:7px;letter-spacing:.1em}
+ .header-action b{display:none}
+ .header-action{font-size:8px}
+ .page-heading h1{font-size:24px}
+ .heading-description{font-size:11px}
+ .heading-pills span{font-size:7px}
+ .terminal-topbar{padding:0 9px}
+ .terminal-name{font-size:9px}
+ .small-action{font-size:7px;padding:6px}
+ .prompt{font-size:10px}
+ .command-input{font-size:10px}
+ .submit{padding:9px}
+ .terminal-footer{gap:6px}
 }
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<main class="device" aria-label="BLACKSITE-09 browser security terminal">
+<main class="device app-shell" aria-label="BLACKSITE-09 security workstation">
+  <header class="app-header">
+    <div class="brand-lockup">
+      <div class="brand-mark" aria-hidden="true">BS</div>
+      <div>
+        <span class="brand-name">BLACKSITE<span> / 09</span></span>
+        <small class="brand-subtitle">SECURITY WORKBENCH</small>
+      </div>
+    </div>
+    <div class="header-state">
+      <i class="state-dot" id="link-led"></i>
+      <span id="link-label">CHECKING</span>
+      <span>·</span>
+      <span>LOCAL SESSION</span>
+    </div>
+    <span class="header-clock" id="clock-mini">--:--:--</span>
+    <button class="header-action" data-command="fullscreen"><b>F4</b> FULLSCREEN</button>
+  </header>
 
-<div class="screen">
-<div class="statusbar"><div class="status-left"><span class="brand-id">BS09</span><span>SECURITY TERMINAL</span></div><div class="status-right"><span><i class="led" id="link-led"></i><span id="link-label">CHECKING</span></span><span id="clock-mini">--:--:--</span></div></div>
-<div class="masthead"><div class="masthead-main"><div class="overline">SECURITY WORKBENCH / BROWSER TOOLS</div><div class="device-title" data-text="BLACKSITE-09">BLACKSITE-09</div><div class="subtitle">DNS LOOKUP / RDAP / SHA-256 / NETWORK CHECK</div></div></div>
+  <section class="page-heading">
+    <div>
+      <p class="heading-kicker">WORKSPACE / 01</p>
+      <h1>Command console</h1>
+      <p class="heading-description">Run a tool, inspect the response, and keep your command history in one place.</p>
+    </div>
+    <div class="heading-pills" aria-label="Available tools">
+      <span>DNS LOOKUP</span><span>RDAP</span><span>SHA-256</span><span>CONNECTIVITY</span>
+    </div>
+  </section>
 
-<section class="hud-panel" aria-label="Live session status">
-<div class="hud-topline"><span><i class="mini-led"></i> SESSION</span><span id="session-mode">BROWSER / LIVE STATE</span></div>
-<div class="session-grid">
-<article class="session-card"><span class="session-label">NETWORK</span><strong id="dash-network">CHECKING</strong><small id="dash-network-note">Browser network status</small></article>
-<article class="session-card"><span class="session-label">SECURITY CONTEXT</span><strong id="dash-transport">CHECKING</strong><small id="dash-transport-note">Secure context status</small></article>
-<article class="session-card"><span class="session-label">ORIGIN</span><strong id="dash-origin">LOCAL</strong><small>Current page host</small></article>
-</div>
-<div class="session-lower">
-<div class="last-operation"><span class="session-label">LAST COMMAND / TARGET</span><strong id="last-command">No command run</strong><small id="dash-target" class="target-value">No target selected</small></div>
-</div>
-</section>
+  <section class="workbench">
+    <aside class="left-rail" aria-label="Quick tools and browser API status">
+      <div class="rail-section">
+        <div class="rail-heading"><span>QUICK RUN</span><small>4 TOOLS</small></div>
+        <nav class="tool-list" aria-label="Quick run tools">
+          <button class="tool-card" data-command="dns example.com">
+            <span class="tool-icon">DNS</span>
+            <span class="tool-copy"><strong>DNS lookup</strong><small>Resolve records</small></span>
+            <span class="tool-arrow">↗</span>
+          </button>
+          <button class="tool-card" data-command="rdap example.com">
+            <span class="tool-icon">WHO</span>
+            <span class="tool-copy"><strong>RDAP lookup</strong><small>Domain registration</small></span>
+            <span class="tool-arrow">↗</span>
+          </button>
+          <button class="tool-card" data-command="hash hello world">
+            <span class="tool-icon">SHA</span>
+            <span class="tool-copy"><strong>SHA-256</strong><small>Text fingerprint</small></span>
+            <span class="tool-arrow">↗</span>
+          </button>
+          <button class="tool-card" data-command="netcheck">
+            <span class="tool-icon">NET</span>
+            <span class="tool-copy"><strong>Network check</strong><small>Test one endpoint</small></span>
+            <span class="tool-arrow">↗</span>
+          </button>
+        </nav>
+      </div>
+      <div class="rail-divider"></div>
+      <div class="rail-section">
+        <div class="rail-heading"><span>BROWSER APIS</span><small>CAPABILITIES</small></div>
+        <div class="api-list">
+          <div class="api-row"><i id="api-crypto-led" class="control-led"></i><span>Web Crypto</span><b id="api-crypto-state">CHECK</b></div>
+          <div class="api-row"><i id="api-fetch-led" class="control-led"></i><span>Fetch</span><b id="api-fetch-state">CHECK</b></div>
+          <div class="api-row"><i id="api-location-led" class="control-led led-amber"></i><span>Geolocation</span><b id="api-location-state">CHECK</b></div>
+        </div>
+        <p class="api-note">Availability depends on browser permissions and support.</p>
+      </div>
+    </aside>
 
-<aside class="control-bank" aria-label="Tools and browser capabilities">
-<div class="control-topline"><span>QUICK TOOLS</span><span class="module-code">RUN</span></div>
-<nav class="tool-shortcuts" aria-label="Common commands">
-<button class="tool-shortcut" data-command="dns example.com"><span>DNS LOOKUP</span><small>example.com / A</small></button>
-<button class="tool-shortcut" data-command="rdap example.com"><span>RDAP LOOKUP</span><small>Domain registration</small></button>
-<button class="tool-shortcut" data-command="hash hello world"><span>SHA-256</span><small>Local text fingerprint</small></button>
-<button class="tool-shortcut" data-command="netcheck"><span>NETWORK CHECK</span><small>Public resolver request</small></button>
-</nav>
-<div class="capability-heading">BROWSER API STATUS</div>
-<div class="control-leds" aria-label="Browser capability status">
-<div><i id="api-crypto-led" class="control-led"></i><span>WEB CRYPTO</span><b id="api-crypto-state">CHECK</b></div>
-<div><i id="api-fetch-led" class="control-led"></i><span>FETCH</span><b id="api-fetch-state">CHECK</b></div>
-<div><i id="api-location-led" class="control-led led-amber"></i><span>GEOLOCATION</span><b id="api-location-state">CHECK</b></div>
-</div>
-<nav class="functionbar" aria-label="Terminal shortcuts">
-<button class="function-key" data-command="help"><b>F1</b> HELP</button>
-<button class="function-key" data-command="status"><b>F2</b> STATUS</button>
-<button class="function-key" data-command="tools"><b>F3</b> APIS</button>
-<button class="function-key" data-command="fullscreen"><b>F4</b> FULLSCREEN</button>
-</nav>
+    <section class="terminal-card" aria-label="Terminal output and command input">
+      <header class="terminal-topbar">
+        <div class="terminal-name"><i class="state-dot"></i><span>TERMINAL</span><span class="terminal-branch">main session</span></div>
+        <div class="terminal-actions">
+          <button class="small-action" data-command="help">HELP</button>
+          <button class="small-action" data-command="clear">CLEAR</button>
+        </div>
+      </header>
+      <div class="terminal-info"><span>blacksite / <strong>browser tools</strong></span><span class="terminal-info-right"><i></i> READY</span></div>
+      <div class="output" id="terminal-output" role="log" aria-live="polite" aria-label="Terminal output"></div>
+      <form class="commandbar" id="command-form">
+        <label class="prompt" for="command-input">bs09<span>@</span>local<span> $</span></label>
+        <input class="command-input" id="command-input" name="command" type="text" maxlength="160" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Enter command (try help)" aria-label="Command input">
+        <button class="submit" type="submit"><span>RUN</span><span>↵</span></button>
+      </form>
+      <div class="terminal-footer"><span>↑ / ↓ <b>history</b></span><span>ENTER <b>run command</b></span></div>
+    </section>
 
-</aside>
-<div class="terminal-head"><span>COMMAND CONSOLE <strong>// TOOL OUTPUT</strong></span><span><i class="cursor-led"></i> READY</span></div>
-<div class="output" id="terminal-output" role="log" aria-live="polite" aria-label="Terminal output"></div>
-<form class="commandbar" id="command-form"><label class="prompt" for="command-input">bs09&gt;</label><input class="command-input" id="command-input" name="command" type="text" maxlength="160" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type help" aria-label="Command input"><button class="submit" type="submit">ENTER ↵</button></form>
-
-
-</div>
-
+    <aside class="right-rail" aria-label="Current browser session">
+      <div class="rail-panel">
+        <div class="panel-title"><span>SESSION STATUS</span><span class="live-tag">LIVE</span></div>
+        <div class="session-metric">
+          <span class="metric-label">NETWORK</span>
+          <strong id="dash-network" class="metric-value">CHECKING</strong>
+          <small id="dash-network-note" class="metric-note">Browser network status</small>
+        </div>
+        <div class="session-metric">
+          <span class="metric-label">SECURITY CONTEXT</span>
+          <strong id="dash-transport" class="metric-value">CHECKING</strong>
+          <small id="dash-transport-note" class="metric-note">Secure context status</small>
+        </div>
+        <div class="session-metric">
+          <span class="metric-label">ORIGIN</span>
+          <strong id="dash-origin" class="metric-value">LOCAL</strong>
+          <small class="metric-note">Current page host</small>
+        </div>
+        <div class="session-metric">
+          <span class="metric-label">LAST COMMAND</span>
+          <strong id="last-command" class="metric-value">No command run</strong>
+          <small id="dash-target" class="metric-note">No target selected</small>
+        </div>
+      </div>
+      <div class="session-empty"><strong>Scope</strong><br>Commands run through browser APIs and explicitly requested public services. No OS shell access.</div>
+    </aside>
+  </section>
 </main>
+
 <script>
 (function(){
 "use strict";
