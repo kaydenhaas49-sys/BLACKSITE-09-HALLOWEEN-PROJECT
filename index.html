@@ -20,7 +20,7 @@
 .status-left,.status-right{display:flex;align-items:center;gap:10px}.brand-id{color:var(--green);font-weight:bold}.led{display:inline-block;width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 7px #b8f36f9c;margin-right:5px}.status-value{color:#c4e6b3}.status-value.offline{color:var(--red)}
 .masthead{padding:15px 13px 13px;border-bottom:1px solid var(--line2);display:flex;justify-content:space-between;align-items:flex-end;gap:10px;background:linear-gradient(180deg,#0b150c,#060d07)}
 .masthead-main{min-width:0}.overline{font-size:8px;letter-spacing:.18em;color:var(--muted);margin-bottom:7px}.device-title{font-size:clamp(19px,4.2vw,26px);line-height:1.02;letter-spacing:.06em;font-weight:bold;color:#d1eec2;text-shadow:0 0 13px #b8f36f20}.subtitle{font-size:8px;letter-spacing:.14em;color:var(--muted);margin-top:6px}.unit-stamp{flex:none;text-align:right;color:var(--muted);font-size:7px;line-height:1.7;border-left:1px solid var(--line);padding-left:11px}.unit-stamp b{display:block;color:var(--green);font-size:9px;font-weight:400;letter-spacing:.1em}
-.functionbar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:7px 9px;border-bottom:1px solid var(--line);background:#040a05}
+.functionbar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:7px 9px;border-bottom:1px solid var(--line);background:#040a05}
 .function-key{min-width:0;border:1px solid #213824;background:#09120a;color:var(--muted);padding:8px 5px;display:flex;align-items:center;justify-content:center;gap:5px;font-size:8px;letter-spacing:.08em;white-space:nowrap}
 .function-key b{font-size:7px;color:var(--dim);font-weight:400}.function-key:hover{border-color:#52784a;color:var(--green);background:#0d190d}
 .terminal-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 12px;border-bottom:1px dashed #203923;color:var(--muted);font-size:8px;letter-spacing:.12em}.terminal-head strong{font-weight:400;color:var(--green)}.cursor-led{width:5px;height:5px;background:var(--green);display:inline-block;box-shadow:0 0 7px #b8f36f99;animation:blink 1.3s steps(2,start) infinite}
@@ -33,6 +33,13 @@
 @keyframes blink{to{visibility:hidden}}@keyframes activeglow{0%,100%{text-shadow:0 0 4px #b8f36f20}50%{text-shadow:0 0 11px #b8f36f70}}@keyframes output-in{from{opacity:0;transform:translateX(3px)}to{opacity:1;transform:translateX(0)}}@keyframes working{0%,100%{opacity:.55}50%{opacity:1}}.led.pulse{animation:activeglow .25s ease-in-out 3}
 @media(max-width:640px){body{padding:0;background:var(--screen)}.device{width:100%;min-height:100dvh;border-radius:0;border:0;padding:0;background:var(--screen);box-shadow:none}.device:before,.device:after,.side-rails,.device-mark,.hardware{display:none}.screen{min-height:100dvh;border:0;outline:0;box-shadow:none}.statusbar{padding-top:max(9px,env(safe-area-inset-top))}.output{min-height:220px;max-height:48dvh;flex:1}.masthead{padding:14px 12px 12px}.functionbar{padding:7px}.commandbar{padding:10px}.footer{padding-bottom:max(8px,env(safe-area-inset-bottom))}}
 @media(max-width:360px){.unit-stamp{display:none}.device-title{font-size:20px}.function-key{font-size:7px}.output{font-size:9px;max-height:44dvh}.command-input{font-size:10px}.quickbar{gap:4px}.quick{padding:5px 6px}}
+
+.device:fullscreen{width:100vw;height:100dvh;max-width:none;min-height:0;margin:0;padding:12px;border-radius:0;display:flex;flex-direction:column}
+.device:fullscreen .screen{height:100%;min-height:0;flex:1}
+.device:fullscreen .output{flex:1;min-height:0;max-height:none}
+@media(max-width:640px){.device:fullscreen{padding:0}.device:fullscreen .screen{height:100dvh;min-height:0}}
+@media(max-width:360px){.function-key{padding-left:2px;padding-right:2px;letter-spacing:0}.function-key b{display:none}}
+
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -42,7 +49,7 @@
 <div class="screen">
 <div class="statusbar"><div class="status-left"><span class="brand-id">BS09</span><span>WRIST TERMINAL</span></div><div class="status-right"><span><i class="led" id="link-led"></i><span id="link-label">LINK ?</span></span><span id="clock-mini">--:--:--</span></div></div>
 <div class="masthead"><div class="masthead-main"><div class="overline">FIELD INTERFACE / LOCAL UNIT</div><div class="device-title">BLACKSITE-09</div><div class="subtitle">OPERATOR CONSOLE // REV 03</div></div><div class="unit-stamp">UNIT SERIAL<b>09-A</b>MODE<b>LOCAL</b></div></div>
-<nav class="functionbar" aria-label="Terminal shortcuts"><button class="function-key" data-command="help"><b>F1</b> HELP</button><button class="function-key" data-command="status"><b>F2</b> STATUS</button><button class="function-key" data-command="tools"><b>F3</b> TOOLS</button></nav>
+<nav class="functionbar" aria-label="Terminal shortcuts"><button class="function-key" data-command="help"><b>F1</b> HELP</button><button class="function-key" data-command="status"><b>F2</b> STATUS</button><button class="function-key" data-command="tools"><b>F3</b> TOOLS</button><button class="function-key" data-command="fullscreen"><b>F4</b> FULLSCREEN</button></nav>
 <div class="terminal-head"><span>TTY-01 <strong>// COMMAND INTERFACE</strong></span><span><i class="cursor-led"></i> LOCAL SESSION</span></div>
 <div class="output" id="terminal-output" role="log" aria-live="polite" aria-label="Terminal output"></div>
 <form class="commandbar" id="command-form"><label class="prompt" for="command-input">BS09:&gt;</label><input class="command-input" id="command-input" name="command" type="text" maxlength="160" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type help" aria-label="Command input"><button class="submit" type="submit">ENTER ↵</button></form>
@@ -276,7 +283,24 @@ async function motionStart(){
 function motionStop(){if(motionHandler){window.removeEventListener("devicemotion",motionHandler,true);motionHandler=null}motionOn=false;motionOutput=null;output("MOTION LISTENER DISABLED","good")}
 function motionStatus(){output("MOTION SENSOR "+(motionOn?(motionSeen?"ACTIVE / RECEIVING DATA":"ACTIVE / WAITING"):"INACTIVE"),motionOn?"good":"plain")}
 
-function runCommand(raw,fromButton){var original=String(raw||"").trim();if(!original)return;if(!fromButton){commandHistory.push(original);if(commandHistory.length>50)commandHistory.shift();historyIndex=commandHistory.length}output("BS09:> "+original,"prompt");var parts=original.toLowerCase().split(/\s+/),cmd=parts[0],arg=parts[1]||"";switch(cmd){case "help":case "?":help();break;case "time":case "date":showTime();break;case "status":runStatus();break;case "battery":showBattery();break;case "wake":if(arg==="on")setWake(true);else if(arg==="off")setWake(false);else wakeStatus();break;case "weather":getWeather();break;case "compass":if(arg==="on")startCompass();else if(arg==="off")stopCompass();else compassStatus();break;case "motion":if(arg==="on")motionStart();else if(arg==="off")motionStop();else motionStatus();break;case "pulse":vibrationPulse();break;case "dns":dnsLookup(original);break;case "rdap":rdapLookup(original);break;case "hash":hashText(original);break;case "netcheck":netCheck();break;case "tools":showTools();break;case "clear":$("terminal-output").textContent="";compassOutput=null;motionOutput=null;break;case "about":about();break;default:reportError("unknown command '"+parts[0]+"'; enter help")}}
+
+async function toggleFullscreen(){
+ var terminal=$("command-form").closest(".device");
+ if(!terminal){reportError("terminal element unavailable");return}
+ if(document.fullscreenElement){
+  try{await document.exitFullscreen();output("FULLSCREEN EXITED","good")}catch(error){reportError("could not exit fullscreen")}
+  return;
+ }
+ if(!terminal.requestFullscreen){reportError("Fullscreen API unsupported here; try a supported desktop browser or installable web app");return}
+ try{await terminal.requestFullscreen({navigationUI:"hide"});output("FULLSCREEN DISPLAY ACTIVE","good")}
+ catch(error){reportError("fullscreen denied by browser; use a direct tap/click and check browser permissions")}
+}
+document.addEventListener("fullscreenchange",function(){
+ var active=!!document.fullscreenElement;
+ document.querySelectorAll('[data-command="fullscreen"]').forEach(function(button){button.innerHTML=active?"<b>F4</b> EXIT FULLSCREEN":"<b>F4</b> FULLSCREEN"});
+});
+
+function runCommand(raw,fromButton){var original=String(raw||"").trim();if(!original)return;if(!fromButton){commandHistory.push(original);if(commandHistory.length>50)commandHistory.shift();historyIndex=commandHistory.length}output("BS09:> "+original,"prompt");var parts=original.toLowerCase().split(/\s+/),cmd=parts[0],arg=parts[1]||"";switch(cmd){case "help":case "?":help();break;case "time":case "date":showTime();break;case "status":runStatus();break;case "battery":showBattery();break;case "wake":if(arg==="on")setWake(true);else if(arg==="off")setWake(false);else wakeStatus();break;case "weather":getWeather();break;case "compass":if(arg==="on")startCompass();else if(arg==="off")stopCompass();else compassStatus();break;case "motion":if(arg==="on")motionStart();else if(arg==="off")motionStop();else motionStatus();break;case "pulse":vibrationPulse();break;case "dns":dnsLookup(original);break;case "rdap":rdapLookup(original);break;case "hash":hashText(original);break;case "netcheck":netCheck();break;case "tools":showTools();break;case "fullscreen":toggleFullscreen();break;case "clear":$("terminal-output").textContent="";compassOutput=null;motionOutput=null;break;case "about":about();break;default:reportError("unknown command '"+parts[0]+"'; enter help")}}
 $("command-form").addEventListener("submit",function(e){e.preventDefault();var input=$("command-input"),value=input.value;input.value="";runCommand(value,false)});
 $("command-input").addEventListener("keydown",function(e){if(e.key==="ArrowUp"){e.preventDefault();historyIndex=Math.max(0,historyIndex-1);this.value=commandHistory[historyIndex]||"";this.setSelectionRange(this.value.length,this.value.length)}else if(e.key==="ArrowDown"){e.preventDefault();historyIndex=Math.min(commandHistory.length,historyIndex+1);this.value=commandHistory[historyIndex]||"";this.setSelectionRange(this.value.length,this.value.length)}});
 document.querySelectorAll("[data-command]").forEach(function(button){button.addEventListener("click",function(){runCommand(button.dataset.command,true)})});
