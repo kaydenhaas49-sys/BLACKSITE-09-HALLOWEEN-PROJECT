@@ -28,6 +28,34 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:10;opa
 @media(max-width:780px){.app{grid-template-columns:1fr}.sidebar{position:fixed;left:0;top:0;bottom:0;width:245px;height:100dvh;min-height:0;transform:translateX(-105%);transition:transform .25s ease;box-shadow:18px 0 45px #0008}.sidebar.open{transform:translateX(0)}.mobile-backdrop.show{display:block;position:fixed;inset:0;background:#0008;z-index:14}.hamb{display:block}.topbar{height:52px;padding:0 12px}.top-right{gap:9px}.topstat.hide-mobile{display:none}.content{padding:17px 12px 18px}.page-head{margin-bottom:13px}.page-head h1{font-size:26px}.head-note{font-size:7px}.metrics{gap:6px;margin-bottom:8px}.metric{padding:9px;min-height:72px}.metric-value{font-size:18px;margin-top:7px}.metric-top{font-size:7px}.metric-foot{font-size:6.5px}.overview-grid,.bottom-grid{grid-template-columns:minmax(0,1fr);gap:8px;margin-bottom:8px}.network-wrap{min-height:255px}.panel-head{height:35px;padding:0 10px}.panel-body{padding:10px}.terminal-screen{height:175px}.telemetry{grid-template-columns:repeat(2,minmax(0,1fr))}.node-list-scroll{max-height:290px;overflow:auto}.large-network .network-wrap{min-height:350px}.signal-grid{grid-template-columns:1fr}.signal-canvas-wrap{height:230px}.archive-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.file-card{min-height:180px;padding:11px}.access-core{min-height:280px}.access-rings{width:230px}.footnote{margin-top:12px}}
 @media(max-width:430px){.topstat.hide-sm{display:none}.top-time{font-size:10px;min-width:55px}.crumb{font-size:8px}.content{padding:14px 9px 14px}.page-head h1{font-size:23px}.sim-pill{font-size:7px;padding:5px}.metric{min-height:68px}.metric-value{font-size:16px}.metric-top{letter-spacing:.03em}.network-wrap{min-height:235px}.net-corner{font-size:6px}.node .node-label{font-size:10px}.node .node-sub{font-size:8px}.scan-readouts{gap:5px}.readout{padding:8px}.readout b{font-size:12px}.readout span{font-size:6px}.archive-grid{grid-template-columns:1fr 1fr}.file-desc{font-size:8px}.file-name{font-size:9px}.terminal-screen{height:165px;font-size:9px}.terminal-input{font-size:9px}.quick-cmds{padding-left:8px;padding-right:8px}.chip{padding:5px 6px}.page-head{align-items:flex-start}.head-note{display:none}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+.utility-page-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.tool-card{min-height:220px}
+.tool-body{padding:15px;display:flex;flex-direction:column;align-items:flex-start;min-height:175px}
+.tool-icon{width:39px;height:39px;border:1px solid #344631;display:grid;place-items:center;color:var(--green);font:20px var(--mono);background:#b8f36f05}
+.tool-value{font:14px var(--mono);margin-top:12px;color:#e0ebdd}
+.tool-sub{font:9px/1.6 var(--sans);color:var(--muted);margin:7px 0 13px;min-height:28px}
+.tool-body>.mini-btn{margin-top:auto}
+.tool-meter{height:4px;background:#1b2b20;width:100%;margin-top:11px}
+.tool-meter-fill{height:100%;width:0;background:var(--green);box-shadow:0 0 8px #b8f36f44;transition:width .3s}
+.tool-foot{font:8px/1.5 var(--mono);color:var(--muted);margin:10px 0 0}
+.tool-foot a{color:#b8dba0;text-decoration-color:#4f6744;text-underline-offset:2px}
+.weather-tool{display:flex;align-items:center;gap:12px}
+.weather-tool span{font-size:27px;color:var(--amber);animation:glow-breathe 3s ease-in-out infinite}
+.weather-tool strong{font:27px var(--mono);font-weight:400;letter-spacing:-.06em}
+.compass-tool-body{display:flex;flex-direction:row;align-items:center;gap:15px;min-height:140px}
+.tool-compass{width:86px;height:86px;border:1px solid #3b4c37;border-radius:50%;position:relative;flex:none;display:grid;place-items:center;background:radial-gradient(circle,#142016,#09100b);box-shadow:inset 0 0 20px #b8f36f08}
+.tool-compass:before,.tool-compass:after{content:"";position:absolute;background:#344531}
+.tool-compass:before{width:1px;height:100%}.tool-compass:after{height:1px;width:100%}
+.tool-compass .c-n,.tool-compass .c-e,.tool-compass .c-s,.tool-compass .c-w{position:absolute;z-index:2;font:8px var(--mono);color:var(--muted)}
+.tool-compass .c-n{top:6px;color:var(--green)}.tool-compass .c-e{right:7px}.tool-compass .c-s{bottom:6px}.tool-compass .c-w{left:7px}
+.tool-compass i{position:absolute;z-index:3;left:calc(50% - 1px);top:50%;height:37px;width:2px;transform-origin:50% 0;transform:rotate(0);transition:transform .15s}
+.tool-compass i:before{content:"";position:absolute;top:0;left:-4px;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:19px solid var(--green);filter:drop-shadow(0 0 4px #b8f36f55)}
+.tool-compass i:after{content:"";position:absolute;top:19px;left:-4px;border-left:5px solid transparent;border-right:5px solid transparent;border-top:17px solid #62795a}
+.tool-compass b{position:absolute;z-index:4;width:6px;height:6px;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--green);border-radius:50%}
+@media(max-width:600px){.utility-page-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.tool-card{min-height:200px}.tool-body{padding:11px;min-height:165px}.tool-icon{width:32px;height:32px}.tool-value{font-size:12px}.tool-sub{font-size:8px}.tool-compass{width:70px;height:70px}.tool-compass i{height:31px}.tool-compass i:before{border-bottom-width:16px}.tool-compass i:after{top:16px;border-top-width:15px}}
+@media(max-width:380px){.utility-page-grid{grid-template-columns:1fr}.tool-card{min-height:165px}.tool-body{min-height:130px}.compass-tool-body{min-height:95px}}
+
 </style>
 </head>
 <body>
@@ -43,6 +71,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:10;opa
     <button class="nav-btn" data-page="signals"><span class="nav-ico">∿</span><span class="nav-name">Signal lab</span><span class="nav-num">03</span></button>
     <button class="nav-btn" data-page="archive"><span class="nav-ico">▤</span><span class="nav-name">Data archive</span><span class="nav-num">04</span></button>
     <button class="nav-btn" data-page="access"><span class="nav-ico">◇</span><span class="nav-name">Access control</span><span class="nav-num">05</span></button>
+    <button class="nav-btn" data-page="tools"><span class="nav-ico">⌁</span><span class="nav-name">Field tools</span><span class="nav-num">06</span></button>
   </nav>
   <div class="nav-label">ENVIRONMENT</div>
   <div class="nav" style="gap:0">
@@ -132,6 +161,17 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:10;opa
   </div>
   <div class="footnote">CLEARANCE IS A GAME-LIKE STATE ONLY · NOT A SECURITY BOUNDARY</div>
 </section>
+
+<section class="page" id="page-tools">
+  <div class="page-head"><div><div class="eyebrow">DEVICE INTERFACE / 06</div><h1>Field <span>tools.</span></h1></div><div class="head-note">LOCAL DEVICE<strong>API / PERMISSION BASED</strong></div></div>
+  <div class="utility-page-grid">
+    <article class="panel tool-card"><div class="panel-head"><span class="section-label">DISPLAY / KEEP AWAKE</span><span class="panel-tag" id="wake-state">STANDBY</span></div><div class="tool-body"><div class="tool-icon">◉</div><div class="tool-value">Screen wake lock</div><p class="tool-sub" id="wake-detail">Keep display awake while this page is visible.</p><button class="mini-btn" id="wake-toggle">ENABLE</button></div></article>
+    <article class="panel tool-card"><div class="panel-head"><span class="section-label">POWER / BATTERY</span><span class="panel-tag" id="battery-state">CHECKING</span></div><div class="tool-body"><div class="tool-icon">▰</div><div class="tool-value" id="battery-value">--%</div><div class="tool-meter"><div class="tool-meter-fill" id="battery-fill"></div></div><p class="tool-sub" id="battery-detail">Reading battery status…</p></div></article>
+    <article class="panel tool-card"><div class="panel-head"><span class="section-label">ENVIRONMENT / WEATHER</span><span class="panel-tag" id="weather-state">STANDBY</span></div><div class="tool-body"><div class="weather-tool"><span id="weather-icon">☼</span><strong id="weather-temp">--°C</strong></div><p class="tool-sub" id="weather-detail">Weather loads when requested.</p><button class="mini-btn" id="weather-refresh">GET WEATHER</button><p class="tool-foot">Location is requested only on tap. <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a></p></div></article>
+    <article class="panel tool-card"><div class="panel-head"><span class="section-label">ORIENTATION / COMPASS</span><span class="panel-tag" id="compass-state">STANDBY</span></div><div class="tool-body compass-tool-body"><div class="tool-compass"><span class="c-n">N</span><span class="c-e">E</span><span class="c-s">S</span><span class="c-w">W</span><i id="compass-needle"></i><b></b></div><div><div class="tool-value" id="compass-heading">---°</div><p class="tool-sub" id="compass-detail">Sensor off.</p></div></div><button class="mini-btn" id="compass-toggle">ENABLE COMPASS</button></article>
+  </div>
+  <div class="footnote">DEVICE TOOLS DEPEND ON BROWSER SUPPORT AND PERMISSIONS</div>
+</section>
 </div>
 </main>
 </div>
@@ -141,8 +181,8 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:10;opa
 "use strict";
 var $=function(id){return document.getElementById(id)};
 var startedAt=Date.now(),toastTimer=null,scanTimer=null,scanRunning=false,scanProgress=0,clearance=1;
-var pageNames={overview:"OVERVIEW",network:"NETWORK MAP",signals:"SIGNAL LAB",archive:"DATA ARCHIVE",access:"ACCESS CONTROL"};
-var pages=["overview","network","signals","archive","access"];
+var pageNames={overview:"OVERVIEW",network:"NETWORK MAP",signals:"SIGNAL LAB",archive:"DATA ARCHIVE",access:"ACCESS CONTROL",tools:"FIELD TOOLS"};
+var pages=["overview","network","signals","archive","access","tools"];
 var nodeData=[
 {id:"CORE-01",short:"CORE",role:"CONTROL CORE",status:"ONLINE",type:"Controller",latency:4,flow:1.8,x:360,y:175,desc:"Central simulation controller. All displayed traffic remains within this page.",color:"green"},
 {id:"RELAY-02",short:"RELAY",role:"ROUTING RELAY",status:"ONLINE",type:"Relay",latency:12,flow:3.2,x:192,y:93,desc:"Routes fictional packets through the local mesh visualization.",color:"green"},
@@ -278,6 +318,79 @@ $("access-request").addEventListener("click",function(){
  var btn=$("access-request");btn.disabled=true;$("access-title").textContent="NEGOTIATING…";$("access-symbol").textContent="◌";$("access-desc").textContent="Verifying simulated operator record and requesting next clearance tier.";var bar=$("access-progress");bar.style.width="0%";var p=0;var timer=setInterval(function(){p+=5;bar.style.width=p+"%";if(p>=100){clearInterval(timer);clearance=Math.min(4,clearance+1);$("access-symbol").textContent="✓";$("access-title").textContent="HANDSHAKE ACCEPTED";$("access-desc").textContent="Local demo clearance raised to Level "+String(clearance).padStart(2,"0")+". This does not authenticate against a real system.";btn.disabled=false;btn.textContent="REQUEST NEXT LEVEL ↗";$("metric-access").textContent="L-"+String(clearance).padStart(2,"0");$("clearance-2").textContent=clearance>=2?"GRANTED":"LOCKED";$("clearance-3").textContent=clearance>=3?"GRANTED":"LOCKED";$("clearance-4").textContent=clearance>=4?"GRANTED":"LOCKED";for(var i=2;i<=4;i++)$("clearance-"+i).classList.toggle("granted",clearance>=i);pushEvent("Clearance raised","Local simulated access now at Level "+String(clearance).padStart(2,"0")+".","ok");renderArchive();toast("Local clearance: Level "+clearance)}} ,55);
 });
 function updateClock(){$("clock").textContent=time();var elapsed=Math.floor((Date.now()-startedAt)/1000);$("metric-uptime").textContent=pad(Math.floor(elapsed/60))+":"+pad(elapsed%60);var cpu=24+Math.abs(Math.sin(Date.now()/4500))*28+rand(0,4),mem=53+Math.abs(Math.cos(Date.now()/7000))*13;$("cpu-pct").textContent=Math.round(cpu)+"%";$("cpu-val").innerHTML=cpu.toFixed(1)+' <small style="font-size:8px;color:var(--muted)">%</small>';$("mem-pct").textContent=Math.round(mem)+"%";$("mem-val").innerHTML=(mem*.04).toFixed(1)+' <small style="font-size:8px;color:var(--muted)">GB</small>';$("bar-process").style.width=cpu+"%";$("bar-process-val").textContent=Math.round(cpu)+"%";$("bar-buffer").style.width=mem+"%";$("bar-buffer-val").textContent=Math.round(mem)+"%"}
+
+var toolWakeLock=null,toolWakeWanted=false,toolWakeBusy=false;
+function wakeState(status,detail){
+ $("wake-state").textContent=status;$("wake-state").className="panel-tag"+(status==="ACTIVE"?" green":(status==="UNAVAILABLE"||status==="DENIED"?" amber":""));
+ $("wake-detail").textContent=detail||"";$("wake-toggle").textContent=toolWakeWanted?"DISABLE":"ENABLE";
+}
+async function acquireWakeLock(){
+ if(!toolWakeWanted||document.visibilityState!=="visible"||!("wakeLock" in navigator))return;
+ try{
+  var lock=await navigator.wakeLock.request("screen");toolWakeLock=lock;wakeState("ACTIVE","Screen stays awake while this page is visible.");
+  lock.addEventListener("release",function(){
+   if(toolWakeLock===lock)toolWakeLock=null;
+   if(toolWakeWanted)wakeState("PAUSED","Wake lock paused by browser.");
+   else wakeState("STANDBY","Wake lock disabled.");
+  },{once:true});
+ }catch(e){toolWakeWanted=false;toolWakeLock=null;wakeState("DENIED","Browser refused the wake lock.");}
+}
+$("wake-toggle").addEventListener("click",async function(){
+ if(toolWakeBusy)return;toolWakeBusy=true;$("wake-toggle").disabled=true;
+ if(toolWakeWanted){toolWakeWanted=false;var lock=toolWakeLock;toolWakeLock=null;if(lock){try{await lock.release()}catch(e){}}wakeState("STANDBY","");}
+ else if(!("wakeLock" in navigator)){wakeState("UNAVAILABLE","Unsupported in this browser.");}
+ else{toolWakeWanted=true;await acquireWakeLock();}
+ $("wake-toggle").disabled=false;$("wake-toggle").textContent=toolWakeWanted?"DISABLE":"ENABLE";toolWakeBusy=false;
+});
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible"&&toolWakeWanted&&!toolWakeLock)acquireWakeLock();if(document.visibilityState==="hidden"&&toolWakeWanted)wakeState("PAUSED","Paused while page is hidden.");});
+
+function initToolBattery(){
+ if(typeof navigator.getBattery!=="function"){$("battery-state").textContent="UNAVAILABLE";$("battery-value").textContent="N/A";$("battery-detail").textContent="Not exposed by this browser.";return}
+ navigator.getBattery().then(function(b){
+ function refresh(){var level=Math.round(b.level*100);$("battery-value").textContent=level+"%";$("battery-state").textContent=b.charging?"CHARGING":"BATTERY";$("battery-state").className="panel-tag"+(b.charging?" green":"");$("battery-fill").style.width=level+"%";$("battery-detail").textContent=b.charging?"Connected to power.":"Device battery level."}
+ refresh();b.addEventListener("levelchange",refresh);b.addEventListener("chargingchange",refresh);
+ }).catch(function(){$("battery-state").textContent="UNAVAILABLE";$("battery-value").textContent="N/A";$("battery-detail").textContent="Battery access blocked."});
+}
+initToolBattery();
+
+function weatherWords(code){var map={0:["Clear","☀"],1:["Mainly clear","☀"],2:["Partly cloudy","◒"],3:["Overcast","☁"],45:["Fog","≋"],48:["Freezing fog","≋"],51:["Drizzle","☂"],53:["Drizzle","☂"],55:["Heavy drizzle","☂"],56:["Freezing drizzle","❄"],57:["Freezing drizzle","❄"],61:["Light rain","☂"],63:["Rain","☂"],65:["Heavy rain","☂"],66:["Freezing rain","❄"],67:["Freezing rain","❄"],71:["Light snow","❄"],73:["Snow","❄"],75:["Heavy snow","❄"],77:["Snow grains","❄"],80:["Rain showers","☂"],81:["Rain showers","☂"],82:["Heavy showers","☂"],85:["Snow showers","❄"],86:["Snow showers","❄"],95:["Thunderstorm","ϟ"],96:["Storm / hail","ϟ"],99:["Storm / hail","ϟ"]};return map[code]||["Conditions unavailable","·"]}
+var toolWeatherBusy=false;
+function weatherError(message){$("weather-state").textContent="UNAVAILABLE";$("weather-state").className="panel-tag amber";$("weather-detail").textContent=message;$("weather-refresh").disabled=false;$("weather-refresh").textContent="TRY AGAIN";toolWeatherBusy=false}
+$("weather-refresh").addEventListener("click",function(){
+ if(toolWeatherBusy)return;if(!navigator.geolocation){weatherError("Location unavailable in this browser.");return}
+ toolWeatherBusy=true;$("weather-refresh").disabled=true;$("weather-refresh").textContent="LOADING…";$("weather-state").textContent="LOCATION";$("weather-detail").textContent="Waiting for location permission…";
+ navigator.geolocation.getCurrentPosition(async function(pos){
+  try{
+   var params=new URLSearchParams({latitude:String(pos.coords.latitude),longitude:String(pos.coords.longitude),current:"temperature_2m,apparent_temperature,weather_code",daily:"temperature_2m_max,temperature_2m_min",forecast_days:"1",timezone:"auto"});
+   var res=await fetch("https://api.open-meteo.com/v1/forecast?"+params.toString(),{cache:"no-store"});if(!res.ok)throw new Error("HTTP "+res.status);
+   var json=await res.json(),c=json.current,d=json.daily,w=weatherWords(c.weather_code);
+   $("weather-temp").textContent=Math.round(c.temperature_2m)+"°C";$("weather-icon").textContent=w[1];
+   var extra=d&&d.temperature_2m_max&&d.temperature_2m_min?(" · H "+Math.round(d.temperature_2m_max[0])+"° / L "+Math.round(d.temperature_2m_min[0])+"°"):"";
+   $("weather-detail").textContent=w[0]+" · Feels "+Math.round(c.apparent_temperature)+"°C"+extra;$("weather-state").textContent="UPDATED";$("weather-state").className="panel-tag green";$("weather-refresh").textContent="REFRESH";$("weather-refresh").disabled=false;toolWeatherBusy=false;
+  }catch(e){weatherError("Weather failed. Check connection and retry.")}
+ },function(e){weatherError(e.code===1?"Location permission denied.":e.code===2?"Location unavailable.":"Location timed out.")},{enableHighAccuracy:false,timeout:15000,maximumAge:600000});
+});
+
+var toolCompassOn=false,toolCompassSeen=false,toolCompassHandler=null,toolCompassTimer=null;
+function directionName(deg){var d=["N","NE","E","SE","S","SW","W","NW"];return d[Math.round((((deg%360)+360)%360)/45)%8]}
+function compassEventHandler(e){
+ var heading=null;if(typeof e.webkitCompassHeading==="number")heading=e.webkitCompassHeading;
+ else if(e.absolute&&typeof e.alpha==="number"){var a=screen.orientation&&typeof screen.orientation.angle==="number"?screen.orientation.angle:(typeof window.orientation==="number"?window.orientation:0);heading=(360-e.alpha+a)%360}else return;
+ heading=(heading+360)%360;toolCompassSeen=true;$("compass-needle").style.transform="rotate("+(-heading)+"deg)";$("compass-heading").textContent=directionName(heading)+" "+Math.round(heading)+"°";$("compass-state").textContent="ACTIVE";$("compass-state").className="panel-tag green";$("compass-detail").textContent="Live device heading.";$("compass-toggle").textContent="DISABLE COMPASS";
+}
+function stopToolCompass(){toolCompassOn=false;toolCompassSeen=false;if(toolCompassHandler){window.removeEventListener("deviceorientationabsolute",toolCompassHandler,true);window.removeEventListener("deviceorientation",toolCompassHandler,true);toolCompassHandler=null}if(toolCompassTimer)clearTimeout(toolCompassTimer);$("compass-needle").style.transform="rotate(0deg)";$("compass-heading").textContent="---°";$("compass-state").textContent="STANDBY";$("compass-state").className="panel-tag";$("compass-detail").textContent="Sensor off.";$("compass-toggle").textContent="ENABLE COMPASS"}
+async function toggleToolCompass(){
+ if(toolCompassOn){stopToolCompass();return}
+ if(!window.isSecureContext){$("compass-state").textContent="HTTPS REQUIRED";$("compass-state").className="panel-tag amber";$("compass-detail").textContent="Open this page over HTTPS.";return}
+ if(!("DeviceOrientationEvent" in window)){$("compass-state").textContent="UNAVAILABLE";$("compass-state").className="panel-tag amber";$("compass-detail").textContent="No orientation sensor API.";return}
+ try{if(typeof DeviceOrientationEvent.requestPermission==="function"){var p=await DeviceOrientationEvent.requestPermission();if(p!=="granted")throw new Error("Denied")}
+  toolCompassOn=true;toolCompassSeen=false;toolCompassHandler=compassEventHandler;window.addEventListener("deviceorientationabsolute",toolCompassHandler,true);window.addEventListener("deviceorientation",toolCompassHandler,true);$("compass-state").textContent="CONNECTING";$("compass-detail").textContent="Waiting for heading…";$("compass-toggle").textContent="DISABLE COMPASS";
+  toolCompassTimer=setTimeout(function(){if(toolCompassOn&&!toolCompassSeen){$("compass-state").textContent="NO SENSOR";$("compass-state").className="panel-tag amber";$("compass-detail").textContent="No absolute heading available."}},5000);
+ }catch(e){$("compass-state").textContent="DENIED";$("compass-state").className="panel-tag amber";$("compass-detail").textContent="Permission denied."; $("compass-toggle").textContent="TRY AGAIN"}
+}
+$("compass-toggle").addEventListener("click",toggleToolCompass);
+if(!("wakeLock" in navigator)){wakeState("UNAVAILABLE","Unsupported in this browser.");$("wake-toggle").disabled=true}
+
 function loopCanvas(){if($("page-signals").classList.contains("active")&&!scanRunning)drawSpectrum()}
 renderNetwork("network-map",false);renderNetwork("network-map-large",true);selectNode(0);renderNodeList();renderEvents();renderArchive();terminalStart();updateClock();setInterval(updateClock,1000);resizeCanvas();window.addEventListener("resize",resizeCanvas);setInterval(loopCanvas,100);
 })();
