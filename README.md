@@ -7,7 +7,7 @@ An animated, mobile-friendly clock with four practical phone utilities.
 - **Animated local clock:** live time, date, timezone, and day-progress indicator, with a 12/24-hour switch.
 - **Keep screen awake:** requests the browser Screen Wake Lock so the screen can stay on while the page is visible. Support depends on browser/device and usually requires HTTPS.
 - **Battery status:** displays charge percentage and charging state when the browser exposes the Battery Status API; otherwise it shows an unavailable status.
-- **Local weather:** on request, asks for device location and fetches current conditions plus today's high/low from [Open-Meteo](https://open-meteo.com/). Coordinates are sent to the weather provider only after the user presses the weather button; the page does not save them. Weather API data is attributed to Open-Meteo.
+- **Local weather:** on request, asks for device location and fetches current conditions plus today's high/low from [Open-Meteo](https://open-meteo.com/). Coordinates are sent to the weather provider only after the user presses the weather button; the page does not save them. Weather data is attributed to [Open-Meteo](https://open-meteo.com/) under its [CC BY 4.0 data licence](https://creativecommons.org/licenses/by/4.0/).
 - **Compass:** requests device-orientation permission and reads a real heading if the browser/device supplies absolute compass data. Some devices or browsers won't provide it.
 
 ## Run it
