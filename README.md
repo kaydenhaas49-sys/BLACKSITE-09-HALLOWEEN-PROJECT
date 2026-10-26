@@ -1,32 +1,34 @@
-# BLACKSITE-09 — Personal Field Kit
+# BLACKSITE-09 — Personal Field Display
 
-A lightweight, mobile-friendly set of everyday tools with a subtle BLACKSITE-09 field-terminal look.
+A minimal, animated clock screen with a subtle BLACKSITE-09 industrial interface.
 
-## What it does
+## Features
 
-- **Clock:** live local time and date.
-- **Timer:** quick presets or a custom countdown, with pause and reset.
-- **Stopwatch:** track elapsed time.
-- **Checklist:** add, complete, and remove tasks.
-- **Quick notes:** an autosaving scratchpad.
+- Live local time and date
+- Circular seconds indicator and animated orbit details
+- Day-progress line
+- 12-hour / 24-hour display switch
+- Adapts to desktop and mobile screens
+- Reduced-motion support
+- No frameworks, packages, tracking, GPS, accounts, or network calls
 
 ## Run it
 
-Open `index.html` in a modern browser. No installation, framework, account, or server is required.
+Open `index.html` in a modern browser. No installation or build step is required.
 
 ## Publish with GitHub Pages
 
 1. Open **Settings → Pages** in this repository.
 2. Under **Build and deployment**, choose **Deploy from a branch**.
 3. Select branch `main` and folder `/(root)`, then save.
-4. When publishing finishes, the site should be available at:
+4. After GitHub Pages publishes it, the expected address is:
 
    https://kaydenhaas49-sys.github.io/BLACKSITE-09-HALLOWEEN-PROJECT/
 
-## Privacy and limitations
+## Privacy
 
-Checklist items and notes are saved in browser storage on the current device. They do not sync between devices. The timer is most reliable while the page remains open and active; browser/device settings may affect background behavior. This app does not access location, transmit signals, or connect to physical equipment.
+The page reads the device's local clock and timezone. It does not collect or save personal data.
 
-## Files
+## File
 
-- `index.html` — the entire app, including styling and interactions.
+- `index.html` — complete website, styles, and clock behavior.
