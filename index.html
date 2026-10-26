@@ -48,7 +48,7 @@ button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid var(--
 .utility-action.active{background:#27391c;border-color:#718c4b;color:#e1f7bb}
 .battery-meter{height:4px;background:#2a342a;margin-top:12px;overflow:hidden}
 .battery-meter-fill{height:100%;width:0;background:var(--accent);transition:width .35s,background .25s}
-.utility-subline{font:8px/1.5 var(--mono);color:var(--muted);margin-top:7px;min-height:12px;overflow-wrap:anywhere}
+.utility-subline{font:8px/1.5 var(--mono);color:var(--muted);margin-top:7px;min-height:12px;overflow-wrap:anywhere}.utility-subline a{color:#adca94;text-decoration:underline;text-decoration-color:#596f4d;text-underline-offset:2px}
 .weather-temp{font:29px/1.1 var(--mono);letter-spacing:-.07em;margin-top:4px}
 .weather-temp small{font:10px var(--mono);letter-spacing:0;color:var(--muted)}
 .weather-icon{width:32px;height:32px;display:grid;place-items:center;flex:none;color:var(--gold);font-size:24px;animation:drift 4s ease-in-out infinite}
@@ -141,7 +141,7 @@ button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid var(--
       <div class="utility-row"><div class="weather-icon" id="weather-icon" aria-hidden="true">☼</div><div class="utility-copy"><div class="utility-title">Local weather</div><div class="weather-temp" id="weather-temp">--°<small>C</small></div></div></div>
       <p class="utility-desc" id="weather-detail">Tap below to request your location and fetch current conditions.</p>
       <button class="utility-action" id="weather-refresh" type="button">GET LOCAL WEATHER</button>
-      <div class="utility-subline">Location is sent to Open-Meteo only when you request weather.</div>
+      <div class="utility-subline">Weather: <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a> · location sent only on request.</div>
     </article>
     <article class="utility-card">
       <div class="utility-top"><span>ORIENTATION / 04</span><span class="utility-pill" id="compass-state">STANDBY</span></div>
