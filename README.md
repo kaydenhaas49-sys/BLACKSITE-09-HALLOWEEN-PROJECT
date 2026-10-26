@@ -1,37 +1,32 @@
-# BLACKSITE-09 — Field Terminal
+# BLACKSITE-09 — Personal Field Kit
 
-A dark, animated field-operations dashboard for the BLACKSITE-09 Halloween project.
+A lightweight, mobile-friendly set of everyday tools with a subtle BLACKSITE-09 field-terminal look.
 
-## Features
+## What it does
 
-- Animated radar and signal-scanning interface
-- Responsive layout for desktop and phone screens
-- Signal scanner with simulated local detections
-- Fictional sector map and equipment status panels
-- Field logs saved in the current browser, with a plain-text export option
-- E-beacon state toggle and interface settings
-- No framework, build step, external packages, or server required
+- **Clock:** live local time and date.
+- **Timer:** quick presets or a custom countdown, with pause and reset.
+- **Stopwatch:** track elapsed time.
+- **Checklist:** add, complete, and remove tasks.
+- **Quick notes:** an autosaving scratchpad.
 
-## Run locally
+## Run it
 
-Open `index.html` in a modern browser.
+Open `index.html` in a modern browser. No installation, framework, account, or server is required.
 
 ## Publish with GitHub Pages
 
-1. Open the repository's **Settings** tab.
-2. Choose **Pages** in the sidebar.
-3. Under **Build and deployment**, select **Deploy from a branch**.
-4. Select branch **main** and folder **/(root)**, then save.
-5. Once GitHub Pages finishes publishing, the site should be available at:
+1. Open **Settings → Pages** in this repository.
+2. Under **Build and deployment**, choose **Deploy from a branch**.
+3. Select branch `main` and folder `/(root)`, then save.
+4. When publishing finishes, the site should be available at:
 
    https://kaydenhaas49-sys.github.io/BLACKSITE-09-HALLOWEEN-PROJECT/
 
-GitHub Pages may take a few minutes to publish after it is enabled.
+## Privacy and limitations
 
-## Important notes
+Checklist items and notes are saved in browser storage on the current device. They do not sync between devices. The timer is most reliable while the page remains open and active; browser/device settings may affect background behavior. This app does not access location, transmit signals, or connect to physical equipment.
 
-This is a fictional interface prototype. Signal strengths, scan detections, map markers, device statuses, and sector coordinates are illustrative simulation data. The page does **not** use GPS, transmit radio signals, or connect to actual equipment. Field logs and interface settings are stored locally in the browser; they are not synced between devices.
+## Files
 
-## Project files
-
-- `index.html` — complete standalone app, styles, and interactions.
+- `index.html` — the entire app, including styling and interactions.
