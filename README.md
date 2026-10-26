@@ -1,27 +1,24 @@
 # BLACKSITE-09 — Field Console
 
-A single-page, code-generated field terminal built with vanilla HTML, CSS, and JavaScript. The interface keeps the BLACKSITE visual style while only showing information available to the browser or explicitly retrieved after user action.
+A compact, single-page field console built with vanilla HTML, CSS, and JavaScript. The interface keeps the BLACKSITE look without fake telemetry or fictional hacking panels.
 
 ## Features
 
-- **Live clock:** local device time, date, timezone, local-day progress, and time since this page was opened.
-- **Browser/device status:** browser-reported online/offline state, optional connection type, browser platform, current viewport dimensions, pixel ratio, language, and secure-context state.
+- **Live clock:** device-local time, date, and timezone.
+- **Connectivity:** browser-reported online/offline state and secure-context status.
 - **Screen wake lock:** asks the browser to keep the display awake when supported.
-- **Battery status:** current percentage and charging state when the browser exposes the Battery Status API.
-- **Weather:** on button press, requests browser location permission and uses Open-Meteo to retrieve current weather and daily high/low.
-- **Compass:** requests permission where applicable and displays a heading only when the browser provides an absolute heading source.
-- **Unified scrolling menu:** jumps between sections and updates its highlight as you scroll.
-- **Responsive layout:** adapts to mobile, desktop, and reduced-motion preferences.
+- **Battery status:** battery percentage and charging state when exposed by the browser.
+- **Weather:** when requested, asks for location permission and uses Open-Meteo for current conditions and daily high/low.
+- **Compass:** displays a heading only when the browser and device provide a usable absolute heading source.
+- **Responsive layout:** menu navigation for desktop and mobile, with reduced-motion support.
 
-## Important limitations
+## What it does not do
 
-The browser does not generally expose system CPU load, RAM usage, true device uptime, local IP addresses, nearby Wi-Fi networks, or detailed hardware telemetry to a normal web page. BLACKSITE-09 does not invent those values.
-
-The page contains no fake network topology, fictional scan results, simulated shell, fake decryption, or pretend clearance system. It has no backend, account, analytics, or local-storage persistence.
+It does not show invented CPU or memory data, fake networks, simulated scan results, fake decryption, pretend access clearance, or shell commands. A regular webpage cannot access detailed system performance, local IP addresses, or nearby Wi-Fi networks without additional permissions/software.
 
 ## Run it locally
 
-Open `index.html` in a modern browser. No framework, package manager, build step, or backend is required. Some device APIs require HTTPS or localhost; browser support varies.
+Open `index.html` in a modern browser. No framework, package manager, build step, or backend is required. Some device APIs work only over HTTPS or localhost, and support varies by browser.
 
 ## Publish with GitHub Pages
 
@@ -32,14 +29,14 @@ Open `index.html` in a modern browser. No framework, package manager, build step
 
    https://kaydenhaas49-sys.github.io/BLACKSITE-09-HALLOWEEN-PROJECT/
 
-Publishing may take a few minutes after Pages is enabled.
+The page may take a few minutes to publish after Pages is enabled.
 
 ## Privacy
 
-- Local time and browser/device status are processed in the page.
-- Weather asks for location only when the user presses **Get Weather**. Coordinates are sent to Open-Meteo to retrieve weather; this page does not save them.
-- No location is requested for any other feature.
-- Battery, orientation, and wake-lock access only use browser APIs and user interactions. Availability depends on the device and browser.
+- Time and browser connection status are handled locally.
+- Weather asks for location only after the **Get Weather** button is pressed. Coordinates are sent to Open-Meteo for weather data and are not saved by this page.
+- No account, analytics, backend, or local storage is used.
+- Wake-lock, battery, and compass access depend on browser/device support and permissions.
 
 ## Project file
 
