@@ -16,6 +16,7 @@ A compact, hardware-inspired wrist terminal built with vanilla HTML, CSS, and Ja
 - `wake on|off|status` — control the Screen Wake Lock API where supported.
 - `weather` — request location permission and retrieve actual weather from Open-Meteo.
 - `compass on|off|status` — device heading when a usable sensor is available.
+- `fullscreen` — enter or exit the Fullscreen API on supported browsers.
 - `tools` — report exposed browser APIs and configured network services.
 - `clear` — clear terminal output.
 - `about` — explain console limitations.
