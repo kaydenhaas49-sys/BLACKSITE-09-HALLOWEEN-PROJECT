@@ -204,8 +204,6 @@ function update(){
   $("ampm").style.display=use24?"none":"inline";
   $("ampm").textContent=h>=12?"PM":"AM";
   $("date-display").textContent=d.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"});
-  $("weekday").textContent=d.toLocaleDateString(undefined,{weekday:"long"}).toUpperCase();
-  $("date-short").textContent=pad(d.getMonth()+1)+" / "+pad(d.getDate())+" / "+d.getFullYear();
   $("utc-offset").textContent=offsetText(d);
   $("seconds-readout").innerHTML=pad(s)+' <span style="color:var(--muted)">/ 60</span>';
   $("timezone-display").textContent=(Intl.DateTimeFormat().resolvedOptions().timeZone||"LOCAL TIME").replace(/_/g," ").toUpperCase();
@@ -230,7 +228,7 @@ var wakeLock=null,wakeRequested=false,wakeBusy=false;
 function setWakeUI(state,label,detail){
   $("wake-state").textContent=state;
   $("wake-state").className="utility-pill"+(state==="ACTIVE"?" active":(state==="UNAVAILABLE"||state==="DENIED"?" warn":""));
-  $("wake-detail").textContent=detail||"Prevent screen sleep while this page is visible.";
+  $("wake-subline").textContent=detail||"";
   $("wake-toggle").classList.toggle("active",state==="ACTIVE");
   $("wake-toggle").setAttribute("aria-pressed",String(state==="ACTIVE"||wakeRequested));
   $("wake-toggle").textContent=label||((state==="ACTIVE"||wakeRequested)?"DISABLE KEEP AWAKE":"ENABLE KEEP AWAKE");
@@ -238,7 +236,7 @@ function setWakeUI(state,label,detail){
 async function requestWakeLock(){
   if(wakeBusy)return;
   if(!("wakeLock" in navigator)){
-    setWakeUI("UNAVAILABLE","NOT SUPPORTED","This browser cannot request a screen wake lock.");
+    setWakeUI("UNAVAILABLE","NOT SUPPORTED","Unsupported in this browser.");
     $("wake-subline").textContent="Try opening this page in a current browser over HTTPS.";
     $("wake-toggle").disabled=true;return;
   }
@@ -246,7 +244,7 @@ async function requestWakeLock(){
     wakeRequested=false;
     try{await wakeLock.release()}catch(e){}
     wakeLock=null;
-    setWakeUI("STANDBY","ENABLE KEEP AWAKE","Screen sleep is allowed again.");
+    setWakeUI("STANDBY","ENABLE KEEP AWAKE","Off.");
     $("wake-subline").textContent="Wake lock is off.";
     return;
   }
@@ -254,20 +252,20 @@ async function requestWakeLock(){
   try{
     wakeRequested=true;
     wakeLock=await navigator.wakeLock.request("screen");
-    setWakeUI("ACTIVE","DISABLE KEEP AWAKE","Screen lock should stay awake while this page is visible.");
+    setWakeUI("ACTIVE","DISABLE KEEP AWAKE","Active while page is visible.");
     $("wake-subline").textContent="Active · may pause when this tab is hidden.";
     wakeLock.addEventListener("release",function(){
       wakeLock=null;
       if(wakeRequested&&document.visibilityState==="hidden"){
-        setWakeUI("PAUSED","KEEP AWAKE PENDING","The browser pauses wake lock in the background.");
+        setWakeUI("PAUSED","KEEP AWAKE PENDING","Paused in background.");
       }else{
         wakeRequested=false;
-        setWakeUI("STANDBY","ENABLE KEEP AWAKE","The browser released the wake lock.");
+        setWakeUI("STANDBY","ENABLE KEEP AWAKE","Screen lock released.");
       }
     },{once:true});
   }catch(err){
     wakeRequested=false;wakeLock=null;
-    setWakeUI("DENIED","TRY AGAIN","The device or browser refused to keep the screen awake.");
+    setWakeUI("DENIED","TRY AGAIN","Could not enable wake lock.");
     $("wake-subline").textContent="Check power-saving settings and browser support.";
   }finally{wakeBusy=false;$("wake-toggle").disabled=false}
 }
@@ -275,9 +273,9 @@ $("wake-toggle").addEventListener("click",requestWakeLock);
 document.addEventListener("visibilitychange",function(){
   if(document.visibilityState==="visible"&&wakeRequested&&!wakeLock&&("wakeLock" in navigator)){
     navigator.wakeLock.request("screen").then(function(lock){
-      wakeLock=lock;setWakeUI("ACTIVE","DISABLE KEEP AWAKE","Screen lock restored.");
-      lock.addEventListener("release",function(){wakeLock=null;if(wakeRequested&&document.visibilityState==="hidden"){setWakeUI("PAUSED","KEEP AWAKE PENDING","Waiting until the page is visible again.")}else{wakeRequested=false;setWakeUI("STANDBY","ENABLE KEEP AWAKE","The browser released the wake lock.")}},{once:true});
-    }).catch(function(){wakeRequested=false;setWakeUI("DENIED","TRY AGAIN","The device did not restore the wake lock.")});
+      wakeLock=lock;setWakeUI("ACTIVE","DISABLE KEEP AWAKE","Active.");
+      lock.addEventListener("release",function(){wakeLock=null;if(wakeRequested&&document.visibilityState==="hidden"){setWakeUI("PAUSED","KEEP AWAKE PENDING","Paused in background.")}else{wakeRequested=false;setWakeUI("STANDBY","ENABLE KEEP AWAKE","The browser released the wake lock.")}},{once:true});
+    }).catch(function(){wakeRequested=false;setWakeUI("DENIED","TRY AGAIN","Could not restore.")});
   }
 });
 if(!("wakeLock" in navigator)){
@@ -406,9 +404,9 @@ function stopCompass(){
 }
 async function startCompass(){
   if(compassEnabled){stopCompass();return}
-  if(!window.isSecureContext){$("compass-state").textContent="HTTPS REQUIRED";$("compass-state").className="utility-pill warn";$("compass-detail").textContent="Compass sensor access requires a secure HTTPS page.";return}
+  if(!window.isSecureContext){$("compass-state").textContent="HTTPS REQUIRED";$("compass-state").className="utility-pill warn";$("compass-detail").textContent="HTTPS required.";return}
   if(!("DeviceOrientationEvent" in window)){
-    $("compass-state").textContent="UNAVAILABLE";$("compass-state").className="utility-pill warn";$("compass-detail").textContent="This browser does not expose device orientation.";return;
+    $("compass-state").textContent="UNAVAILABLE";$("compass-state").className="utility-pill warn";$("compass-detail").textContent="Unsupported in this browser.";return;
   }
   try{
     if(typeof DeviceOrientationEvent.requestPermission==="function"){
@@ -426,12 +424,12 @@ async function startCompass(){
     compassTimer=setTimeout(function(){
       if(compassEnabled&&!compassSeen){
         $("compass-state").textContent="NO SENSOR";$("compass-state").className="utility-pill warn";
-        $("compass-detail").textContent="No absolute heading received. Device or browser may not expose a compass.";
+        $("compass-detail").textContent="No compass sensor available.";
       }
     },5000);
   }catch(err){
     compassEnabled=false;$("compass-state").textContent="DENIED";$("compass-state").className="utility-pill warn";
-    $("compass-detail").textContent="Compass permission was denied or is unavailable.";
+    $("compass-detail").textContent="Permission denied.";
     $("compass-toggle").textContent="TRY AGAIN";
   }
 }
