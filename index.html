@@ -127,7 +127,7 @@ button:focus-visible,input:focus-visible{outline:1px solid var(--green);outline-
 .session-empty strong{color:#a6b8aa;font-weight:500}
 @keyframes line-enter{from{opacity:.45;transform:translateY(2px)}to{opacity:1;transform:translateY(0)}}
 @keyframes work-pulse{0%,100%{opacity:.55}50%{opacity:1}}
-.device:fullscreen{width:100vw;height:100dvh;max-width:none;min-height:0;margin:0;padding:15px;border:0;border-radius:0}
+.device:fullscreen{display:flex;flex-direction:column;width:100vw;height:100dvh;max-width:none;min-height:0;margin:0;padding:15px;border:0;border-radius:0}
 .device:fullscreen .workbench{flex:1;min-height:0}
 .device:fullscreen .terminal-card{min-height:0;height:100%}
 .device:fullscreen .output{max-height:none;min-height:0}
@@ -262,6 +262,8 @@ button:focus-visible,input:focus-visible{outline:1px solid var(--green);outline-
       <header class="terminal-topbar">
         <div class="terminal-name"><i class="state-dot"></i><span>TERMINAL</span><span class="terminal-branch">main session</span></div>
         <div class="terminal-actions">
+          <button class="small-action" data-command="status">STATUS</button>
+          <button class="small-action" data-command="tools">APIS</button>
           <button class="small-action" data-command="help">HELP</button>
           <button class="small-action" data-command="clear">CLEAR</button>
         </div>
