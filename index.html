@@ -25,12 +25,12 @@
 .function-key b{font-size:7px;color:var(--dim);font-weight:400}.function-key:hover{border-color:#52784a;color:var(--green);background:#0d190d}
 .terminal-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 12px;border-bottom:1px dashed #203923;color:var(--muted);font-size:8px;letter-spacing:.12em}.terminal-head strong{font-weight:400;color:var(--green)}.cursor-led{width:5px;height:5px;background:var(--green);display:inline-block;box-shadow:0 0 7px #b8f36f99;animation:blink 1.3s steps(2,start) infinite}
 .output{padding:11px 12px 14px;flex:1;min-height:245px;max-height:350px;overflow:auto;scrollbar-width:thin;scrollbar-color:#355a36 #071008;background:linear-gradient(90deg,#b8f36f04,transparent 28%);font-size:10px;line-height:1.55}
-.line{display:block;overflow-wrap:anywhere;white-space:pre-wrap;min-height:1em}.line+.line{margin-top:2px}.line .prompt{color:#8ab879}.line .good{color:var(--green)}.line .warn{color:var(--amber)}.line .bad{color:var(--red)}.line .plain{color:#bed7b3}.line .dim{color:var(--muted)}.line .ts{color:#49684b}.divider-line{color:#29442b!important}
+.line{display:block;overflow-wrap:anywhere;white-space:pre-wrap;min-height:1em;animation:output-in .16s ease-out both}.line+.line{margin-top:2px}.line .prompt{color:#8ab879}.line .good{color:var(--green);text-shadow:0 0 5px #b8f36f22}.line .warn{color:var(--amber)}.line .bad{color:var(--red)}.line .plain{color:#bed7b3}.line .dim{color:var(--muted)}.line .ts{color:#49684b}.line .working{animation:working .9s ease-in-out infinite}.divider-line{color:#29442b!important}
 .commandbar{display:flex;gap:7px;align-items:center;padding:10px 10px;border-top:1px solid #2b492d;border-bottom:1px solid var(--line);background:#070f08}.prompt{color:var(--green);white-space:nowrap}.command-input{flex:1;min-width:0;border:0;outline:0!important;background:transparent;color:#e1f5d7;font:11px var(--mono);caret-color:var(--green);padding:4px 0}.command-input::placeholder{color:#4b694d}.submit{border:1px solid #477342;color:var(--green);background:#0c1b0c;padding:7px 9px;font-size:8px;letter-spacing:.07em}.submit:hover{background:#183018}
 .quickbar{display:flex;gap:5px;flex-wrap:wrap;padding:8px 10px 10px;background:#060d07}.quick{border:1px solid #203822;color:#7d9a78;background:transparent;padding:5px 7px;font-size:7px;letter-spacing:.06em}.quick:hover{border-color:#53784a;color:var(--green)}.quick:disabled{opacity:.45}
 .footer{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 12px;background:#040a05;color:#496348;font-size:7px;letter-spacing:.08em}.footer span:last-child{text-align:right}
 .hardware{height:28px;display:flex;align-items:center;justify-content:space-between;padding:0 10px 0;color:#71806e;font-size:7px;letter-spacing:.14em}.screw{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#5e675b,#161b16);border:1px solid #080a08;box-shadow:inset 0 0 0 1px #2f362d;position:relative}.screw:after{content:"";position:absolute;width:4px;height:1px;background:#080b08;left:1px;top:2px;transform:rotate(-35deg)}
-@keyframes blink{to{visibility:hidden}}@keyframes activeglow{0%,100%{text-shadow:0 0 4px #b8f36f20}50%{text-shadow:0 0 11px #b8f36f70}}
+@keyframes blink{to{visibility:hidden}}@keyframes activeglow{0%,100%{text-shadow:0 0 4px #b8f36f20}50%{text-shadow:0 0 11px #b8f36f70}}@keyframes output-in{from{opacity:0;transform:translateX(3px)}to{opacity:1;transform:translateX(0)}}@keyframes working{0%,100%{opacity:.55}50%{opacity:1}}.led.pulse{animation:activeglow .25s ease-in-out 3}
 @media(max-width:640px){body{padding:0;background:var(--screen)}.device{width:100%;min-height:100dvh;border-radius:0;border:0;padding:0;background:var(--screen);box-shadow:none}.device:before,.device:after,.side-rails,.device-mark,.hardware{display:none}.screen{min-height:100dvh;border:0;outline:0;box-shadow:none}.statusbar{padding-top:max(9px,env(safe-area-inset-top))}.output{min-height:220px;max-height:48dvh;flex:1}.masthead{padding:14px 12px 12px}.functionbar{padding:7px}.commandbar{padding:10px}.footer{padding-bottom:max(8px,env(safe-area-inset-bottom))}}
 @media(max-width:360px){.unit-stamp{display:none}.device-title{font-size:20px}.function-key{font-size:7px}.output{font-size:9px;max-height:44dvh}.command-input{font-size:10px}.quickbar{gap:4px}.quick{padding:5px 6px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
@@ -46,7 +46,7 @@
 <div class="terminal-head"><span>TTY-01 <strong>// COMMAND INTERFACE</strong></span><span><i class="cursor-led"></i> LOCAL SESSION</span></div>
 <div class="output" id="terminal-output" role="log" aria-live="polite" aria-label="Terminal output"></div>
 <form class="commandbar" id="command-form"><label class="prompt" for="command-input">BS09:&gt;</label><input class="command-input" id="command-input" name="command" type="text" maxlength="160" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type help" aria-label="Command input"><button class="submit" type="submit">ENTER ↵</button></form>
-<div class="quickbar" aria-label="Quick commands"><button class="quick" data-command="time">TIME</button><button class="quick" data-command="status">STATUS</button><button class="quick" data-command="battery">BATTERY</button><button class="quick" data-command="weather">WEATHER</button><button class="quick" data-command="compass status">COMPASS</button><button class="quick" data-command="wake status">WAKE LOCK</button><button class="quick" data-command="clear">CLEAR</button></div>
+<div class="quickbar" aria-label="Quick commands"><button class="quick" data-command="dns example.com">DNS</button><button class="quick" data-command="rdap example.com">RDAP</button><button class="quick" data-command="hash hello world">HASH</button><button class="quick" data-command="netcheck">NETCHECK</button><button class="quick" data-command="motion on">MOTION</button><button class="quick" data-command="pulse">PULSE</button><button class="quick" data-command="battery">BATTERY</button><button class="quick" data-command="weather">WEATHER</button><button class="quick" data-command="clear">CLEAR</button></div>
 <div class="footer"><span>LOCAL BROWSER CONSOLE</span><span>NO OS SHELL / NO HOST SCAN</span></div>
 </div>
 <div class="hardware"><span class="screw"></span><span>BS09 / FIELD SYSTEMS</span><span>SEALED DISPLAY</span><span class="screw"></span></div>
@@ -55,7 +55,7 @@
 (function(){
 "use strict";
 var $=function(id){return document.getElementById(id)};
-var battery=null,wakeLock=null,wakeWanted=false,wakeBusy=false,weatherBusy=false,compassOn=false,compassSeen=false,compassHandler=null,compassTimer=null,compassOutput=null,commandHistory=[],historyIndex=0;
+var battery=null,wakeLock=null,wakeWanted=false,wakeBusy=false,weatherBusy=false,compassOn=false,compassSeen=false,compassHandler=null,compassTimer=null,compassOutput=null,motionOn=false,motionSeen=false,motionHandler=null,motionOutput=null,motionLast=0,commandHistory=[],historyIndex=0;
 function pad(n){return String(n).padStart(2,"0")}
 function nowTime(){var d=new Date();return pad(d.getHours())+":"+pad(d.getMinutes())+":"+pad(d.getSeconds())}
 function updateHeader(){var on=navigator.onLine;$("link-led").style.background=on?"var(--green)":"var(--red)";$("link-label").textContent=on?"NET HINT: ONLINE":"NET HINT: OFFLINE";$("link-label").className=on?"status-value":"status-value offline";$("clock-mini").textContent=nowTime()}
@@ -64,7 +64,7 @@ function output(text,kind){var el=document.createElement("div");el.className="li
 function blank(){var el=document.createElement("div");el.className="line";el.textContent=" ";$("terminal-output").append(el)}
 function reportError(msg){output("ERR: "+msg,"bad")}
 function runStatus(){var online=navigator.onLine,secure=window.isSecureContext===true;output("CONNECTION  "+(online?"ONLINE (BROWSER REPORT)":"OFFLINE (BROWSER REPORT)"),online?"good":"warn");output("SECURE CTX  "+(secure?"YES":"NO"),secure?"good":"warn");output("LOCAL TIME  "+nowTime());output("TIME ZONE   "+(Intl.DateTimeFormat().resolvedOptions().timeZone||"Not exposed"));output("BROWSER     "+(navigator.userAgentData&&navigator.userAgentData.platform||navigator.platform||"Platform not exposed"));output("NOTE        Online state does not guarantee internet access.","dim")}
-function help(){output("AVAILABLE LOCAL COMMANDS","good");output("  help                 list commands");output("  time / date          show device time and date");output("  status               show real browser status");output("  battery              read battery, if exposed");output("  wake on | off | status");output("                       control screen wake lock");output("  weather              request location and current weather");output("  compass on | off | status");output("                       device heading, if available");output("  tools                show browser API support");output("  clear                clear terminal output");output("  about                show console limitations");output("No operating-system shell, network scanner, or file decryptor.","dim")}
+function help(){output("AVAILABLE COMMANDS","good");output("  dns domain [type]    real DNS-over-HTTPS lookup");output("  rdap domain          public registration information");output("  hash text            local SHA-256 fingerprint");output("  netcheck             real request to public DNS resolver");output("  motion on|off|status live device motion sensor");output("  pulse                request device vibration");output("  time / date          device time and timezone");output("  status               browser connection/security status");output("  battery              real battery, if exposed");output("  wake on|off|status   screen wake-lock control");output("  weather              request location and weather");output("  compass on|off|status real compass, if available");output("  tools / clear / about");output("Requests can fail due to permissions, network, or CORS.","dim")}
 function showTime(){var d=new Date();output("LOCAL TIME  "+nowTime(),"good");output("LOCAL DATE  "+d.toLocaleDateString(undefined,{weekday:"long",year:"numeric",month:"long",day:"2-digit"}));output("TIME ZONE   "+(Intl.DateTimeFormat().resolvedOptions().timeZone||"Not exposed"));output("UTC OFFSET  "+(d.getTimezoneOffset()<=0?"+":"-")+pad(Math.floor(Math.abs(d.getTimezoneOffset())/60))+":"+pad(Math.abs(d.getTimezoneOffset())%60))}
 function about(){output("BLACKSITE-09 / BROWSER FIELD CONSOLE","good");output("This page can call only browser-exposed APIs and","dim");output("the weather service after the operator requests it.","dim");output("It is not a shell and cannot execute OS commands,","dim");output("inspect private system processes, or scan hosts.","dim")}
 function showTools(){output("API CAPABILITY CHECK","good");output("SCREEN WAKE LOCK  "+("wakeLock" in navigator?"EXPOSED":"UNAVAILABLE"),"wakeLock" in navigator?"good":"warn");output("BATTERY API        "+(typeof navigator.getBattery==="function"?"EXPOSED":"UNAVAILABLE"),typeof navigator.getBattery==="function"?"good":"warn");output("GEOLOCATION        "+(!!navigator.geolocation?"EXPOSED (PERMISSION REQUIRED)":"UNAVAILABLE"),navigator.geolocation?"good":"warn");output("ORIENTATION API    "+("DeviceOrientationEvent" in window?"EXPOSED":"UNAVAILABLE"),("DeviceOrientationEvent" in window)?"good":"warn");output("SECURE CONTEXT     "+(window.isSecureContext?"YES":"NO"),window.isSecureContext?"good":"warn");output("API exposure does not guarantee sensor hardware.","dim")}
@@ -79,7 +79,100 @@ function compassStatus(){output("COMPASS SENSOR  "+(compassOn?(compassSeen?"ACTI
 function compassEvent(e){var heading=null;if(typeof e.webkitCompassHeading==="number")heading=e.webkitCompassHeading;else if(e.absolute===true&&typeof e.alpha==="number"){var angle=screen.orientation&&typeof screen.orientation.angle==="number"?screen.orientation.angle:(typeof window.orientation==="number"?window.orientation:0);heading=(360-e.alpha+angle)%360}else{return}heading=(heading+360)%360;compassSeen=true;var text="DEVICE HEADING  "+Math.round(heading)+" DEG / "+["N","NE","E","SE","S","SW","W","NW"][Math.round(heading/45)%8];if(!compassOutput||!compassOutput.isConnected)compassOutput=output(text,"good");else compassOutput.textContent=text}
 async function startCompass(){if(compassOn){compassStatus();return}if(!window.isSecureContext){reportError("compass sensors require HTTPS or localhost");return}if(!("DeviceOrientationEvent" in window)){reportError("orientation API unavailable");return}try{if(typeof DeviceOrientationEvent.requestPermission==="function"){var permission=await DeviceOrientationEvent.requestPermission();if(permission!=="granted")throw new Error("permission denied")}compassOn=true;compassSeen=false;compassHandler=compassEvent;window.addEventListener("deviceorientationabsolute",compassHandler,true);window.addEventListener("deviceorientation",compassHandler,true);output("COMPASS LISTENER ENABLED. WAITING FOR SENSOR…","good");compassTimer=setTimeout(function(){if(compassOn&&!compassSeen)output("No absolute heading received. Hardware/API may not support compass.","warn")},5000)}catch(e){compassOn=false;reportError("orientation permission was not granted")}}
 function stopCompass(){if(compassHandler){window.removeEventListener("deviceorientationabsolute",compassHandler,true);window.removeEventListener("deviceorientation",compassHandler,true);compassHandler=null}if(compassTimer)clearTimeout(compassTimer);compassOn=false;compassSeen=false;compassOutput=null;output("COMPASS LISTENER DISABLED","good")}
-function runCommand(raw,fromButton){var original=String(raw||"").trim();if(!original)return;if(!fromButton){commandHistory.push(original);if(commandHistory.length>50)commandHistory.shift();historyIndex=commandHistory.length}output("BS09:> "+original,"prompt");var parts=original.toLowerCase().split(/\s+/),cmd=parts[0],arg=parts[1]||"";switch(cmd){case "help":case "?":help();break;case "time":case "date":showTime();break;case "status":runStatus();break;case "battery":showBattery();break;case "wake":if(arg==="on")setWake(true);else if(arg==="off")setWake(false);else wakeStatus();break;case "weather":getWeather();break;case "compass":if(arg==="on")startCompass();else if(arg==="off")stopCompass();else compassStatus();break;case "tools":showTools();break;case "clear":$("terminal-output").textContent="";compassOutput=null;break;case "about":about();break;default:reportError("unknown command '"+parts[0]+"'; enter help")}}
+
+function validDomain(input){
+ var domain=String(input||"").trim().toLowerCase().replace(/\.$/,"");
+ if(!domain||domain.length>253||domain.indexOf(".")<1||domain.indexOf("://")!==-1||domain.indexOf("/")!==-1)return null;
+ var labels=domain.split(".");
+ if(labels.some(function(label){return !label||label.length>63||!/^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(label)}))return null;
+ return domain;
+}
+function timedFetch(url,timeoutMs){
+ var controller=new AbortController(),timer=setTimeout(function(){controller.abort()},timeoutMs);
+ return fetch(url,{signal:controller.signal,cache:"no-store"}).finally(function(){clearTimeout(timer)});
+}
+function phaseLine(text){var span=output(text,"warn");span.classList.add("working");return span}
+function finishPhase(span,text,kind){if(span){span.textContent=text;span.className=kind||"good"}}
+var dnsTypes={A:1,AAAA:28,MX:15,TXT:16,NS:2,CNAME:5,SOA:6,CAA:257,SRV:33,PTR:12};
+var dnsStatus={0:"NOERROR",1:"FORMERR",2:"SERVFAIL",3:"NXDOMAIN",4:"NOTIMP",5:"REFUSED"};
+async function dnsLookup(raw){
+ var args=raw.trim().split(/\s+/),domain=validDomain(args[1]),type=(args[2]||"A").toUpperCase();
+ if(!domain){reportError("usage: dns example.com [A|AAAA|MX|TXT|NS|CNAME|SOA|CAA|SRV]");return}
+ if(!Object.prototype.hasOwnProperty.call(dnsTypes,type)){reportError("unsupported DNS type '"+type+"'");return}
+ var phase=phaseLine("DNS OVER HTTPS // QUERYING "+domain+" / "+type+"…"),started=performance.now();
+ try{
+  var response=await timedFetch("https://dns.google/resolve?name="+encodeURIComponent(domain)+"&type="+encodeURIComponent(type),12000);
+  if(!response.ok)throw new Error("resolver HTTP "+response.status);
+  var data=await response.json(),elapsed=Math.round(performance.now()-started),status=dnsStatus[data.Status]||("DNS STATUS "+data.Status);
+  finishPhase(phase,"DNS RESPONSE RECEIVED / "+elapsed+" ms / "+status,data.Status===0?"good":"warn");
+  output("RESOLVER  Google Public DNS / HTTPS","dim");output("QUERY     "+domain+" / "+type,"plain");
+  output("DNSSEC    "+(data.AD===true?"AUTHENTICATED DATA FLAG SET":"VALIDATION NOT INDICATED"),data.AD===true?"good":"dim");
+  var answers=Array.isArray(data.Answer)?data.Answer:[];
+  if(!answers.length){output("NO ANSWER RECORDS RETURNED ("+status+").",data.Status===0?"warn":"bad");return}
+  output("ANSWERS   "+answers.length+" RECORD(S)","good");
+  answers.slice(0,12).forEach(function(r){output("  "+r.name+"  "+type+"  TTL "+r.TTL+"  "+r.data,"plain")});
+  if(answers.length>12)output("… "+(answers.length-12)+" more records omitted","dim");
+ }catch(error){finishPhase(phase,error.name==="AbortError"?"DNS QUERY TIMED OUT":"DNS QUERY FAILED","bad");reportError(error.name==="AbortError"?"resolver did not respond within 12 seconds":"resolver unavailable or browser blocked the request (CORS/network)")}
+}
+function rdapRegistrar(data){
+ var entities=Array.isArray(data.entities)?data.entities:[];
+ for(var i=0;i<entities.length;i++){var entity=entities[i];if((entity.roles||[]).indexOf("registrar")===-1)continue;var v=entity.vcardArray&&entity.vcardArray[1];if(Array.isArray(v)){var org=v.find(function(r){return r[0]==="org"}),fn=v.find(function(r){return r[0]==="fn"});if(org&&org[3])return Array.isArray(org[3])?org[3].join(" "):String(org[3]);if(fn&&fn[3])return String(fn[3])}if(entity.handle)return String(entity.handle)}
+ return "Not published in response";
+}
+async function rdapLookup(raw){
+ var domain=validDomain(raw.trim().split(/\s+/)[1]);if(!domain){reportError("usage: rdap example.com");return}
+ var phase=phaseLine("RDAP // REQUESTING PUBLIC REGISTRATION DATA FOR "+domain+"…"),started=performance.now();
+ try{
+  var response=await timedFetch("https://rdap.org/domain/"+encodeURIComponent(domain),14000);
+  if(response.status===404){finishPhase(phase,"RDAP RESPONSE / DOMAIN NOT FOUND","warn");output("No domain record was returned for "+domain+".","warn");return}
+  if(!response.ok)throw new Error("RDAP HTTP "+response.status);
+  var data=await response.json(),elapsed=Math.round(performance.now()-started);finishPhase(phase,"RDAP RESPONSE RECEIVED / "+elapsed+" ms","good");
+  output("DOMAIN    "+(data.ldhName||data.unicodeName||domain),"good");output("HANDLE    "+(data.handle||"Not provided"),"dim");output("REGISTRAR "+rdapRegistrar(data),"plain");
+  var statuses=Array.isArray(data.status)?data.status:[];if(statuses.length)output("STATUS    "+statuses.slice(0,5).join(", "),"plain");
+  var ns=Array.isArray(data.nameservers)?data.nameservers.map(function(n){return n.ldhName||n.unicodeName}).filter(Boolean):[];
+  ns.slice(0,6).forEach(function(n){output("NS        "+n,"plain")});
+  var actions={"registration":"CREATED","registered":"CREATED","expiration":"EXPIRES","last changed":"UPDATED","last update of RDAP database":"RDAP UPDATED"},shown=0;
+  (Array.isArray(data.events)?data.events:[]).forEach(function(ev){var label=actions[String(ev.eventAction||"").toLowerCase()];if(label&&ev.eventDate&&shown<4){output(label.padEnd(11," ")+String(ev.eventDate).slice(0,10),"plain");shown++}});
+  output("Only registry-published fields are shown; private contacts are omitted.","dim");
+ }catch(error){finishPhase(phase,error.name==="AbortError"?"RDAP REQUEST TIMED OUT":"RDAP LOOKUP FAILED","bad");reportError(error.name==="AbortError"?"registration service timed out":"service unavailable or browser blocked the request (CORS/network)")}
+}
+function bytesToHex(buffer){return Array.from(new Uint8Array(buffer)).map(function(n){return n.toString(16).padStart(2,"0")}).join("")}
+async function hashText(raw){
+ var input=raw.replace(/^\s*hash\s*/i,"");if(/^sha-?256\s+/i.test(input))input=input.replace(/^sha-?256\s+/i,"");
+ if(!input){reportError("usage: hash text to fingerprint");return}
+ if(!window.isSecureContext||!window.crypto||!window.crypto.subtle){reportError("Web Crypto unavailable; use HTTPS for SHA-256");return}
+ var phase=phaseLine("SHA-256 // PROCESSING INPUT BYTES…"),started=performance.now();
+ try{var bytes=new TextEncoder().encode(input),digest=await window.crypto.subtle.digest("SHA-256",bytes),hex=bytesToHex(digest);finishPhase(phase,"DIGEST COMPUTED / "+Math.round(performance.now()-started)+" ms","good");output("ALGORITHM SHA-256","dim");output("INPUT     "+bytes.length+" UTF-8 BYTE(S)","dim");var result=output("DIGEST    ","good"),index=0;function reveal(){index=Math.min(index+8,hex.length);result.textContent="DIGEST    "+hex.slice(0,index)+(index<hex.length?" ▌":"");if(index<hex.length)setTimeout(reveal,24);else result.textContent="DIGEST    "+hex}reveal()}
+ catch(error){finishPhase(phase,"HASH FAILED","bad");reportError("Web Crypto could not digest this input")}
+}
+async function netCheck(){
+ var phase=phaseLine("NETCHECK // CONNECTING TO PUBLIC DNS OVER HTTPS…"),started=performance.now();
+ try{var response=await timedFetch("https://dns.google/resolve?name=example.com&type=A",10000);var data=await response.json(),elapsed=Math.round(performance.now()-started);if(!response.ok)throw new Error("HTTP "+response.status);finishPhase(phase,"REQUEST RETURNED / "+elapsed+" ms","good");output("ENDPOINT  dns.google / HTTPS","dim");output("HTTP      "+response.status+" "+response.statusText,"good");output("DNS       "+(dnsStatus[data.Status]||("STATUS "+data.Status)),data.Status===0?"good":"warn");output("LATENCY   "+elapsed+" ms ROUND-TRIP","good");output("SCOPE     One public resolver only; not a full network audit.","dim")}
+ catch(error){finishPhase(phase,error.name==="AbortError"?"CONNECTION TEST TIMED OUT":"CONNECTION TEST FAILED","bad");reportError(error.name==="AbortError"?"public resolver did not reply within 10 seconds":"request blocked or failed; check network / browser policy")}
+}
+function vibrationPulse(){
+ if(typeof navigator.vibrate!=="function"){reportError("Vibration API unsupported by this browser/device");return}
+ var accepted=navigator.vibrate([70,45,70,45,150]);if(accepted){$("link-led").classList.add("pulse");setTimeout(function(){$("link-led").classList.remove("pulse")},900);output("HAPTIC PATTERN REQUEST SENT","good");output("Device may ignore vibration in silent mode or without hardware.","dim")}else reportError("device did not accept the vibration request")
+}
+function renderMotion(span,event){
+ var a=event.accelerationIncludingGravity||event.acceleration;
+ if(!a||![a.x,a.y,a.z].some(function(n){return Number.isFinite(n)})){span.textContent="MOTION DATA UNAVAILABLE";return}
+ function n(v){return Number.isFinite(v)?v.toFixed(2):"--"}
+ var x=n(a.x),y=n(a.y),z=n(a.z),energy=Math.sqrt((Number(a.x)||0)**2+(Number(a.y)||0)**2+(Number(a.z)||0)**2),bars=Math.max(0,Math.min(10,Math.round(energy/2)));
+ span.textContent="LIVE XYZ  X "+x+" / Y "+y+" / Z "+z+" m/s²  ["+"▮".repeat(bars)+"▯".repeat(10-bars)+"]";
+}
+function onMotion(event){if(!motionOn||!motionOutput)return;var t=performance.now();if(t-motionLast<130)return;motionLast=t;motionSeen=true;renderMotion(motionOutput,event)}
+async function motionStart(){
+ if(motionOn){output("MOTION SENSOR ALREADY ACTIVE","good");return}
+ if(!window.isSecureContext){reportError("motion sensor requires HTTPS or localhost");return}
+ if(!("DeviceMotionEvent" in window)){reportError("DeviceMotionEvent unavailable in this browser");return}
+ try{if(typeof DeviceMotionEvent.requestPermission==="function"){var p=await DeviceMotionEvent.requestPermission();if(p!=="granted")throw new Error("permission denied")}motionOn=true;motionSeen=false;motionLast=0;output("MOTION SENSOR ENABLED / WAITING FOR REAL DATA…","good");motionOutput=output("LIVE XYZ / WAITING FOR DEVICE MOVEMENT…","plain");motionHandler=onMotion;window.addEventListener("devicemotion",motionHandler,true);setTimeout(function(){if(motionOn&&!motionSeen)output("No motion samples received; hardware or browser may not expose sensor data.","warn")},3000)}
+ catch(e){motionOn=false;reportError("motion permission denied or unavailable")}
+}
+function motionStop(){if(motionHandler){window.removeEventListener("devicemotion",motionHandler,true);motionHandler=null}motionOn=false;motionOutput=null;output("MOTION LISTENER DISABLED","good")}
+function motionStatus(){output("MOTION SENSOR "+(motionOn?(motionSeen?"ACTIVE / RECEIVING DATA":"ACTIVE / WAITING"):"INACTIVE"),motionOn?"good":"plain")}
+
+function runCommand(raw,fromButton){var original=String(raw||"").trim();if(!original)return;if(!fromButton){commandHistory.push(original);if(commandHistory.length>50)commandHistory.shift();historyIndex=commandHistory.length}output("BS09:> "+original,"prompt");var parts=original.toLowerCase().split(/\s+/),cmd=parts[0],arg=parts[1]||"";switch(cmd){case "help":case "?":help();break;case "time":case "date":showTime();break;case "status":runStatus();break;case "battery":showBattery();break;case "wake":if(arg==="on")setWake(true);else if(arg==="off")setWake(false);else wakeStatus();break;case "weather":getWeather();break;case "compass":if(arg==="on")startCompass();else if(arg==="off")stopCompass();else compassStatus();break;case "motion":if(arg==="on")motionStart();else if(arg==="off")motionStop();else motionStatus();break;case "pulse":vibrationPulse();break;case "dns":dnsLookup(original);break;case "rdap":rdapLookup(original);break;case "hash":hashText(original);break;case "netcheck":netCheck();break;case "tools":showTools();break;case "clear":$("terminal-output").textContent="";compassOutput=null;motionOutput=null;break;case "about":about();break;default:reportError("unknown command '"+parts[0]+"'; enter help")}}
 $("command-form").addEventListener("submit",function(e){e.preventDefault();var input=$("command-input"),value=input.value;input.value="";runCommand(value,false)});
 $("command-input").addEventListener("keydown",function(e){if(e.key==="ArrowUp"){e.preventDefault();historyIndex=Math.max(0,historyIndex-1);this.value=commandHistory[historyIndex]||"";this.setSelectionRange(this.value.length,this.value.length)}else if(e.key==="ArrowDown"){e.preventDefault();historyIndex=Math.min(commandHistory.length,historyIndex+1);this.value=commandHistory[historyIndex]||"";this.setSelectionRange(this.value.length,this.value.length)}});
 document.querySelectorAll("[data-command]").forEach(function(button){button.addEventListener("click",function(){runCommand(button.dataset.command,true)})});
