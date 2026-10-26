@@ -1,12 +1,12 @@
-# BLACKSITE-09 — Operations Console
+# BLACKSITE-09 — Unified Operations Console
 
-A code-generated, animated fictional cyber-operations interface built with vanilla HTML, CSS, SVG, Canvas, and JavaScript.
+A code-generated, animated fictional cyber-operations interface built with vanilla HTML, CSS, SVG, Canvas, and JavaScript. Every module lives on **one continuous, scrollable console screen**. The sidebar is one menu that jumps to each section instead of switching between separate pages.
 
 ## Console modules
 
 - **Overview:** status tiles, clickable network topology, node intelligence, animated demo telemetry, command terminal, and event stream.
 - **Network map:** expanded procedural node graph with selectable nodes and a registry.
-- **Signal lab:** animated Canvas spectrum and a scan simulation that generates fictional readings.
+- **Signal lab:** animated Canvas spectrum and a sweep simulation that generates fictional readings.
 - **Data archive:** fictional dossiers with animated local decode effects and clearance requirements.
 - **Access control:** animated clearance handshake and simulated access levels.
 - **Field tools:** screen wake lock, battery status, on-demand local weather, and device compass, where supported by the browser and hardware.
