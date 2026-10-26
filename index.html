@@ -58,7 +58,7 @@ var $=function(id){return document.getElementById(id)};
 var battery=null,wakeLock=null,wakeWanted=false,wakeBusy=false,weatherBusy=false,compassOn=false,compassSeen=false,compassHandler=null,compassTimer=null,compassOutput=null,commandHistory=[],historyIndex=0;
 function pad(n){return String(n).padStart(2,"0")}
 function nowTime(){var d=new Date();return pad(d.getHours())+":"+pad(d.getMinutes())+":"+pad(d.getSeconds())}
-function updateHeader(){var on=navigator.onLine;$("link-led").style.background=on?"var(--green)":"var(--red)";$("link-label").textContent=on?"LINK ONLINE":"LINK OFFLINE";$("link-label").className=on?"status-value":"status-value offline";$("clock-mini").textContent=nowTime()}
+function updateHeader(){var on=navigator.onLine;$("link-led").style.background=on?"var(--green)":"var(--red)";$("link-label").textContent=on?"NET HINT: ONLINE":"NET HINT: OFFLINE";$("link-label").className=on?"status-value":"status-value offline";$("clock-mini").textContent=nowTime()}
 window.addEventListener("online",updateHeader);window.addEventListener("offline",updateHeader);
 function output(text,kind){var el=document.createElement("div");el.className="line";var ts=document.createElement("span");ts.className="ts";ts.textContent="["+nowTime()+"] ";var content=document.createElement("span");content.className=kind||"plain";content.textContent=text;el.append(ts,content);$("terminal-output").append(el);while($("terminal-output").children.length>140)$("terminal-output").removeChild($("terminal-output").firstElementChild);$("terminal-output").scrollTop=$("terminal-output").scrollHeight;return content}
 function blank(){var el=document.createElement("div");el.className="line";el.textContent=" ";$("terminal-output").append(el)}
