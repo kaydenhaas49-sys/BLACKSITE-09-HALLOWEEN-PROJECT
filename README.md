@@ -1,20 +1,18 @@
 # BLACKSITE-09 — Personal Field Display
 
-A minimal, animated clock screen with a subtle BLACKSITE-09 industrial interface.
+An animated, mobile-friendly clock with four practical phone utilities.
 
 ## Features
 
-- Live local time and date
-- Circular seconds indicator and animated orbit details
-- Day-progress line
-- 12-hour / 24-hour display switch
-- Adapts to desktop and mobile screens
-- Reduced-motion support
-- No frameworks, packages, tracking, GPS, accounts, or network calls
+- **Animated local clock:** live time, date, timezone, and day-progress indicator, with a 12/24-hour switch.
+- **Keep screen awake:** requests the browser Screen Wake Lock so the screen can stay on while the page is visible. Support depends on browser/device and usually requires HTTPS.
+- **Battery status:** displays charge percentage and charging state when the browser exposes the Battery Status API; otherwise it shows an unavailable status.
+- **Local weather:** on request, asks for device location and fetches current conditions plus today's high/low from [Open-Meteo](https://open-meteo.com/). Coordinates are sent to the weather provider only after the user presses the weather button; the page does not save them. Weather API data is attributed to Open-Meteo.
+- **Compass:** requests device-orientation permission and reads a real heading if the browser/device supplies absolute compass data. Some devices or browsers won't provide it.
 
 ## Run it
 
-Open `index.html` in a modern browser. No installation or build step is required.
+Open `index.html` in a modern browser. No installation or build step is needed. HTTPS is recommended for device APIs.
 
 ## Publish with GitHub Pages
 
@@ -25,10 +23,12 @@ Open `index.html` in a modern browser. No installation or build step is required
 
    https://kaydenhaas49-sys.github.io/BLACKSITE-09-HALLOWEEN-PROJECT/
 
-## Privacy
+## Privacy and limitations
 
-The page reads the device's local clock and timezone. It does not collect or save personal data.
+The clock uses the device's local time and timezone. Battery and compass data are read from browser APIs when available. Weather only requests geolocation after a button press; the coordinates are sent to Open-Meteo to retrieve weather. No coordinates are stored by this app.
+
+The browser may revoke a wake lock when the page is hidden, may not expose battery information, and may not provide absolute compass heading. The site shows fallbacks for unsupported features rather than displaying fabricated readings.
 
 ## File
 
-- `index.html` — complete website, styles, and clock behavior.
+- `index.html` — complete app, styles, and feature logic.
