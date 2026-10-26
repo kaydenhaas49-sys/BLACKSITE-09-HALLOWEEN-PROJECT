@@ -3,139 +3,140 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0a0c0b">
-<meta name="description" content="BLACKSITE-09 everyday field kit: clock, timer, checklist, and quick notes.">
-<title>BLACKSITE-09 // Field Kit</title>
+<meta name="theme-color" content="#080b09">
+<meta name="description" content="BLACKSITE-09 — a minimal animated local clock display.">
+<title>BLACKSITE-09 // Local Clock</title>
 <style>
-:root{color-scheme:dark;--bg:#090b0a;--panel:#111512;--panel2:#171c18;--line:#2a332c;--text:#e8ece7;--muted:#89958a;--dim:#536056;--accent:#c8ed7a;--accent-dark:#29371c;--amber:#e2b36d;--red:#e97967;--mono:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;--sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-*{box-sizing:border-box}html{min-height:100%;background:var(--bg)}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 80% -10%,#182018 0,transparent 38%),var(--bg);color:var(--text);font:14px var(--sans);padding-bottom:calc(80px + env(safe-area-inset-bottom))}
-button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:3px}::selection{background:var(--accent);color:#0a0c0a}
-.wrap{width:min(760px,100%);margin:auto;padding:0 20px}.top{height:67px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:12px}.brand{display:flex;align-items:center;gap:11px}.mark{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--accent);color:var(--accent);font:11px var(--mono);letter-spacing:-.04em;position:relative}.mark:after{content:"";position:absolute;inset:4px;border:1px solid #59694a}.brand-name{font:700 12px var(--mono);letter-spacing:.09em}.brand-sub{margin-top:4px;color:var(--muted);font:9px var(--mono);letter-spacing:.14em}.local-label{display:flex;gap:7px;align-items:center;color:var(--muted);font:9px var(--mono);letter-spacing:.08em}.dot{width:6px;height:6px;background:var(--accent);border-radius:50%;box-shadow:0 0 9px #c8ed7a66}
-main{padding-top:29px}.page{display:none;animation:rise .22s ease}.page.active{display:block}@keyframes rise{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}@keyframes glow{0%,100%{box-shadow:0 0 0 0 #c8ed7a00}50%{box-shadow:0 0 0 4px #c8ed7a0a}}@keyframes tick{50%{opacity:.35}}
-.eyebrow{color:var(--accent);font:10px var(--mono);letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:9px;margin:0 0 13px}.eyebrow:before{content:"";width:17px;height:1px;background:var(--accent)}h1{font-size:clamp(28px,6vw,39px);line-height:1.06;letter-spacing:-.055em;font-weight:560;margin:0 0 10px}h1 span{color:var(--accent)}.sub{color:var(--muted);font-size:12px;line-height:1.6;margin:0;max-width:510px}
-.clock-card{margin-top:25px;padding:23px 23px 20px;border:1px solid #354132;background:linear-gradient(135deg,#151b15,#0f130f 72%);position:relative;overflow:hidden}.clock-card:after{content:"";position:absolute;width:180px;height:180px;border:1px solid #c8ed7a0d;border-radius:50%;right:-65px;top:-85px;box-shadow:0 0 0 22px #c8ed7a05,0 0 0 44px #c8ed7a04;pointer-events:none}.card-kicker{font:9px var(--mono);color:var(--muted);letter-spacing:.15em}.clock{font:clamp(49px,12vw,76px) var(--mono);letter-spacing:-.075em;line-height:1.1;margin:13px 0 9px;font-variant-numeric:tabular-nums}.date{color:#b1bdb1;font-size:12px}.clock-foot{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:24px;padding-top:13px;border-top:1px solid var(--line);font:9px var(--mono);color:var(--muted);letter-spacing:.08em}.live{color:var(--accent)}
-.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 0 12px}.section-head h2{font-size:12px;font-weight:600;letter-spacing:.02em;margin:0}.section-head span{font:9px var(--mono);color:var(--muted)}
-.panel{border:1px solid var(--line);background:rgba(17,21,18,.9);border-radius:5px;overflow:hidden}.panel-top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 15px;border-bottom:1px solid var(--line)}.panel-title{font:10px var(--mono);letter-spacing:.11em}.muted{color:var(--muted)}.mini-button{border:1px solid var(--line);background:transparent;color:var(--muted);font:9px var(--mono);padding:7px 9px}.mini-button:hover{color:var(--accent);border-color:#59664c}
-.task-list{padding:4px 15px}.task{display:flex;align-items:center;gap:11px;min-height:45px;border-bottom:1px solid #222a23}.task:last-child{border-bottom:0}.task input[type=checkbox]{appearance:none;width:16px;height:16px;border:1px solid #536151;background:#0c100d;margin:0;flex:none;display:grid;place-items:center;cursor:pointer}.task input[type=checkbox]:checked{background:var(--accent);border-color:var(--accent)}.task input[type=checkbox]:checked:after{content:"✓";color:#0a0c0a;font-size:12px;font-weight:800}.task label{flex:1;min-width:0;font-size:12px;line-height:1.4;overflow-wrap:anywhere}.task.done label{color:#6f7b70;text-decoration:line-through}.delete-task{border:0;background:transparent;color:#657064;padding:7px 5px;font-size:17px;line-height:1}.delete-task:hover{color:var(--red)}.add-task{display:flex;gap:8px;padding:12px 13px;border-top:1px solid var(--line)}.field{min-width:0;width:100%;border:1px solid var(--line);border-radius:3px;color:var(--text);background:#0b0f0c;padding:11px 12px;font-size:12px}.field::placeholder{color:#59665b}.field:focus{outline:none;border-color:#708454}.primary{background:var(--accent);border:1px solid var(--accent);border-radius:3px;color:#11170b;padding:10px 13px;font:10px var(--mono);letter-spacing:.07em;white-space:nowrap}.primary:hover{filter:brightness(1.07)}.secondary{background:transparent;color:var(--text);border:1px solid var(--line);border-radius:3px;padding:10px 13px;font:10px var(--mono);letter-spacing:.07em}.secondary:hover{border-color:#64745a;color:var(--accent)}.empty{padding:20px 10px;color:var(--muted);font-size:11px;line-height:1.6;text-align:center}.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.quick{border:1px solid var(--line);background:#111612;color:var(--text);min-height:72px;display:flex;align-items:center;text-align:left;gap:12px;padding:14px;border-radius:4px;transition:border-color .16s,transform .16s}.quick:hover{border-color:#667651;transform:translateY(-1px)}.quick-icon{width:32px;height:32px;display:grid;place-items:center;flex:none;border:1px solid #354132;color:var(--accent);font:17px var(--mono)}.quick strong{display:block;font-size:12px;font-weight:550}.quick small{display:block;margin-top:5px;color:var(--muted);font-size:10px}
-.page-title{margin-bottom:22px}.page-title h1{font-size:31px}.page-title .sub{margin-top:8px}
-.timer-panel{padding:22px 17px;text-align:center}.segmented{display:inline-flex;padding:3px;border:1px solid var(--line);background:#0b0f0c;border-radius:4px;gap:3px}.segment{border:0;background:transparent;color:var(--muted);padding:8px 15px;font:10px var(--mono);border-radius:2px}.segment.active{background:#28351e;color:var(--accent)}.timer-display{font:clamp(48px,13vw,72px) var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.07em;margin:26px 0 20px}.timer-controls{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.presets{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-top:18px}.preset{border:1px solid var(--line);background:#0c100d;color:var(--muted);padding:8px 12px;font:10px var(--mono)}.preset:hover,.preset.active{color:var(--accent);border-color:#66794d}.custom-time{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:15px}.custom-time input{width:82px;text-align:center}.progress-track{height:3px;background:#222a22;margin-top:20px;overflow:hidden}.progress-fill{height:100%;width:0;background:var(--accent);transition:width .2s linear}.timer-note{font-size:11px;color:var(--muted);line-height:1.5;margin:14px 0 0}.timer-bottom{border-top:1px solid var(--line);margin-top:21px;padding-top:14px;display:flex;justify-content:space-between;gap:10px;color:var(--muted);font:9px var(--mono)}
-.notes-panel{padding:14px}.notes-area{width:100%;min-height:260px;resize:vertical;background:#0b0f0c;border:1px solid var(--line);border-radius:3px;padding:15px;color:var(--text);font:12px/1.7 var(--sans)}.notes-area::placeholder{color:#5e6a5f}.notes-area:focus{outline:none;border-color:#708454}.note-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:11px}.saved-status{font:9px var(--mono);color:var(--muted)}.saved-status:before{content:"●";color:var(--accent);margin-right:6px}.help{margin-top:16px;font-size:10px;color:var(--muted);line-height:1.6}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:5;display:grid;grid-template-columns:repeat(3,1fr);padding:9px 12px calc(9px + env(safe-area-inset-bottom));background:#0c100eeb;border-top:1px solid var(--line);backdrop-filter:blur(12px)}.nav-btn{min-height:47px;border:1px solid transparent;background:transparent;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:8px;font:10px var(--mono);letter-spacing:.04em;border-radius:3px}.nav-btn .nav-icon{font-size:17px}.nav-btn.active{background:#1a2217;border-color:#33432a;color:var(--accent)}.footer{text-align:center;font:9px var(--mono);color:#536056;letter-spacing:.04em;margin:30px 0 4px}.toast{position:fixed;bottom:calc(77px + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,8px);opacity:0;pointer-events:none;transition:.2s;background:#182019;border:1px solid #536544;color:var(--text);padding:11px 14px;border-radius:3px;font:10px var(--mono);z-index:10;max-width:calc(100vw - 28px);text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}
-@media(min-width:700px){body{padding-bottom:0}.wrap{padding:0 24px}.bottom-nav{position:static;max-width:712px;margin:22px auto 0;border:1px solid var(--line);border-radius:4px;padding:6px;background:#0c100e}.nav-btn{min-height:40px}.toast{bottom:25px}.quick-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:420px){.wrap{padding-left:14px;padding-right:14px}.local-label{font-size:8px}.clock-card{padding:18px 17px}.clock{font-size:53px}.quick{padding:11px;gap:9px}.quick-icon{width:29px;height:29px}.timer-panel{padding:19px 11px}.custom-time{flex-wrap:wrap}.clock-foot{font-size:8px}}
+:root{color-scheme:dark;--bg:#080b09;--ink:#e9eee6;--muted:#819083;--dim:#4c5b4e;--line:#273329;--accent:#c8ed7a;--gold:#d4b47a;--mono:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;--sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}html{min-height:100%;background:var(--bg)}body{margin:0;min-height:100vh;min-height:100svh;overflow-x:hidden;background:var(--bg);color:var(--ink);font-family:var(--sans);font-variant-numeric:tabular-nums}
+button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid var(--accent);outline-offset:4px}::selection{background:var(--accent);color:#091008}
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:radial-gradient(ellipse at 50% 42%,#1a2418 0%,#0c110d 37%,#080b09 73%)}.ambient:before{content:"";position:absolute;width:min(75vw,850px);aspect-ratio:1;left:50%;top:43%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(170,220,93,.105),rgba(97,133,65,.035) 40%,transparent 69%);filter:blur(12px);animation:breath 8s ease-in-out infinite}.ambient:after{content:"";position:absolute;inset:0;opacity:.12;background:linear-gradient(90deg,transparent 49.9%,#9db28d 50%,transparent 50.1%),linear-gradient(transparent 49.9%,#9db28d 50%,transparent 50.1%);background-size:78px 78px;mask-image:radial-gradient(ellipse at center,#000 0%,transparent 76%)}
+.grain{position:fixed;inset:0;z-index:9;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E")}
+.shell{position:relative;z-index:1;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;padding:0 clamp(18px,5vw,68px) max(20px,env(safe-area-inset-bottom));max-width:1720px;margin:0 auto}
+.top{height:76px;flex:none;display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid #b5d19a1e}.brand{display:flex;align-items:center;gap:12px}.brand-mark{position:relative;width:36px;height:36px;border:1px solid #86a85a;display:grid;place-items:center;color:var(--accent);font:10px var(--mono);letter-spacing:-.05em;background:#c8ed7a06;box-shadow:inset 0 0 16px #c8ed7a08}.brand-mark:before{content:"";position:absolute;inset:4px;border:1px solid #c8ed7a55}.brand-name{font:700 12px var(--mono);letter-spacing:.12em}.brand-sub{font:9px var(--mono);letter-spacing:.16em;color:var(--muted);margin-top:5px}.header-right{display:flex;align-items:center;gap:20px}.system-label{display:flex;align-items:center;gap:9px;font:9px var(--mono);letter-spacing:.12em;color:var(--muted)}.live-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px #c8ed7a88;animation:blink 3s ease-in-out infinite}.tiny-divider{width:1px;height:19px;background:var(--line)}
+.content{flex:1;display:grid;grid-template-columns:minmax(190px,1fr) minmax(340px,1.2fr) minmax(190px,1fr);align-items:center;gap:clamp(16px,4vw,65px);padding:44px 0 39px;max-width:1400px;width:100%;margin:0 auto}
+.side-block{align-self:center;min-width:0;animation:fadein .8s ease both}.side-block.right{animation-delay:.18s}.overline{display:flex;align-items:center;gap:9px;font:9px var(--mono);letter-spacing:.19em;color:var(--accent);text-transform:uppercase;margin-bottom:17px}.overline:before{content:"";width:17px;height:1px;background:var(--accent)}h1{font-size:clamp(27px,3.1vw,43px);font-weight:500;letter-spacing:-.055em;line-height:1.05;margin:0 0 15px}h1 span{color:var(--accent)}.description{font-size:12px;line-height:1.75;color:var(--muted);max-width:270px;margin:0}.small-rule{width:45px;height:1px;background:#91b7667a;margin:26px 0 17px}.side-caption{font:9px/1.9 var(--mono);letter-spacing:.05em;color:var(--dim)}.side-caption strong{color:#a7b7a4;font-weight:400}
+.clock-stage{position:relative;display:grid;justify-items:center;align-items:center;min-width:0;animation:rise .9s cubic-bezier(.2,.7,.2,1) both}.dial{position:relative;width:min(100%,420px);aspect-ratio:1;display:grid;place-items:center;isolation:isolate}.dial:before{content:"";position:absolute;inset:7.5%;border:1px solid #b7d49c14;border-radius:50%;box-shadow:0 0 45px #c8ed7a06,inset 0 0 45px #c8ed7a04}.dial:after{content:"";position:absolute;inset:17%;border:1px dashed #a3bf8d23;border-radius:50%;animation:rotate 85s linear infinite}
+.dial-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}.track{fill:none;stroke:#829d7218;stroke-width:1}.progress{fill:none;stroke:var(--accent);stroke-width:1.5;stroke-linecap:round;stroke-dasharray:879.65;stroke-dashoffset:879.65;filter:drop-shadow(0 0 3px #c8ed7a70);transform:rotate(-90deg);transform-origin:160px 160px;transition:stroke-dashoffset .1s linear}.ticks line{stroke:#91a6894f;stroke-width:1}.ticks line.major{stroke:#c8ed7a9c;stroke-width:1.5}.clock-core{z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;width:78%;text-align:center;transform:translateY(-1px)}.core-label{font:9px var(--mono);letter-spacing:.21em;color:var(--muted);margin:0 0 15px;display:flex;align-items:center;gap:8px}.core-label:before,.core-label:after{content:"";height:1px;width:15px;background:#91a6895c}.time{display:flex;align-items:baseline;justify-content:center;gap:3px;white-space:nowrap;font:clamp(42px,5.2vw,69px)/1 var(--mono);letter-spacing:-.105em;color:#f0f4eb;text-shadow:0 0 24px #d8efb20b}.time .colon{color:var(--accent);display:inline-block;animation:colon 2s steps(2,jump-none) infinite}.ampm{font-size:13px;letter-spacing:.02em;color:var(--accent);margin-left:7px;display:none}.date{font-size:12px;color:#b0bdae;margin-top:16px;letter-spacing:.02em}.timezone{font:9px var(--mono);letter-spacing:.12em;color:var(--muted);margin-top:9px}.timezone .tz-dot{color:var(--accent);margin:0 5px}.orbit-dot{position:absolute;inset:17%;border-radius:50%;animation:rotate 29s linear infinite;pointer-events:none}.orbit-dot:before{content:"";position:absolute;top:0;left:50%;transform:translate(-50%,-50%);width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 11px #c8ed7a;animation:blink 2.5s ease-in-out infinite}.orbit-dot.two{inset:9%;animation-duration:53s;animation-direction:reverse}.orbit-dot.two:before{width:3px;height:3px;background:var(--gold);box-shadow:0 0 8px #d4b47a99}.dial-mark{position:absolute;font:8px var(--mono);letter-spacing:.1em;color:#62715e}.dial-mark.top{top:2%;left:50%;transform:translateX(-50%)}.dial-mark.bottom{bottom:2%;left:50%;transform:translateX(-50%)}.dial-mark.left{left:0;top:50%;transform:translateY(-50%)}.dial-mark.right{right:0;top:50%;transform:translateY(-50%)}
+.below-dial{width:min(100%,360px);margin-top:10px}.day-label{display:flex;align-items:center;justify-content:space-between;gap:10px;font:9px var(--mono);letter-spacing:.09em;color:var(--muted);margin-bottom:9px}.day-label span:last-child{color:#a9b9a3}.day-track{height:2px;background:#acbf9b22;position:relative;overflow:hidden}.day-fill{height:100%;width:0;background:linear-gradient(90deg,#789e4d,var(--accent));box-shadow:0 0 8px #c8ed7a55;transition:width .5s linear}.day-marks{display:flex;justify-content:space-between;margin-top:7px;color:#4f5e4e;font:8px var(--mono)}
+.side-data{display:grid;gap:0;border-top:1px solid var(--line);margin-top:25px}.data-row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);font:9px var(--mono);letter-spacing:.045em}.data-row span{color:var(--muted)}.data-row b{font-weight:400;color:#c6d2c0;text-align:right}.accent-value{color:var(--accent)!important}.format-box{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:26px}.format-label{font:9px var(--mono);color:var(--muted);letter-spacing:.1em}.format-switch{display:flex;border:1px solid #354333;padding:3px;background:#0b100c;gap:2px}.format-switch button{border:0;background:transparent;color:#647262;font:9px var(--mono);padding:8px 9px;transition:background .2s,color .2s}.format-switch button.active{color:var(--accent);background:#27351d;box-shadow:inset 0 0 0 1px #9abd5430}.format-switch button:hover{color:var(--ink)}.hint{font-size:10px;line-height:1.65;color:var(--dim);margin:17px 0 0}
+.footer{display:flex;justify-content:space-between;align-items:center;gap:15px;border-top:1px solid #b5d19a1e;padding:18px 0 0;color:#596756;font:9px var(--mono);letter-spacing:.08em}.footer .foot-mark{color:#87a568}.footer-right{display:flex;align-items:center;gap:8px}.footer-square{width:5px;height:5px;border:1px solid #819b6b;transform:rotate(45deg)}
+@keyframes rotate{to{transform:rotate(360deg)}}@keyframes breath{0%,100%{opacity:.65;transform:translate(-50%,-50%) scale(.96)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}}@keyframes blink{0%,100%{opacity:.48}50%{opacity:1}}@keyframes colon{0%,45%{opacity:1}50%,95%{opacity:.38}}@keyframes rise{from{opacity:0;transform:translateY(12px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:1250px){.content{grid-template-columns:minmax(210px,1fr) minmax(390px,1.15fr) minmax(210px,1fr);gap:clamp(45px,5vw,85px)}.dial{width:min(100%,455px)}}
+@media(max-width:900px){.content{grid-template-columns:1fr 1.2fr;gap:20px;padding:36px 0 30px}.side-block.left{grid-column:1;grid-row:1}.clock-stage{grid-column:2;grid-row:1 / span 2}.side-block.right{grid-column:1;grid-row:2}.dial{width:min(100%,390px)}.description{max-width:250px}.side-caption{display:none}.format-box{margin-top:18px}.side-data{margin-top:17px}.footer{margin-top:0}}
+@media(max-width:620px){.shell{padding-left:18px;padding-right:18px}.top{height:66px}.header-right{gap:9px}.header-right .tiny-divider{display:none}.system-label{font-size:8px;letter-spacing:.07em}.brand-mark{width:32px;height:32px}.brand-name{font-size:11px}.brand-sub{font-size:8px}.content{display:flex;flex-direction:column;align-items:stretch;gap:0;padding:32px 0 26px}.side-block.left{order:0}.overline{margin-bottom:12px}.side-block.left h1{font-size:30px;margin-bottom:9px}.side-block.left .description{max-width:420px;font-size:11px}.clock-stage{order:1;margin:12px auto 19px;width:min(100%,410px)}.dial{width:100%;max-width:390px}.clock-core{width:82%}.time{font-size:clamp(41px,10.4vw,60px)}.core-label{margin-bottom:12px}.date{margin-top:13px;font-size:11px}.timezone{font-size:8px}.below-dial{width:min(86%,320px)}.side-block.right{order:2;width:100%;max-width:420px;margin:0 auto}.right .overline{margin-bottom:11px}.side-data{margin-top:0}.data-row{padding:11px 0}.format-box{margin-top:15px}.hint{margin-top:12px}.footer{padding-top:14px;font-size:8px;letter-spacing:.03em}.footer-right{gap:6px}}
+@media(max-width:370px){.shell{padding-left:13px;padding-right:13px}.system-label{font-size:7px}.brand-name{letter-spacing:.07em}.dial{width:100%}.time{font-size:39px}.ampm{font-size:10px;margin-left:4px}.clock-core{width:86%}.date{font-size:10px}.below-dial{width:88%}.footer{align-items:flex-start;flex-direction:column;gap:8px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="ambient" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div>
+<div class="shell">
 <header class="top">
-  <div class="brand"><div class="mark">09</div><div><div class="brand-name">BLACKSITE-09</div><div class="brand-sub">PERSONAL FIELD KIT</div></div></div>
-  <div class="local-label"><span class="dot"></span> LOCAL / OFFLINE</div>
+  <div class="brand"><div class="brand-mark">09</div><div><div class="brand-name">BLACKSITE-09</div><div class="brand-sub">PERSONAL FIELD DISPLAY</div></div></div>
+  <div class="header-right"><div class="system-label"><span class="live-dot"></span> DEVICE TIME</div><span class="tiny-divider"></span><div class="system-label" id="sync-label">LIVE / LOCAL</div></div>
 </header>
-<main>
-  <section class="page active" id="page-today">
-    <div class="eyebrow">TODAY / FIELD KIT</div>
-    <h1>Keep it <span>simple.</span></h1>
-    <p class="sub">A few useful tools, ready when you need them. No fake tracking, no signal dashboards, no unnecessary extras.</p>
-    <div class="clock-card">
-      <div class="card-kicker">LOCAL TIME</div>
-      <div class="clock" id="clock">--:--:--</div>
-      <div class="date" id="date">Loading date…</div>
-      <div class="clock-foot"><span>FIELD TERMINAL / 01</span><span class="live">● READY FOR USE</span></div>
-    </div>
-    <div class="section-head"><h2>Today’s checklist</h2><span id="task-count">0 ITEMS</span></div>
-    <div class="panel">
-      <div class="task-list" id="task-list"></div>
-      <form class="add-task" id="add-task-form"><input class="field" id="new-task" maxlength="120" placeholder="Add something to remember…" aria-label="New task"><button class="primary" type="submit">ADD +</button></form>
-    </div>
-    <div class="quick-grid">
-      <button class="quick" data-go="timer"><span class="quick-icon">◷</span><span><strong>Timer & stopwatch</strong><small>Time a task or track elapsed time</small></span></button>
-      <button class="quick" data-go="notes"><span class="quick-icon">≡</span><span><strong>Quick notes</strong><small>Keep a thought or reminder</small></span></button>
-    </div>
-    <div class="footer">BLACKSITE-09 · LOCAL DATA STAYS ON THIS DEVICE</div>
+<main class="content">
+  <section class="side-block left">
+    <div class="overline">TIMEKEEPING / 01</div>
+    <h1>Stay in the<br><span>moment.</span></h1>
+    <p class="description">A clean, always-ready time display. Nothing to configure, nothing to manage. Just the time, with a little character.</p>
+    <div class="small-rule"></div>
+    <div class="side-caption">FIELD TERMINAL <strong>FT—09</strong><br>LOCAL CLOCK / READY<br>NO NETWORK REQUIRED</div>
   </section>
-  <section class="page" id="page-timer">
-    <div class="page-title"><div class="eyebrow">UTILITY / 02</div><h1>Timer & <span>stopwatch.</span></h1><p class="sub">For breaks, cooking, homework, workouts, or timing anything else.</p></div>
-    <div class="panel">
-      <div class="panel-top"><div class="panel-title">TIME TOOL</div><span class="muted" style="font:9px var(--mono)">NO ACCOUNT NEEDED</span></div>
-      <div class="timer-panel">
-        <div class="segmented" role="group" aria-label="Choose timer mode"><button class="segment active" id="countdown-mode" type="button">COUNTDOWN</button><button class="segment" id="stopwatch-mode" type="button">STOPWATCH</button></div>
-        <div class="timer-display" id="timer-display">25:00</div>
-        <div class="timer-controls"><button class="primary" id="start-timer" type="button">START</button><button class="secondary" id="reset-timer" type="button">RESET</button></div>
-        <div id="countdown-options">
-          <div class="presets"><button class="preset" data-minutes="5" type="button">5 MIN</button><button class="preset" data-minutes="10" type="button">10 MIN</button><button class="preset active" data-minutes="25" type="button">25 MIN</button><button class="preset" data-minutes="45" type="button">45 MIN</button></div>
-          <form class="custom-time" id="custom-time-form"><label for="custom-minutes" class="muted" style="font-size:10px">CUSTOM</label><input class="field" id="custom-minutes" type="number" min="1" max="999" value="25" aria-label="Timer minutes"><span class="muted" style="font-size:10px">minutes</span><button class="secondary" type="submit">SET</button></form>
-          <div class="progress-track"><div class="progress-fill" id="timer-progress"></div></div>
-          <p class="timer-note" id="timer-status">Timer ready. Choose a preset or set your own time.</p>
-        </div>
-        <div id="stopwatch-options" hidden><p class="timer-note" id="stopwatch-status">Stopwatch ready.</p></div>
-        <div class="timer-bottom"><span id="timer-mode-label">COUNTDOWN TIMER</span><span>STAYS ON THIS PAGE</span></div>
+  <section class="clock-stage" aria-label="Live local clock">
+    <div class="dial">
+      <svg class="dial-svg" viewBox="0 0 320 320" aria-hidden="true">
+        <circle class="track" cx="160" cy="160" r="140"/>
+        <circle class="track" cx="160" cy="160" r="128" stroke-dasharray="1 8"/>
+        <g class="ticks" id="ticks"></g>
+        <circle class="progress" id="seconds-progress" cx="160" cy="160" r="140"/>
+        <circle cx="160" cy="160" r="117" fill="none" stroke="#b5d19a0b" stroke-width="1"/>
+      </svg>
+      <div class="orbit-dot"></div><div class="orbit-dot two"></div>
+      <span class="dial-mark top">LOCAL</span><span class="dial-mark right">60</span><span class="dial-mark bottom">FT / 09</span><span class="dial-mark left">00</span>
+      <div class="clock-core">
+        <div class="core-label">CURRENT TIME</div>
+        <div class="time" id="time-display"><span id="time-main">00:00:00</span><span class="ampm" id="ampm">PM</span></div>
+        <div class="date" id="date-display">Loading date…</div>
+        <div class="timezone"><span class="tz-dot">●</span><span id="timezone-display">LOCAL TIMEZONE</span></div>
       </div>
     </div>
-    <p class="help">Tip: keep this page open while the timer runs. Browser and device settings can affect alarms when the page is in the background.</p>
-  </section>
-  <section class="page" id="page-notes">
-    <div class="page-title"><div class="eyebrow">UTILITY / 03</div><h1>Quick <span>notes.</span></h1><p class="sub">A scratchpad for things you don’t want to forget. Your text saves automatically in this browser.</p></div>
-    <div class="panel">
-      <div class="panel-top"><div class="panel-title">SCRATCHPAD</div><span class="muted" style="font:9px var(--mono)">AUTOSAVE</span></div>
-      <div class="notes-panel">
-        <textarea class="notes-area" id="notes-area" maxlength="12000" placeholder="Write a reminder, idea, list, or anything you need to keep…"></textarea>
-        <div class="note-actions"><span class="saved-status" id="saved-status">Saved on this device</span><button class="secondary" id="clear-notes" type="button">CLEAR NOTES</button></div>
-      </div>
+    <div class="below-dial">
+      <div class="day-label"><span>DAY PROGRESS</span><span id="day-percent">00.0%</span></div>
+      <div class="day-track"><div class="day-fill" id="day-fill"></div></div>
+      <div class="day-marks"><span>00:00</span><span>12:00</span><span>24:00</span></div>
     </div>
-    <p class="help">Notes are stored only in this browser on this device. They won’t automatically sync to your other phone or computer. Don’t put passwords or sensitive information here.</p>
+  </section>
+  <section class="side-block right">
+    <div class="overline">LOCAL READOUT / 02</div>
+    <div class="side-data">
+      <div class="data-row"><span>WEEKDAY</span><b id="weekday">---</b></div>
+      <div class="data-row"><span>DATE</span><b id="date-short">-- / -- / ----</b></div>
+      <div class="data-row"><span>UTC OFFSET</span><b id="utc-offset">UTC --:--</b></div>
+      <div class="data-row"><span>SECONDS</span><b class="accent-value" id="seconds-readout">00 <span style="color:var(--muted)">/ 60</span></b></div>
+    </div>
+    <div class="format-box"><span class="format-label">TIME FORMAT</span><div class="format-switch" role="group" aria-label="Time format"><button id="format-24" class="active" type="button" aria-pressed="true">24 H</button><button id="format-12" type="button" aria-pressed="false">12 H</button></div></div>
+    <p class="hint">Time is read directly from your device. Change your device's time or timezone settings to update this display.</p>
   </section>
 </main>
+<footer class="footer"><div><span class="foot-mark">◈</span> &nbsp; BLACKSITE-09 <span style="color:#3c4a3a">/</span> FIELD DISPLAY</div><div class="footer-right"><span class="footer-square"></span><span>LOCAL ONLY · NO TRACKING</span></div></footer>
 </div>
-<nav class="bottom-nav" aria-label="Main navigation">
-  <button class="nav-btn active" data-page="today"><span class="nav-icon">⌂</span> TODAY</button>
-  <button class="nav-btn" data-page="timer"><span class="nav-icon">◷</span> TIMER</button>
-  <button class="nav-btn" data-page="notes"><span class="nav-icon">≡</span> NOTES</button>
-</nav>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
 (function(){
 "use strict";
 var $=function(id){return document.getElementById(id)};
-var pages=["today","timer","notes"];
-var toastHandle=null;
-function getStore(key,fallback){try{var val=localStorage.getItem(key);return val===null?fallback:JSON.parse(val)}catch(e){return fallback}}
-function setStore(key,value){try{localStorage.setItem(key,JSON.stringify(value))}catch(e){showToast("Browser storage is unavailable.")}}
-function showToast(message){$("toast").textContent=message;$("toast").classList.add("show");if(toastHandle)clearTimeout(toastHandle);toastHandle=setTimeout(function(){$("toast").classList.remove("show")},2200)}
-function navigate(page){if(pages.indexOf(page)===-1)return;document.querySelectorAll(".page").forEach(function(el){el.classList.toggle("active",el.id==="page-"+page)});document.querySelectorAll(".nav-btn").forEach(function(el){el.classList.toggle("active",el.dataset.page===page)});window.scrollTo({top:0,behavior:"smooth"})}
-document.querySelectorAll("[data-page]").forEach(function(btn){btn.addEventListener("click",function(){navigate(btn.dataset.page)})});
-document.querySelectorAll("[data-go]").forEach(function(btn){btn.addEventListener("click",function(){navigate(btn.dataset.go)})});
-function renderClock(){var now=new Date();$("clock").textContent=now.toLocaleTimeString([],{hour12:false,hour:"2-digit",minute:"2-digit",second:"2-digit"});$("date").textContent=now.toLocaleDateString([],{weekday:"long",year:"numeric",month:"long",day:"numeric"})}
-renderClock();setInterval(renderClock,1000);
-
-var tasks=getStore("bs09-tasks",[]);
-function saveTasks(){setStore("bs09-tasks",tasks);renderTasks()}
-function renderTasks(){var list=$("task-list");list.textContent="";$("task-count").textContent=tasks.filter(function(t){return !t.done}).length+" LEFT / "+tasks.length+" TOTAL";if(!tasks.length){var empty=document.createElement("div");empty.className="empty";empty.textContent="Nothing on the list yet. Add a task above to remember it.";list.append(empty);return}tasks.forEach(function(task,index){var row=document.createElement("div"),check=document.createElement("input"),label=document.createElement("label"),remove=document.createElement("button");row.className="task"+(task.done?" done":"");check.type="checkbox";check.checked=!!task.done;check.id="task-"+task.id;check.setAttribute("aria-label","Mark task complete");label.htmlFor=check.id;label.textContent=task.text;remove.className="delete-task";remove.type="button";remove.textContent="×";remove.setAttribute("aria-label","Delete task");check.addEventListener("change",function(){tasks[index].done=check.checked;saveTasks()});remove.addEventListener("click",function(){tasks.splice(index,1);saveTasks()});row.append(check,label,remove);list.append(row)})}
-$("add-task-form").addEventListener("submit",function(e){e.preventDefault();var input=$("new-task"),text=input.value.trim();if(!text)return;tasks.push({id:Date.now()+Math.random(),text:text,done:false});input.value="";saveTasks();input.focus()});
-renderTasks();
-
-var notes=$("notes-area"),saveStatus=$("saved-status"),noteTimeout=null;
-notes.value=getStore("bs09-notes","");
-notes.addEventListener("input",function(){saveStatus.textContent="Saving…";if(noteTimeout)clearTimeout(noteTimeout);noteTimeout=setTimeout(function(){setStore("bs09-notes",notes.value);saveStatus.textContent="Saved on this device"},220)});
-$("clear-notes").addEventListener("click",function(){if(!notes.value)return;notes.value="";setStore("bs09-notes","");saveStatus.textContent="Cleared";showToast("Notes cleared from this browser.")});
-
-var mode="countdown",timerDuration=25*60*1000,remaining=timerDuration,timerRunning=false,timerEnd=0,timerInterval=null,stopwatchRunning=false,stopwatchStart=0,stopwatchAccum=0,stopwatchInterval=null;
-function two(n){return String(n).padStart(2,"0")}
-function display(ms){ms=Math.max(0,ms);var sec=Math.floor(ms/1000),hours=Math.floor(sec/3600),mins=Math.floor(sec%3600/60),secs=sec%60;return hours>0?two(hours)+":"+two(mins)+":"+two(secs):two(mins)+":"+two(secs)}
-function renderTimer(){var left=timerRunning?Math.max(0,timerEnd-Date.now()):remaining;$("timer-display").textContent=display(mode==="countdown"?left:stopwatchAccum+(stopwatchRunning?Date.now()-stopwatchStart:0));if(mode==="countdown"){$("timer-progress").style.width=(timerDuration?Math.max(0,Math.min(100,(1-left/timerDuration)*100)):0)+"%"}}
-function stopCountdown(){timerRunning=false;if(timerInterval)clearInterval(timerInterval);timerInterval=null;$("start-timer").textContent="START"}
-function startCountdown(){if(timerRunning){remaining=Math.max(0,timerEnd-Date.now());stopCountdown();$("timer-status").textContent="Timer paused at "+display(remaining);renderTimer();return}if(remaining<=0){remaining=timerDuration}timerEnd=Date.now()+remaining;timerRunning=true;$("start-timer").textContent="PAUSE";$("timer-status").textContent="Timer running… keep this page open.";if(timerInterval)clearInterval(timerInterval);timerInterval=setInterval(function(){remaining=Math.max(0,timerEnd-Date.now());renderTimer();if(remaining<=0){stopCountdown();$("timer-status").textContent="Time is up.";showToast("Timer complete.");try{if("vibrate" in navigator)navigator.vibrate([150,70,150])}catch(e){} }},200);renderTimer()}
-function resetCountdown(){stopCountdown();remaining=timerDuration;$("timer-status").textContent="Timer reset and ready.";renderTimer()}
-function selectMode(next){if(mode===next)return;if(mode==="countdown"){if(timerRunning){remaining=Math.max(0,timerEnd-Date.now());stopCountdown()}}else if(stopwatchRunning){stopwatchAccum+=Date.now()-stopwatchStart;stopwatchRunning=false;clearInterval(stopwatchInterval);stopwatchInterval=null;$("start-timer").textContent="START"}mode=next;$("countdown-mode").classList.toggle("active",next==="countdown");$("stopwatch-mode").classList.toggle("active",next==="stopwatch");$("countdown-options").hidden=next!=="countdown";$("stopwatch-options").hidden=next!=="stopwatch";$("timer-mode-label").textContent=next==="countdown"?"COUNTDOWN TIMER":"STOPWATCH";$("start-timer").textContent=next==="countdown"?(timerRunning?"PAUSE":"START"):(stopwatchRunning?"PAUSE":"START");renderTimer()}
-function startStopwatch(){if(stopwatchRunning){stopwatchAccum+=Date.now()-stopwatchStart;stopwatchRunning=false;clearInterval(stopwatchInterval);stopwatchInterval=null;$("start-timer").textContent="RESUME";$("stopwatch-status").textContent="Stopwatch paused."}else{stopwatchStart=Date.now();stopwatchRunning=true;$("start-timer").textContent="PAUSE";$("stopwatch-status").textContent="Stopwatch running.";if(stopwatchInterval)clearInterval(stopwatchInterval);stopwatchInterval=setInterval(renderTimer,50)}renderTimer()}
-$("countdown-mode").addEventListener("click",function(){selectMode("countdown")});
-$("stopwatch-mode").addEventListener("click",function(){selectMode("stopwatch")});
-$("start-timer").addEventListener("click",function(){if(mode==="countdown")startCountdown();else startStopwatch()});
-$("reset-timer").addEventListener("click",function(){if(mode==="countdown")resetCountdown();else{stopwatchRunning=false;if(stopwatchInterval)clearInterval(stopwatchInterval);stopwatchInterval=null;stopwatchAccum=0;$("start-timer").textContent="START";$("stopwatch-status").textContent="Stopwatch reset.";renderTimer()}});
-function setDuration(minutes){minutes=Math.max(1,Math.min(999,minutes));timerDuration=minutes*60*1000;remaining=timerDuration;stopCountdown();$("custom-minutes").value=minutes;document.querySelectorAll("[data-minutes]").forEach(function(btn){btn.classList.toggle("active",Number(btn.dataset.minutes)===minutes)});$("timer-status").textContent=minutes+" minute timer ready.";renderTimer()}
-document.querySelectorAll("[data-minutes]").forEach(function(btn){btn.addEventListener("click",function(){setDuration(Number(btn.dataset.minutes))})});
-$("custom-time-form").addEventListener("submit",function(e){e.preventDefault();var v=Number($("custom-minutes").value);if(!Number.isFinite(v)||v<1||v>999){showToast("Enter a time between 1 and 999 minutes.");return}setDuration(Math.floor(v));showToast("Timer set for "+Math.floor(v)+" minutes.")});
-renderTimer();
+var use24=true;
+var reduceMotion=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var circumference=2*Math.PI*140;
+$("seconds-progress").style.strokeDasharray=String(circumference);
+$("seconds-progress").style.strokeDashoffset=String(circumference);
+var ticks=$("ticks");
+for(var i=0;i<60;i++){
+  var angle=(i/60)*Math.PI*2-Math.PI/2;
+  var major=i%5===0;
+  var r1=major?129:134,r2=major?139:137;
+  var x1=160+Math.cos(angle)*r1,y1=160+Math.sin(angle)*r1;
+  var x2=160+Math.cos(angle)*r2,y2=160+Math.sin(angle)*r2;
+  var line=document.createElementNS("http://www.w3.org/2000/svg","line");
+  line.setAttribute("x1",x1.toFixed(2));line.setAttribute("y1",y1.toFixed(2));
+  line.setAttribute("x2",x2.toFixed(2));line.setAttribute("y2",y2.toFixed(2));
+  if(major)line.setAttribute("class","major");
+  ticks.appendChild(line);
+}
+function pad(n){return String(n).padStart(2,"0")}
+function offsetText(date){var mins=-date.getTimezoneOffset();var sign=mins>=0?"+":"−";mins=Math.abs(mins);return "UTC "+sign+pad(Math.floor(mins/60))+":"+pad(mins%60)}
+function update(){
+  var d=new Date(),h=d.getHours(),m=d.getMinutes(),s=d.getSeconds(),ms=d.getMilliseconds();
+  var hour=use24?h:((h%12)||12);
+  $("time-main").textContent=pad(hour)+":"+pad(m)+":";
+  var sec=document.createElement("span");sec.textContent=pad(s);sec.style.letterSpacing="inherit";$("time-main").appendChild(sec);
+  $("ampm").style.display=use24?"none":"inline";
+  $("ampm").textContent=h>=12?"PM":"AM";
+  $("date-display").textContent=d.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"});
+  $("weekday").textContent=d.toLocaleDateString(undefined,{weekday:"long"}).toUpperCase();
+  $("date-short").textContent=pad(d.getMonth()+1)+" / "+pad(d.getDate())+" / "+d.getFullYear();
+  $("utc-offset").textContent=offsetText(d);
+  $("seconds-readout").innerHTML=pad(s)+' <span style="color:var(--muted)">/ 60</span>';
+  $("timezone-display").textContent=(Intl.DateTimeFormat().resolvedOptions().timeZone||"LOCAL TIME").replace(/_/g," ").toUpperCase();
+  var seconds=s+ms/1000;
+  $("seconds-progress").style.strokeDashoffset=String(circumference*(1-seconds/60));
+  var dayMs=(h*3600+m*60+s)*1000+ms;
+  var percent=dayMs/86400000*100;
+  $("day-fill").style.width=percent.toFixed(3)+"%";
+  $("day-percent").textContent=percent.toFixed(1)+"%";
+}
+function setFormat(is24){
+  use24=is24;
+  $("format-24").classList.toggle("active",is24);$("format-12").classList.toggle("active",!is24);
+  $("format-24").setAttribute("aria-pressed",String(is24));$("format-12").setAttribute("aria-pressed",String(!is24));
+  $("time-main").style.letterSpacing=is24?"-.105em":"-.08em";
+  update();
+}
+$("format-24").addEventListener("click",function(){setFormat(true)});
+$("format-12").addEventListener("click",function(){setFormat(false)});
+if(reduceMotion){document.body.classList.add("reduce-motion")}
+update();setInterval(update,80);
 })();
 </script>
 </body>
