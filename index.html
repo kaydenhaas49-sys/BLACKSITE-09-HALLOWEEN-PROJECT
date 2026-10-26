@@ -318,9 +318,9 @@ function setApiIndicator(ledId,stateId,state,tone){var led=$(ledId),label=$(stat
 function updateSessionPanel(){
  var net=$("dash-network"),transport=$("dash-transport"),origin=$("dash-origin");if(!net)return;
  var online=navigator.onLine,secure=window.isSecureContext===true,protocol=location.protocol||"unknown:";
- net.textContent=online?"ONLINE":"OFFLINE";net.className=online?"telemetry-value is-good":"telemetry-value is-bad";
+ net.textContent=online?"ONLINE":"OFFLINE";net.className=online?"metric-value is-good":"metric-value is-bad";
  $("dash-network-note").textContent=online?"Browser reports network available":"Browser reports offline";
- transport.textContent=secure?"SECURE":"INSECURE";transport.className=secure?"telemetry-value is-good":"telemetry-value is-bad";
+ transport.textContent=secure?"SECURE":"INSECURE";transport.className=secure?"metric-value is-good":"metric-value is-bad";
  $("dash-transport-note").textContent=protocol+" / "+(secure?"secure context enabled":"secure context unavailable");
  origin.textContent=location.host||((protocol==="file:")?"LOCAL FILE":"LOCAL ORIGIN");
  $("dash-target").textContent=activeTargetText;$("last-command").textContent=lastCommandText;
