@@ -103,11 +103,8 @@ button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid var(--
 </header>
 <main class="content">
   <section class="side-block left">
-    <div class="overline">TIMEKEEPING / 01</div>
-    <h1>Stay in the<br><span>moment.</span></h1>
-    <p class="description">A clean, always-ready time display. Nothing to configure, nothing to manage. Just the time, with a little character.</p>
-    <div class="small-rule"></div>
-    <div class="side-caption">FIELD TERMINAL <strong>FT—09</strong><br>LOCAL CLOCK / READY<br>NO NETWORK REQUIRED</div>
+    <div class="overline">LOCAL CLOCK</div>
+    <h1>Field<br><span>time.</span></h1>
   </section>
   <section class="clock-stage" aria-label="Live local clock">
     <div class="dial">
@@ -134,49 +131,46 @@ button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid var(--
     </div>
   </section>
   <section class="side-block right">
-    <div class="overline">LOCAL READOUT / 02</div>
+    <div class="overline">CLOCK DATA</div>
     <div class="side-data">
-      <div class="data-row"><span>WEEKDAY</span><b id="weekday">---</b></div>
-      <div class="data-row"><span>DATE</span><b id="date-short">-- / -- / ----</b></div>
       <div class="data-row"><span>UTC OFFSET</span><b id="utc-offset">UTC --:--</b></div>
       <div class="data-row"><span>SECONDS</span><b class="accent-value" id="seconds-readout">00 <span style="color:var(--muted)">/ 60</span></b></div>
     </div>
     <div class="format-box"><span class="format-label">TIME FORMAT</span><div class="format-switch" role="group" aria-label="Time format"><button id="format-24" class="active" type="button" aria-pressed="true">24 H</button><button id="format-12" type="button" aria-pressed="false">12 H</button></div></div>
-    <p class="hint">Time is read directly from your device. Change your device's time or timezone settings to update this display.</p>
   </section>
 
-  <div class="utility-section-head"><div><span class="overline">FIELD UTILITIES / 03</span><span class="utility-section-title">Useful at a glance.</span></div><span class="utility-section-note">OPTIONAL · DEVICE DEPENDENT</span></div>
+  <div class="utility-section-head"><div><span class="overline">UTILITIES</span></div></div>
   <section class="utility-grid" aria-label="Phone utilities">
     <article class="utility-card">
-      <div class="utility-top"><span>DISPLAY / 01</span><span class="utility-pill" id="wake-state">STANDBY</span></div>
-      <div class="utility-row"><div class="utility-icon">◉</div><div class="utility-copy"><div class="utility-title">Keep screen awake</div><p class="utility-desc" id="wake-detail">Prevent screen sleep while this page is visible.</p></div></div>
-      <div class="utility-subline" id="wake-subline">Requires browser support.</div>
+      <div class="utility-top"><span>DISPLAY</span><span class="utility-pill" id="wake-state">STANDBY</span></div>
+      <div class="utility-row"><div class="utility-icon">◉</div><div class="utility-copy"><div class="utility-title">Keep screen awake</div></div></div>
+      <div class="utility-subline" id="wake-subline"></div>
       <button class="utility-action" id="wake-toggle" type="button" aria-pressed="false">ENABLE KEEP AWAKE</button>
     </article>
     <article class="utility-card">
-      <div class="utility-top"><span>POWER / 02</span><span class="utility-pill" id="battery-state">CHECKING</span></div>
+      <div class="utility-top"><span>POWER</span><span class="utility-pill" id="battery-state">CHECKING</span></div>
       <div class="utility-row"><div class="utility-icon">▰</div><div class="utility-copy"><div class="utility-title">Battery</div><div class="utility-value" id="battery-value">--<span class="utility-unit">%</span></div></div></div>
       <div class="battery-meter"><div class="battery-meter-fill" id="battery-fill"></div></div>
       <div class="utility-subline" id="battery-detail">Reading device battery…</div>
     </article>
     <article class="utility-card">
-      <div class="utility-top"><span>ENVIRONMENT / 03</span><span class="utility-pill" id="weather-state">STANDBY</span></div>
+      <div class="utility-top"><span>WEATHER</span><span class="utility-pill" id="weather-state">STANDBY</span></div>
       <div class="utility-row"><div class="weather-icon" id="weather-icon" aria-hidden="true">☼</div><div class="utility-copy"><div class="utility-title">Local weather</div><div class="weather-temp" id="weather-temp">--°<small>C</small></div></div></div>
-      <p class="utility-desc" id="weather-detail">Tap below to request your location and fetch current conditions.</p>
+      <p class="utility-desc" id="weather-detail">Not loaded.</p>
       <button class="utility-action" id="weather-refresh" type="button">GET LOCAL WEATHER</button>
-      <div class="utility-subline">Weather: <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a> · location sent only on request.</div>
+      <div class="utility-subline"><a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a> · location on request.</div>
     </article>
     <article class="utility-card">
-      <div class="utility-top"><span>ORIENTATION / 04</span><span class="utility-pill" id="compass-state">STANDBY</span></div>
+      <div class="utility-top"><span>COMPASS</span><span class="utility-pill" id="compass-state">STANDBY</span></div>
       <div class="compass-row">
         <div class="compass-face" aria-label="Compass dial"><span class="compass-cardinal n">N</span><span class="compass-cardinal e">E</span><span class="compass-cardinal s">S</span><span class="compass-cardinal w">W</span><span class="compass-needle" id="compass-needle"></span><span class="compass-hub"></span></div>
-        <div class="utility-copy"><div class="utility-title">Compass</div><div class="compass-heading" id="compass-heading">---°</div><div class="utility-subline" id="compass-detail">Waiting for sensor access.</div></div>
+        <div class="utility-copy"><div class="utility-title">Compass</div><div class="compass-heading" id="compass-heading">---°</div><div class="utility-subline" id="compass-detail">Off.</div></div>
       </div>
       <button class="utility-action" id="compass-toggle" type="button">ENABLE COMPASS</button>
     </article>
   </section>
 </main>
-<footer class="footer"><div><span class="foot-mark">◈</span> &nbsp; BLACKSITE-09 <span style="color:#3c4a3a">/</span> FIELD DISPLAY</div><div class="footer-right"><span class="footer-square"></span><span>LOCAL ONLY · NO TRACKING</span></div></footer>
+<footer class="footer"><div><span class="foot-mark">◈</span> &nbsp; BLACKSITE-09</div><div class="footer-right"><span class="footer-square"></span><span>LOCAL CLOCK</span></div></footer>
 </div>
 <script>
 (function(){
