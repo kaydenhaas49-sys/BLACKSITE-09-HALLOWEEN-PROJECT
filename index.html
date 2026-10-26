@@ -58,7 +58,7 @@ button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid var(--
 .compass-face:before{width:1px;height:100%}.compass-face:after{height:1px;width:100%}
 .compass-cardinal{position:absolute;font:8px var(--mono);z-index:2;color:#788875}
 .compass-cardinal.n{top:5px;color:var(--accent)}.compass-cardinal.e{right:6px}.compass-cardinal.s{bottom:5px}.compass-cardinal.w{left:6px}
-.compass-needle{position:absolute;z-index:3;left:50%;top:50%;width:3px;height:45px;transform:translateX(-50%) rotate(0deg);transform-origin:50% 50%;transition:transform .14s linear}
+.compass-needle{position:absolute;z-index:3;left:calc(50% - 1.5px);top:50%;width:3px;height:45px;transform:rotate(0deg);transform-origin:50% 0%;transition:transform .14s linear}
 .compass-needle:before{content:"";position:absolute;top:0;left:-4px;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:22px solid var(--accent);filter:drop-shadow(0 0 4px #c8ed7a66)}
 .compass-needle:after{content:"";position:absolute;top:22px;left:-4px;border-left:5px solid transparent;border-right:5px solid transparent;border-top:20px solid #66755c}
 .compass-hub{position:absolute;z-index:4;width:7px;height:7px;border:1px solid #11190e;background:var(--accent);border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%)}
@@ -69,6 +69,28 @@ button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid var(--
 @media(max-width:620px){.utility-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:20px}.utility-card{padding:12px;min-height:190px}.utility-top{font-size:7px;letter-spacing:.06em}.utility-title{font-size:11px}.utility-desc{font-size:9px}.utility-action{font-size:8px;padding:9px 6px}.compass-face{width:66px;height:66px}.compass-needle{height:38px}.compass-needle:before{border-bottom-width:18px}.compass-needle:after{top:18px;border-top-width:17px}.weather-temp{font-size:25px}}
 @media(max-width:350px){.utility-grid{grid-template-columns:1fr}.utility-card{min-height:155px}}
 @media(prefers-reduced-motion:reduce){.weather-icon{animation:none!important}}
+
+
+/* Layout polish: clear section hierarchy, consistent cards, and feedback */
+.utility-section-head{grid-column:1/-1;display:flex;align-items:end;justify-content:space-between;gap:16px;width:100%;margin:8px 0 -2px;padding-bottom:12px;border-bottom:1px solid #b5d19a16}
+.utility-section-head .overline{margin:0;font-size:8px;letter-spacing:.17em;color:#9bbd74}
+.utility-section-title{display:block;color:#dce5d6;font-size:15px;letter-spacing:-.025em;margin-top:7px}
+.utility-section-note{font:8px var(--mono);letter-spacing:.12em;color:#60705e;text-align:right}
+.utility-grid{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;width:100%;align-self:stretch;margin-top:4px;animation:fadein .8s ease both;animation-delay:.2s}
+.utility-card{border-radius:3px;border-color:#2c382b;background:linear-gradient(145deg,rgba(20,27,20,.97),rgba(10,14,11,.97));box-shadow:inset 0 1px 0 #c8ed7a05;transition:transform .22s ease,border-color .22s ease,background .22s ease}
+.utility-card:hover{border-color:#526547;background:linear-gradient(145deg,rgba(24,33,23,.98),rgba(11,16,12,.98));transform:translateY(-2px)}
+.utility-card:after{content:"";position:absolute;left:14px;right:14px;top:0;height:1px;background:linear-gradient(90deg,transparent,#c8ed7a25,transparent);pointer-events:none}
+.utility-top{margin-bottom:18px}
+.utility-pill{border-radius:2px}
+.utility-icon{border-radius:2px;box-shadow:inset 0 0 12px #c8ed7a05}
+.utility-action{border-radius:2px;position:relative;z-index:1}
+.utility-action:focus-visible{outline-offset:2px}
+.utility-action.active{box-shadow:inset 0 0 14px #c8ed7a0b}
+.compass-face{overflow:hidden}
+.compass-face:before,.compass-face:after{pointer-events:none}
+@media(max-width:1050px){.utility-section-head{margin-top:8px}.utility-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}}
+@media(max-width:620px){.utility-section-head{align-items:flex-start;flex-direction:column;gap:7px;margin-top:18px;padding-bottom:10px}.utility-section-note{text-align:left}.utility-section-title{font-size:14px}.utility-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:8px}.utility-card{min-height:188px}.utility-card:hover{transform:none}}
+@media(max-width:350px){.utility-grid{grid-template-columns:1fr}.utility-section-head{margin-top:16px}}
 
 </style>
 </head>
@@ -123,7 +145,8 @@ button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid var(--
     <p class="hint">Time is read directly from your device. Change your device's time or timezone settings to update this display.</p>
   </section>
 
-  <section class="utilities-grid" aria-label="Phone utilities">
+  <div class="utility-section-head"><div><span class="overline">FIELD UTILITIES / 03</span><span class="utility-section-title">Useful at a glance.</span></div><span class="utility-section-note">OPTIONAL · DEVICE DEPENDENT</span></div>
+  <section class="utility-grid" aria-label="Phone utilities">
     <article class="utility-card">
       <div class="utility-top"><span>DISPLAY / 01</span><span class="utility-pill" id="wake-state">STANDBY</span></div>
       <div class="utility-row"><div class="utility-icon">◉</div><div class="utility-copy"><div class="utility-title">Keep screen awake</div><p class="utility-desc" id="wake-detail">Prevent screen sleep while this page is visible.</p></div></div>
@@ -372,7 +395,7 @@ function compassEvent(event){
   }else{return}
   heading=(heading+360)%360;
   compassSeen=true;
-  $("compass-needle").style.transform="translateX(-50%) rotate("+(-heading)+"deg)";
+  $("compass-needle").style.transform="rotate("+(-heading)+"deg)";
   $("compass-heading").textContent=compassCardinal(heading)+" "+Math.round(heading)+"°";
   $("compass-state").textContent="ACTIVE";$("compass-state").className="utility-pill active";
   $("compass-detail").textContent="Live device heading.";
@@ -382,7 +405,7 @@ function stopCompass(){
   compassEnabled=false;compassSeen=false;
   if(compassHandler){window.removeEventListener("deviceorientationabsolute",compassHandler,true);window.removeEventListener("deviceorientation",compassHandler,true);compassHandler=null}
   if(compassTimer){clearTimeout(compassTimer);compassTimer=null}
-  $("compass-heading").textContent="---°";$("compass-needle").style.transform="translateX(-50%) rotate(0deg)";
+  $("compass-heading").textContent="---°";$("compass-needle").style.transform="rotate(0deg)";
   $("compass-state").textContent="STANDBY";$("compass-state").className="utility-pill";
   $("compass-detail").textContent="Sensor access is off.";
   $("compass-toggle").textContent="ENABLE COMPASS";$("compass-toggle").classList.remove("active");
