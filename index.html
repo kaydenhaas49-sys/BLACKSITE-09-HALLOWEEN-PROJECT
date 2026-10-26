@@ -27,6 +27,49 @@ button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid var(--
 @media(max-width:620px){.shell{padding-left:18px;padding-right:18px}.top{height:66px}.header-right{gap:9px}.header-right .tiny-divider{display:none}.system-label{font-size:8px;letter-spacing:.07em}.brand-mark{width:32px;height:32px}.brand-name{font-size:11px}.brand-sub{font-size:8px}.content{display:flex;flex-direction:column;align-items:stretch;gap:0;padding:32px 0 26px}.side-block.left{order:0}.overline{margin-bottom:12px}.side-block.left h1{font-size:30px;margin-bottom:9px}.side-block.left .description{max-width:420px;font-size:11px}.clock-stage{order:1;margin:12px auto 19px;width:min(100%,410px)}.dial{width:100%;max-width:390px}.clock-core{width:82%}.time{font-size:clamp(41px,10.4vw,60px)}.core-label{margin-bottom:12px}.date{margin-top:13px;font-size:11px}.timezone{font-size:8px}.below-dial{width:min(86%,320px)}.side-block.right{order:2;width:100%;max-width:420px;margin:0 auto}.right .overline{margin-bottom:11px}.side-data{margin-top:0}.data-row{padding:11px 0}.format-box{margin-top:15px}.hint{margin-top:12px}.footer{padding-top:14px;font-size:8px;letter-spacing:.03em}.footer-right{gap:6px}}
 @media(max-width:370px){.shell{padding-left:13px;padding-right:13px}.system-label{font-size:7px}.brand-name{letter-spacing:.07em}.dial{width:100%}.time{font-size:39px}.ampm{font-size:10px;margin-left:4px}.clock-core{width:86%}.date{font-size:10px}.below-dial{width:88%}.footer{align-items:flex-start;flex-direction:column;gap:8px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+.utility-grid{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;width:100%;align-self:stretch;margin-top:8px;animation:fadein .8s ease both;animation-delay:.2s}
+.utility-card{min-width:0;border:1px solid #2a362b;background:linear-gradient(145deg,rgba(19,25,19,.94),rgba(10,14,11,.94));padding:14px;position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:192px}
+.utility-card:before{content:"";position:absolute;width:90px;height:90px;right:-54px;top:-57px;border:1px solid #c8ed7a0d;border-radius:50%;box-shadow:0 0 0 12px #c8ed7a04;pointer-events:none}
+.utility-top{display:flex;align-items:center;justify-content:space-between;gap:7px;font:8px var(--mono);letter-spacing:.1em;color:var(--muted);margin-bottom:17px}
+.utility-pill{font:8px var(--mono);color:#9aaa92;border:1px solid #374434;padding:4px 5px;white-space:nowrap}
+.utility-pill.active{color:var(--accent);border-color:#586e3e;background:#c8ed7a0b}
+.utility-pill.warn{color:var(--gold);border-color:#5a4c34}
+.utility-row{display:flex;align-items:center;gap:10px;min-width:0}
+.utility-icon{width:32px;height:32px;display:grid;place-items:center;flex:none;border:1px solid #344232;color:var(--accent);font:17px var(--mono);background:#c8ed7a05}
+.utility-copy{min-width:0;flex:1}
+.utility-title{font-size:12px;font-weight:550;letter-spacing:.005em}
+.utility-value{font:24px/1.15 var(--mono);letter-spacing:-.06em;color:var(--ink);margin-top:8px;overflow-wrap:anywhere}
+.utility-unit{font-size:10px;color:var(--muted);letter-spacing:0}
+.utility-desc{font-size:9px;line-height:1.55;color:var(--muted);margin:6px 0 0}
+.utility-action{margin-top:auto;padding:9px 10px;width:100%;text-align:center;border:1px solid #3c4b35;background:#151e13;color:#c8ed7a;font:9px var(--mono);letter-spacing:.075em;transition:background .18s,border-color .18s,color .18s}
+.utility-action:hover{background:#202d18;border-color:#768c53}
+.utility-action:disabled{opacity:.55;cursor:default}
+.utility-action.active{background:#27391c;border-color:#718c4b;color:#e1f7bb}
+.battery-meter{height:4px;background:#2a342a;margin-top:12px;overflow:hidden}
+.battery-meter-fill{height:100%;width:0;background:var(--accent);transition:width .35s,background .25s}
+.utility-subline{font:8px/1.5 var(--mono);color:var(--muted);margin-top:7px;min-height:12px;overflow-wrap:anywhere}
+.weather-temp{font:29px/1.1 var(--mono);letter-spacing:-.07em;margin-top:4px}
+.weather-temp small{font:10px var(--mono);letter-spacing:0;color:var(--muted)}
+.weather-icon{width:32px;height:32px;display:grid;place-items:center;flex:none;color:var(--gold);font-size:24px;animation:drift 4s ease-in-out infinite}
+.compass-row{display:flex;align-items:center;gap:12px}
+.compass-face{width:78px;height:78px;flex:none;border:1px solid #394735;border-radius:50%;position:relative;display:grid;place-items:center;background:radial-gradient(circle,#151d14 0%,#0a0e0b 72%);box-shadow:inset 0 0 18px #c8ed7a07}
+.compass-face:before,.compass-face:after{content:"";position:absolute;background:#465440}
+.compass-face:before{width:1px;height:100%}.compass-face:after{height:1px;width:100%}
+.compass-cardinal{position:absolute;font:8px var(--mono);z-index:2;color:#788875}
+.compass-cardinal.n{top:5px;color:var(--accent)}.compass-cardinal.e{right:6px}.compass-cardinal.s{bottom:5px}.compass-cardinal.w{left:6px}
+.compass-needle{position:absolute;z-index:3;left:50%;top:50%;width:3px;height:45px;transform:translateX(-50%) rotate(0deg);transform-origin:50% 50%;transition:transform .14s linear}
+.compass-needle:before{content:"";position:absolute;top:0;left:-4px;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:22px solid var(--accent);filter:drop-shadow(0 0 4px #c8ed7a66)}
+.compass-needle:after{content:"";position:absolute;top:22px;left:-4px;border-left:5px solid transparent;border-right:5px solid transparent;border-top:20px solid #66755c}
+.compass-hub{position:absolute;z-index:4;width:7px;height:7px;border:1px solid #11190e;background:var(--accent);border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%)}
+.compass-heading{font:19px var(--mono);letter-spacing:-.05em;margin-top:2px}
+.compass-heading small{font:9px var(--mono);color:var(--muted);letter-spacing:0}
+@keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@media(max-width:1050px){.utility-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.utility-card{min-height:178px}}
+@media(max-width:620px){.utility-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:20px}.utility-card{padding:12px;min-height:190px}.utility-top{font-size:7px;letter-spacing:.06em}.utility-title{font-size:11px}.utility-desc{font-size:9px}.utility-action{font-size:8px;padding:9px 6px}.compass-face{width:66px;height:66px}.compass-needle{height:38px}.compass-needle:before{border-bottom-width:18px}.compass-needle:after{top:18px;border-top-width:17px}.weather-temp{font-size:25px}}
+@media(max-width:350px){.utility-grid{grid-template-columns:1fr}.utility-card{min-height:155px}}
+@media(prefers-reduced-motion:reduce){.weather-icon{animation:none!important}}
+
 </style>
 </head>
 <body>
@@ -78,6 +121,36 @@ button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid var(--
     </div>
     <div class="format-box"><span class="format-label">TIME FORMAT</span><div class="format-switch" role="group" aria-label="Time format"><button id="format-24" class="active" type="button" aria-pressed="true">24 H</button><button id="format-12" type="button" aria-pressed="false">12 H</button></div></div>
     <p class="hint">Time is read directly from your device. Change your device's time or timezone settings to update this display.</p>
+  </section>
+
+  <section class="utilities-grid" aria-label="Phone utilities">
+    <article class="utility-card">
+      <div class="utility-top"><span>DISPLAY / 01</span><span class="utility-pill" id="wake-state">STANDBY</span></div>
+      <div class="utility-row"><div class="utility-icon">◉</div><div class="utility-copy"><div class="utility-title">Keep screen awake</div><p class="utility-desc" id="wake-detail">Prevent screen sleep while this page is visible.</p></div></div>
+      <div class="utility-subline" id="wake-subline">Requires browser support.</div>
+      <button class="utility-action" id="wake-toggle" type="button" aria-pressed="false">ENABLE KEEP AWAKE</button>
+    </article>
+    <article class="utility-card">
+      <div class="utility-top"><span>POWER / 02</span><span class="utility-pill" id="battery-state">CHECKING</span></div>
+      <div class="utility-row"><div class="utility-icon">▰</div><div class="utility-copy"><div class="utility-title">Battery</div><div class="utility-value" id="battery-value">--<span class="utility-unit">%</span></div></div></div>
+      <div class="battery-meter"><div class="battery-meter-fill" id="battery-fill"></div></div>
+      <div class="utility-subline" id="battery-detail">Reading device battery…</div>
+    </article>
+    <article class="utility-card">
+      <div class="utility-top"><span>ENVIRONMENT / 03</span><span class="utility-pill" id="weather-state">STANDBY</span></div>
+      <div class="utility-row"><div class="weather-icon" id="weather-icon" aria-hidden="true">☼</div><div class="utility-copy"><div class="utility-title">Local weather</div><div class="weather-temp" id="weather-temp">--°<small>C</small></div></div></div>
+      <p class="utility-desc" id="weather-detail">Tap below to request your location and fetch current conditions.</p>
+      <button class="utility-action" id="weather-refresh" type="button">GET LOCAL WEATHER</button>
+      <div class="utility-subline">Weather by Open-Meteo · internet required</div>
+    </article>
+    <article class="utility-card">
+      <div class="utility-top"><span>ORIENTATION / 04</span><span class="utility-pill" id="compass-state">STANDBY</span></div>
+      <div class="compass-row">
+        <div class="compass-face" aria-label="Compass dial"><span class="compass-cardinal n">N</span><span class="compass-cardinal e">E</span><span class="compass-cardinal s">S</span><span class="compass-cardinal w">W</span><span class="compass-needle" id="compass-needle"></span><span class="compass-hub"></span></div>
+        <div class="utility-copy"><div class="utility-title">Compass</div><div class="compass-heading" id="compass-heading">---°</div><div class="utility-subline" id="compass-detail">Waiting for sensor access.</div></div>
+      </div>
+      <button class="utility-action" id="compass-toggle" type="button">ENABLE COMPASS</button>
+    </article>
   </section>
 </main>
 <footer class="footer"><div><span class="foot-mark">◈</span> &nbsp; BLACKSITE-09 <span style="color:#3c4a3a">/</span> FIELD DISPLAY</div><div class="footer-right"><span class="footer-square"></span><span>LOCAL ONLY · NO TRACKING</span></div></footer>
@@ -135,6 +208,220 @@ function setFormat(is24){
 }
 $("format-24").addEventListener("click",function(){setFormat(true)});
 $("format-12").addEventListener("click",function(){setFormat(false)});
+
+var wakeLock=null,wakeRequested=false,wakeBusy=false;
+function setWakeUI(state,label,detail){
+  $("wake-state").textContent=state;
+  $("wake-state").className="utility-pill"+(state==="ACTIVE"?" active":(state==="UNAVAILABLE"||state==="DENIED"?" warn":""));
+  $("wake-detail").textContent=detail||"Prevent screen sleep while this page is visible.";
+  $("wake-toggle").classList.toggle("active",state==="ACTIVE");
+  $("wake-toggle").setAttribute("aria-pressed",String(state==="ACTIVE"||wakeRequested));
+  $("wake-toggle").textContent=label||((state==="ACTIVE"||wakeRequested)?"DISABLE KEEP AWAKE":"ENABLE KEEP AWAKE");
+}
+async function requestWakeLock(){
+  if(wakeBusy)return;
+  if(!("wakeLock" in navigator)){
+    setWakeUI("UNAVAILABLE","NOT SUPPORTED","This browser cannot request a screen wake lock.");
+    $("wake-subline").textContent="Try opening this page in a current browser over HTTPS.";
+    $("wake-toggle").disabled=true;return;
+  }
+  if(wakeRequested&&wakeLock){
+    wakeRequested=false;
+    try{await wakeLock.release()}catch(e){}
+    wakeLock=null;
+    setWakeUI("STANDBY","ENABLE KEEP AWAKE","Screen sleep is allowed again.");
+    $("wake-subline").textContent="Wake lock is off.";
+    return;
+  }
+  wakeBusy=true;$("wake-toggle").disabled=true;
+  try{
+    wakeRequested=true;
+    wakeLock=await navigator.wakeLock.request("screen");
+    setWakeUI("ACTIVE","DISABLE KEEP AWAKE","Screen lock should stay awake while this page is visible.");
+    $("wake-subline").textContent="Active · may pause when this tab is hidden.";
+    wakeLock.addEventListener("release",function(){
+      wakeLock=null;
+      if(wakeRequested&&document.visibilityState==="hidden"){
+        setWakeUI("PAUSED","KEEP AWAKE PENDING","The browser pauses wake lock in the background.");
+      }else{
+        wakeRequested=false;
+        setWakeUI("STANDBY","ENABLE KEEP AWAKE","The browser released the wake lock.");
+      }
+    },{once:true});
+  }catch(err){
+    wakeRequested=false;wakeLock=null;
+    setWakeUI("DENIED","TRY AGAIN","The device or browser refused to keep the screen awake.");
+    $("wake-subline").textContent="Check power-saving settings and browser support.";
+  }finally{wakeBusy=false;$("wake-toggle").disabled=false}
+}
+$("wake-toggle").addEventListener("click",requestWakeLock);
+document.addEventListener("visibilitychange",function(){
+  if(document.visibilityState==="visible"&&wakeRequested&&!wakeLock&&("wakeLock" in navigator)){
+    navigator.wakeLock.request("screen").then(function(lock){
+      wakeLock=lock;setWakeUI("ACTIVE","DISABLE KEEP AWAKE","Screen lock restored.");
+      lock.addEventListener("release",function(){wakeLock=null;if(wakeRequested&&document.visibilityState==="hidden"){setWakeUI("PAUSED","KEEP AWAKE PENDING","Waiting until the page is visible again.")}else{wakeRequested=false;setWakeUI("STANDBY","ENABLE KEEP AWAKE","The browser released the wake lock.")}},{once:true});
+    }).catch(function(){wakeRequested=false;setWakeUI("DENIED","TRY AGAIN","The device did not restore the wake lock.")});
+  }
+});
+if(!("wakeLock" in navigator)){
+  setWakeUI("UNAVAILABLE","NOT SUPPORTED","This browser cannot request a screen wake lock.");
+  $("wake-subline").textContent="Try a current browser over HTTPS.";
+  $("wake-toggle").disabled=true;
+}
+
+function initBattery(){
+  if(typeof navigator.getBattery!=="function"){
+    $("battery-state").textContent="UNAVAILABLE";$("battery-state").classList.add("warn");
+    $("battery-value").innerHTML="N/A";$("battery-detail").textContent="Battery status is hidden by this browser.";
+    $("battery-fill").style.width="0%";return;
+  }
+  navigator.getBattery().then(function(battery){
+    function updateBattery(){
+      var level=Math.round(battery.level*100),charging=battery.charging;
+      $("battery-value").innerHTML=level+'<span class="utility-unit">%</span>';
+      $("battery-state").textContent=charging?"CHARGING":"ON BATTERY";
+      $("battery-state").className="utility-pill"+(charging?" active":"");
+      $("battery-fill").style.width=level+"%";
+      $("battery-fill").style.background=level<=20?"var(--gold)":"var(--accent)";
+      if(charging){$("battery-detail").textContent="Connected to power."}
+      else if(Number.isFinite(battery.dischargingTime)&&battery.dischargingTime>0&&battery.dischargingTime<86400000){
+        var total=Math.round(battery.dischargingTime/60);
+        $("battery-detail").textContent="Est. "+Math.floor(total/60)+"h "+(total%60)+"m remaining.";
+      }else{$("battery-detail").textContent="Live device battery level."}
+    }
+    updateBattery();
+    ["levelchange","chargingchange","chargingtimechange","dischargingtimechange"].forEach(function(event){battery.addEventListener(event,updateBattery)});
+  }).catch(function(){
+    $("battery-state").textContent="UNAVAILABLE";$("battery-value").innerHTML="N/A";
+    $("battery-detail").textContent="This browser blocked battery access.";
+  });
+}
+initBattery();
+
+var weatherBusy=false,weatherLastCoords=null;
+function weatherDescription(code){
+  var map={
+    0:["Clear sky","☀"],1:["Mainly clear","☀"],2:["Partly cloudy","◒"],3:["Overcast","☁"],
+    45:["Fog","≋"],48:["Freezing fog","≋"],51:["Light drizzle","☂"],53:["Drizzle","☂"],55:["Heavy drizzle","☂"],
+    56:["Freezing drizzle","❄"],57:["Freezing drizzle","❄"],61:["Light rain","☂"],63:["Rain","☂"],65:["Heavy rain","☂"],
+    66:["Freezing rain","❄"],67:["Freezing rain","❄"],71:["Light snow","❄"],73:["Snow","❄"],75:["Heavy snow","❄"],77:["Snow grains","❄"],
+    80:["Rain showers","☂"],81:["Rain showers","☂"],82:["Heavy showers","☂"],85:["Snow showers","❄"],86:["Snow showers","❄"],
+    95:["Thunderstorm","ϟ"],96:["Thunderstorm / hail","ϟ"],99:["Thunderstorm / hail","ϟ"]
+  };
+  return map[code]||["Conditions unavailable","·"];
+}
+function setWeatherError(message){
+  $("weather-state").textContent="UNAVAILABLE";$("weather-state").className="utility-pill warn";
+  $("weather-detail").textContent=message;$("weather-refresh").textContent="TRY AGAIN";
+  $("weather-refresh").disabled=false;weatherBusy=false;
+}
+async function fetchWeatherFor(position){
+  var lat=position.coords.latitude,lon=position.coords.longitude;
+  weatherLastCoords={latitude:lat,longitude:lon};
+  $("weather-state").textContent="LOADING";$("weather-state").className="utility-pill";
+  $("weather-detail").textContent="Fetching current conditions…";$("weather-refresh").disabled=true;
+  var params=new URLSearchParams({
+    latitude:String(lat),longitude:String(lon),
+    current:"temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m",
+    daily:"temperature_2m_max,temperature_2m_min",forecast_days:"1",timezone:"auto"
+  });
+  try{
+    var response=await fetch("https://api.open-meteo.com/v1/forecast?"+params.toString(),{cache:"no-store"});
+    if(!response.ok)throw new Error("Weather service returned "+response.status+".");
+    var json=await response.json(),current=json.current,daily=json.daily;
+    if(!current)throw new Error("No current weather data was returned.");
+    var description=weatherDescription(current.weather_code);
+    $("weather-temp").innerHTML=Math.round(current.temperature_2m)+'°<small>C</small>';
+    $("weather-icon").textContent=description[1];
+    $("weather-title");
+    $("weather-detail").textContent=description[0]+" · Feels like "+Math.round(current.apparent_temperature)+"°C";
+    $("weather-state").textContent="UPDATED";
+    $("weather-state").className="utility-pill active";
+    $("weather-refresh").textContent="REFRESH WEATHER";
+    $("weather-refresh").disabled=false;
+    var highs=daily&&daily.temperature_2m_max&&daily.temperature_2m_max[0];
+    var lows=daily&&daily.temperature_2m_min&&daily.temperature_2m_min[0];
+    $("weather-sub-extra");
+    if(highs!==undefined&&lows!==undefined){$("weather-detail").textContent=description[0]+" · Feels "+Math.round(current.apparent_temperature)+"°C · H "+Math.round(highs)+"° / L "+Math.round(lows)+"°"}
+    weatherBusy=false;
+  }catch(err){setWeatherError("Weather could not load. Check your connection and retry.")}
+}
+$("weather-refresh").addEventListener("click",function(){
+  if(weatherBusy)return;
+  if(!navigator.geolocation){setWeatherError("Location is not available in this browser.");return}
+  weatherBusy=true;$("weather-refresh").disabled=true;$("weather-refresh").textContent="LOADING…";
+  $("weather-state").textContent="LOCATION";$("weather-state").className="utility-pill";
+  $("weather-detail").textContent="Asking for location permission…";
+  navigator.geolocation.getCurrentPosition(function(position){fetchWeatherFor(position)},function(err){
+    weatherBusy=false;$("weather-refresh").disabled=false;$("weather-refresh").textContent="TRY AGAIN";
+    if(err.code===1)setWeatherError("Location permission was denied. Allow it in browser settings to get local weather.");
+    else if(err.code===2)setWeatherError("Your location could not be determined. Check device location and retry.");
+    else setWeatherError("Location request timed out. Try again.");
+  },{enableHighAccuracy:false,timeout:15000,maximumAge:600000});
+});
+
+var compassEnabled=false,compassSeen=false,compassTimer=null,compassHandler=null;
+function compassCardinal(deg){var dirs=["N","NE","E","SE","S","SW","W","NW"];return dirs[Math.round(((deg%360)+360)%360/45)%8]}
+function compassEvent(event){
+  var heading=null;
+  if(typeof event.webkitCompassHeading==="number"&&Number.isFinite(event.webkitCompassHeading)){
+    heading=event.webkitCompassHeading;
+  }else if(event.absolute&&typeof event.alpha==="number"&&Number.isFinite(event.alpha)){
+    var screenAngle=0;
+    if(screen.orientation&&typeof screen.orientation.angle==="number")screenAngle=screen.orientation.angle;
+    else if(typeof window.orientation==="number")screenAngle=window.orientation;
+    heading=(360-event.alpha+screenAngle)%360;
+  }else{return}
+  heading=(heading+360)%360;
+  compassSeen=true;
+  $("compass-needle").style.transform="translateX(-50%) rotate("+(-heading)+"deg)";
+  $("compass-heading").textContent=compassCardinal(heading)+" "+Math.round(heading)+"°";
+  $("compass-state").textContent="ACTIVE";$("compass-state").className="utility-pill active";
+  $("compass-detail").textContent="Live device heading.";
+  $("compass-toggle").textContent="DISABLE COMPASS";$("compass-toggle").classList.add("active");
+}
+function stopCompass(){
+  compassEnabled=false;compassSeen=false;
+  if(compassHandler){window.removeEventListener("deviceorientationabsolute",compassHandler,true);window.removeEventListener("deviceorientation",compassHandler,true);compassHandler=null}
+  if(compassTimer){clearTimeout(compassTimer);compassTimer=null}
+  $("compass-heading").textContent="---°";$("compass-needle").style.transform="translateX(-50%) rotate(0deg)";
+  $("compass-state").textContent="STANDBY";$("compass-state").className="utility-pill";
+  $("compass-detail").textContent="Sensor access is off.";
+  $("compass-toggle").textContent="ENABLE COMPASS";$("compass-toggle").classList.remove("active");
+}
+async function startCompass(){
+  if(compassEnabled){stopCompass();return}
+  if(!window.isSecureContext){$("compass-state").textContent="HTTPS REQUIRED";$("compass-state").className="utility-pill warn";$("compass-detail").textContent="Compass sensor access requires a secure HTTPS page.";return}
+  if(!("DeviceOrientationEvent" in window)){
+    $("compass-state").textContent="UNAVAILABLE";$("compass-state").className="utility-pill warn";$("compass-detail").textContent="This browser does not expose device orientation.";return;
+  }
+  try{
+    if(typeof DeviceOrientationEvent.requestPermission==="function"){
+      var permission=await DeviceOrientationEvent.requestPermission(true);
+      if(permission!=="granted"){throw new Error("Permission denied.")}
+    }
+    compassEnabled=true;compassSeen=false;
+    $("compass-state").textContent="CONNECTING";$("compass-state").className="utility-pill";
+    $("compass-detail").textContent="Waiting for compass sensor…";
+    compassHandler=compassEvent;
+    window.addEventListener("deviceorientationabsolute",compassHandler,true);
+    window.addEventListener("deviceorientation",compassHandler,true);
+    $("compass-toggle").textContent="DISABLE COMPASS";
+    if(compassTimer)clearTimeout(compassTimer);
+    compassTimer=setTimeout(function(){
+      if(compassEnabled&&!compassSeen){
+        $("compass-state").textContent="NO SENSOR";$("compass-state").className="utility-pill warn";
+        $("compass-detail").textContent="No absolute heading received. Device or browser may not expose a compass.";
+      }
+    },5000);
+  }catch(err){
+    compassEnabled=false;$("compass-state").textContent="DENIED";$("compass-state").className="utility-pill warn";
+    $("compass-detail").textContent="Compass permission was denied or is unavailable.";
+    $("compass-toggle").textContent="TRY AGAIN";
+  }
+}
+$("compass-toggle").addEventListener("click",startCompass);
+
 if(reduceMotion){document.body.classList.add("reduce-motion")}
 update();setInterval(update,250);
 })();
