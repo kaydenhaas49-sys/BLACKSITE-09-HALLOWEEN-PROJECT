@@ -37,8 +37,8 @@ button:focus-visible,input:focus-visible{outline:1px solid var(--green);outline-
 .device:before{left:7px}.device:after{right:7px}
 .screen{
  min-height:650px;display:grid;grid-template-columns:minmax(0,1fr) 235px;
- grid-template-rows:auto auto auto auto minmax(320px,1fr) auto auto;
- grid-template-areas:"status status" "masthead masthead" "hud controls" "term controls" "output controls" "command controls" "footer footer";
+ grid-template-rows:auto auto auto minmax(320px,1fr) auto;
+ grid-template-areas:"status status" "masthead masthead" "hud controls" "term controls" "output controls" "command controls";
  overflow:hidden;position:relative;border:2px solid #050705;outline:1px solid #4d6044;outline-offset:-4px;
  background:var(--screen);box-shadow:inset 0 0 0 1px #20291b,inset 0 0 23px #7da55c0a
 }
@@ -116,7 +116,6 @@ button:focus-visible,input:focus-visible{outline:1px solid var(--green);outline-
 .command-input::placeholder{color:#607458}
 .submit{padding:8px 10px;border:1px solid #3e5832;background:#0c160a;color:#c5e7b0;font-size:8px;letter-spacing:.06em}
 .submit:hover{background:#182513;border-color:#6d9254}
-.footer{grid-area:footer;display:flex;justify-content:space-between;gap:8px;padding:7px 12px;border-top:1px solid #1f2e1b;background:#040604;color:#617458;font-size:6px;letter-spacing:.06em}
 @keyframes device-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 .line{animation:line-in .08s ease-out both}
 @keyframes line-in{from{opacity:.45}to{opacity:1}}
@@ -127,7 +126,7 @@ button:focus-visible,input:focus-visible{outline:1px solid var(--green);outline-
  body{padding:0;align-items:stretch;background:#050805}
  .device{width:100%;min-height:100dvh;padding:0;border:0;border-radius:0;box-shadow:none}
  .device:before,.device:after{display:none}
- .screen{min-height:100dvh;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto minmax(220px,1fr) auto auto auto;grid-template-areas:"status" "masthead" "hud" "term" "output" "command" "controls" "footer";border:0;outline:0;box-shadow:none}
+ .screen{min-height:100dvh;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto minmax(220px,1fr) auto auto;grid-template-areas:"status" "masthead" "hud" "term" "output" "command" "controls";border:0;outline:0;box-shadow:none}
  .statusbar{padding-top:max(10px,env(safe-area-inset-top))}
  .masthead{padding:12px}
  .hud-panel{padding:9px}
@@ -137,15 +136,12 @@ button:focus-visible,input:focus-visible{outline:1px solid var(--green);outline-
  .tool-shortcut{padding:8px 7px}
  .functionbar{grid-template-columns:repeat(4,minmax(0,1fr))}
  .function-key{flex-direction:column;gap:4px;min-height:39px;padding:5px 2px}
- .control-bank-bottom{margin-top:0}
- .output{min-height:220px;padding:10px}
- .footer{padding-bottom:max(8px,env(safe-area-inset-bottom))}
- .device:fullscreen{padding:0}
+  .output{min-height:220px;padding:10px}
+  .device:fullscreen{padding:0}
  .device:fullscreen .screen{height:100dvh;min-height:0}
 }
 @media(max-width:390px){
- .device-title{font-size:23px}.subtitle{font-size:7px;letter-spacing:.06em}.unit-stamp{display:none}
- .session-grid{gap:4px}.session-card small{font-size:6px}.session-label{font-size:6px}
+ .device-title{font-size:23px}.subtitle{font-size:7px;letter-spacing:.06em} .session-grid{gap:4px}.session-card small{font-size:6px}.session-label{font-size:6px}
  .session-lower{padding:6px 7px}.tool-shortcut span{font-size:7px}.tool-shortcut small{font-size:6px}
 }
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
@@ -155,8 +151,8 @@ button:focus-visible,input:focus-visible{outline:1px solid var(--green);outline-
 <main class="device" aria-label="BLACKSITE-09 browser security terminal">
 
 <div class="screen">
-<div class="statusbar"><div class="status-left"><span class="brand-id">BS09</span><span>SECURITY TERMINAL</span></div><div class="status-right"><span><i class="led" id="link-led"></i><span id="link-label">LINK ?</span></span><span id="clock-mini">--:--:--</span></div></div>
-<div class="masthead"><div class="masthead-main"><div class="overline">SECURITY WORKBENCH / BROWSER TOOLS</div><div class="device-title" data-text="BLACKSITE-09">BLACKSITE-09</div><div class="subtitle">DNS LOOKUP / RDAP / SHA-256 / NETWORK CHECK</div></div><div class="unit-stamp">RUNTIME<b>WEB APP</b>CONTEXT<b id="context-stamp">CHECKING</b></div></div>
+<div class="statusbar"><div class="status-left"><span class="brand-id">BS09</span><span>SECURITY TERMINAL</span></div><div class="status-right"><span><i class="led" id="link-led"></i><span id="link-label">CHECKING</span></span><span id="clock-mini">--:--:--</span></div></div>
+<div class="masthead"><div class="masthead-main"><div class="overline">SECURITY WORKBENCH / BROWSER TOOLS</div><div class="device-title" data-text="BLACKSITE-09">BLACKSITE-09</div><div class="subtitle">DNS LOOKUP / RDAP / SHA-256 / NETWORK CHECK</div></div></div>
 
 <section class="hud-panel" aria-label="Live session status">
 <div class="hud-topline"><span><i class="mini-led"></i> SESSION</span><span id="session-mode">BROWSER / LIVE STATE</span></div>
@@ -190,13 +186,13 @@ button:focus-visible,input:focus-visible{outline:1px solid var(--green);outline-
 <button class="function-key" data-command="tools"><b>F3</b> APIS</button>
 <button class="function-key" data-command="fullscreen"><b>F4</b> FULLSCREEN</button>
 </nav>
-<div class="control-bank-bottom"><span>LOCAL BROWSER SESSION</span><span>NO OS SHELL</span></div>
+
 </aside>
 <div class="terminal-head"><span>COMMAND CONSOLE <strong>// TOOL OUTPUT</strong></span><span><i class="cursor-led"></i> READY</span></div>
 <div class="output" id="terminal-output" role="log" aria-live="polite" aria-label="Terminal output"></div>
 <form class="commandbar" id="command-form"><label class="prompt" for="command-input">bs09&gt;</label><input class="command-input" id="command-input" name="command" type="text" maxlength="160" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type help" aria-label="Command input"><button class="submit" type="submit">ENTER ↵</button></form>
 
-<div class="footer"><span>BLACKSITE-09 / SECURITY TOOLS</span><span>LOCAL SESSION</span></div>
+
 </div>
 
 </main>
@@ -218,7 +214,6 @@ function updateSessionPanel(){
  transport.textContent=secure?"SECURE":"INSECURE";transport.className=secure?"telemetry-value is-good":"telemetry-value is-bad";
  $("dash-transport-note").textContent=protocol+" / "+(secure?"secure context enabled":"secure context unavailable");
  origin.textContent=location.host||((protocol==="file:")?"LOCAL FILE":"LOCAL ORIGIN");
- $("context-stamp").textContent=secure?(protocol==="https:"?"HTTPS":"SECURE"):(protocol==="file:"?"LOCAL FILE":"INSECURE");
  $("dash-target").textContent=activeTargetText;$("last-command").textContent=lastCommandText;
  var cryptoReady=!!(secure&&window.crypto&&window.crypto.subtle);
  setApiIndicator("api-crypto-led","api-crypto-state",cryptoReady?"READY":"N/A",cryptoReady?"":"led-red");
@@ -276,7 +271,7 @@ function about(){
  output("Runs only browser-accessible features and requested public lookups.","dim");
  output("It is not an OS shell or a network scanner.","dim");
 }
-function showTools(){output("API CAPABILITY CHECK","good");output("DNS OVER HTTPS     CONFIGURED / NETWORK REQUIRED","good");output("RDAP LOOKUP        CONFIGURED / NETWORK REQUIRED","good");output("WEB CRYPTO SHA-256 "+(!!(window.isSecureContext&&window.crypto&&window.crypto.subtle)?"AVAILABLE":"UNAVAILABLE"),window.isSecureContext&&window.crypto&&window.crypto.subtle?"good":"warn");output("SCREEN WAKE LOCK   "+("wakeLock" in navigator?"EXPOSED":"UNAVAILABLE"),"wakeLock" in navigator?"good":"warn");output("BATTERY API        "+(typeof navigator.getBattery==="function"?"EXPOSED":"UNAVAILABLE"),typeof navigator.getBattery==="function"?"good":"warn");output("GEOLOCATION        "+(!!navigator.geolocation?"EXPOSED / PERMISSION REQUIRED":"UNAVAILABLE"),navigator.geolocation?"good":"warn");output("MOTION SENSOR      "+("DeviceMotionEvent" in window?"EXPOSED / PERMISSION MAY APPLY":"UNAVAILABLE"),"DeviceMotionEvent" in window?"good":"warn");output("VIBRATION API      "+(typeof navigator.vibrate==="function"?"EXPOSED":"UNAVAILABLE"),typeof navigator.vibrate==="function"?"good":"warn");output("ORIENTATION API    "+("DeviceOrientationEvent" in window?"EXPOSED":"UNAVAILABLE"),"DeviceOrientationEvent" in window?"good":"warn");output("SECURE CONTEXT     "+(window.isSecureContext?"YES":"NO"),window.isSecureContext?"good":"warn");output("API presence does not guarantee hardware or remote-service access.","dim")}
+function showTools(){output("BROWSER API CAPABILITIES","good");output("DNS / RDAP          REMOTE LOOKUPS CONFIGURED","good");output("WEB CRYPTO SHA-256 "+(!!(window.isSecureContext&&window.crypto&&window.crypto.subtle)?"AVAILABLE":"UNAVAILABLE"),window.isSecureContext&&window.crypto&&window.crypto.subtle?"good":"warn");output("SCREEN WAKE LOCK   "+("wakeLock" in navigator?"EXPOSED":"UNAVAILABLE"),"wakeLock" in navigator?"good":"warn");output("BATTERY API        "+(typeof navigator.getBattery==="function"?"EXPOSED":"UNAVAILABLE"),typeof navigator.getBattery==="function"?"good":"warn");output("GEOLOCATION        "+(!!navigator.geolocation?"EXPOSED / PERMISSION REQUIRED":"UNAVAILABLE"),navigator.geolocation?"good":"warn");output("MOTION SENSOR      "+("DeviceMotionEvent" in window?"EXPOSED / PERMISSION MAY APPLY":"UNAVAILABLE"),"DeviceMotionEvent" in window?"good":"warn");output("VIBRATION API      "+(typeof navigator.vibrate==="function"?"EXPOSED":"UNAVAILABLE"),typeof navigator.vibrate==="function"?"good":"warn");output("ORIENTATION API    "+("DeviceOrientationEvent" in window?"EXPOSED":"UNAVAILABLE"),"DeviceOrientationEvent" in window?"good":"warn");output("SECURE CONTEXT     "+(window.isSecureContext?"YES":"NO"),window.isSecureContext?"good":"warn");}
 function loadBattery(onResult){if(battery){onResult(battery);return}if(typeof navigator.getBattery!=="function"){onResult(null);return}navigator.getBattery().then(function(b){battery=b;onResult(b)}).catch(function(){onResult(null)})}
 function showBattery(){output("BATTERY STATUS REQUEST","good");loadBattery(function(b){if(!b){output("Battery status is not exposed by this browser.","warn");return}output("LEVEL      "+Math.round(b.level*100)+"%","good");output("CHARGING   "+(b.charging?"YES":"NO"),b.charging?"good":"plain");if(Number.isFinite(b.chargingTime)&&b.chargingTime!==Infinity)output("TO FULL    "+Math.round(b.chargingTime/60)+" MIN");if(Number.isFinite(b.dischargingTime)&&b.dischargingTime!==Infinity)output("REMAINING  "+Math.round(b.dischargingTime/60)+" MIN")})}
 function wakeStatus(){if(!("wakeLock" in navigator)){output("Wake Lock API is unavailable in this browser.","warn");return}output("SCREEN WAKE LOCK  "+(wakeWanted&&wakeLock?"ACTIVE":"INACTIVE"),wakeWanted&&wakeLock?"good":"plain")}
