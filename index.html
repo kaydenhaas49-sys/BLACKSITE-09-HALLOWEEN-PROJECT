@@ -92,6 +92,139 @@ button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid var(--
 @media(max-width:620px){.utility-section-head{align-items:flex-start;flex-direction:column;gap:7px;margin-top:18px;padding-bottom:10px}.utility-section-note{text-align:left}.utility-section-title{font-size:14px}.utility-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:8px}.utility-card{min-height:188px}.utility-card:hover{transform:none}}
 @media(max-width:350px){.utility-grid{grid-template-columns:1fr}.utility-section-head{margin-top:16px}}
 
+
+/* Compact animated HUD layout */
+.shell{max-width:1440px;padding-left:clamp(14px,3vw,42px);padding-right:clamp(14px,3vw,42px)}
+.top{height:59px}
+.content{grid-template-columns:minmax(145px,.75fr) minmax(270px,1.1fr) minmax(145px,.75fr);gap:clamp(12px,2.3vw,32px);padding:20px 0 17px;max-width:1160px}
+.side-block.left h1{font-size:clamp(26px,2.6vw,35px);line-height:1.02}
+.side-block.left .overline,.side-block.right .overline{margin-bottom:11px;font-size:8px;letter-spacing:.15em}
+.dial{width:min(100%,335px)}
+.clock-core{width:85%}
+.core-label{margin-bottom:12px;font-size:8px}
+.date{margin-top:12px;font-size:11px}
+.timezone{font-size:8px;margin-top:7px}
+.below-dial{width:min(100%,286px);margin-top:3px}
+.day-label{font-size:8px;margin-bottom:7px}
+.day-marks{margin-top:5px}
+.side-data{margin-top:0}
+.data-row{padding:9px 0;font-size:8px}
+.format-box{margin-top:16px}
+.format-label{font-size:8px}
+.format-switch button{padding:7px 8px;font-size:8px}
+.utility-section-head{margin:4px 0 -2px;padding-bottom:8px}
+.utility-section-head .overline{font-size:8px;letter-spacing:.16em}
+.utility-section-title{font-size:13px;margin-top:4px}
+.utility-section-note{font-size:7px;letter-spacing:.07em}
+.utility-grid{gap:9px;margin-top:3px}
+.utility-card{padding:11px;min-height:145px}
+.utility-top{margin-bottom:11px;font-size:7px;letter-spacing:.07em}
+.utility-pill{font-size:7px;padding:3px 4px}
+.utility-icon{width:27px;height:27px;font-size:14px}
+.utility-title{font-size:10px}
+.utility-value{font-size:20px;margin-top:5px}
+.utility-unit{font-size:9px}
+.utility-subline{font-size:7px;line-height:1.35;margin-top:5px;min-height:10px}
+.utility-desc{font-size:8px;line-height:1.35;margin:5px 0 7px}
+.utility-action{font-size:8px;padding:8px 5px;letter-spacing:.04em}
+.battery-meter{margin-top:8px;height:3px}
+.weather-temp{font-size:24px}
+.weather-temp small{font-size:9px}
+.weather-icon{font-size:21px;width:27px;height:27px}
+.compass-row{gap:8px}
+.compass-face{width:62px;height:62px}
+.compass-needle{height:34px}
+.compass-needle:before{border-left-width:4px;border-right-width:4px;border-bottom-width:17px;left:-3px}
+.compass-needle:after{top:17px;border-left-width:4px;border-right-width:4px;border-top-width:16px;left:-3px}
+.compass-heading{font-size:16px}
+.footer{padding-top:10px;font-size:8px}
+.hud-sweep{position:absolute;z-index:1;inset:5.5%;border-radius:50%;pointer-events:none;background:conic-gradient(from 0deg,transparent 0deg,transparent 286deg,rgba(200,237,122,.02) 313deg,rgba(200,237,122,.17) 359deg);-webkit-mask:radial-gradient(circle,transparent 63%,#000 64%,#000 72%,transparent 73%);mask:radial-gradient(circle,transparent 63%,#000 64%,#000 72%,transparent 73%);filter:drop-shadow(0 0 4px #c8ed7a33);animation:rotate 11s linear infinite}
+.hud-sweep:after{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,transparent 0deg,rgba(200,237,122,.2) 2deg,transparent 3deg);opacity:.7}
+.dial-svg{z-index:0}
+.clock-core{z-index:3}
+.orbit-dot{z-index:2}
+.dial-mark{z-index:2}
+.utility-card{animation:card-in .65s cubic-bezier(.2,.7,.2,1) both}
+.utility-card:nth-child(2){animation-delay:.07s}.utility-card:nth-child(3){animation-delay:.14s}.utility-card:nth-child(4){animation-delay:.21s}
+.utility-card:after{content:"";position:absolute;left:12px;right:12px;top:0;height:1px;background:linear-gradient(90deg,transparent,#c8ed7a55,transparent);animation:line-glide 5s ease-in-out infinite;pointer-events:none}
+.utility-card:nth-child(2):after{animation-delay:.8s}.utility-card:nth-child(3):after{animation-delay:1.6s}.utility-card:nth-child(4):after{animation-delay:2.4s}
+@keyframes card-in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@keyframes line-glide{0%,100%{opacity:.25;transform:scaleX(.55)}50%{opacity:1;transform:scaleX(1)}}
+@media(max-width:900px){
+ .content{grid-template-columns:minmax(120px,.7fr) minmax(240px,1fr) minmax(120px,.7fr);gap:12px;padding:16px 0 14px}
+ .dial{width:min(100%,300px)}
+ .utility-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+ .utility-card{padding:9px;min-height:142px}
+ .utility-top{font-size:6.5px}
+ .utility-title{font-size:9px}
+ .utility-subline{font-size:6.5px}
+}
+@media(max-width:620px){
+ .shell{padding-left:12px;padding-right:12px;padding-bottom:max(12px,env(safe-area-inset-bottom))}
+ .top{height:51px}
+ .brand{gap:8px}.brand-mark{width:29px;height:29px;font-size:9px}.brand-mark:before{inset:3px}
+ .brand-name{font-size:10px;letter-spacing:.1em}.brand-sub{font-size:7px;letter-spacing:.12em;margin-top:3px}
+ .header-right{gap:8px}.system-label{font-size:7px;letter-spacing:.04em;gap:5px}.tiny-divider{height:15px}
+ .content{display:grid;grid-template-columns:minmax(0,1fr);gap:7px;padding:12px 0 12px;align-items:start}
+ .side-block.left{display:none}
+ .clock-stage{grid-column:1;grid-row:auto;order:0;margin:0 auto;width:min(100%,330px)}
+ .dial{width:min(100%,295px);max-width:295px}
+ .clock-core{width:86%}
+ .core-label{margin-bottom:10px;font-size:7px;letter-spacing:.17em}
+ .time{font-size:clamp(40px,10.5vw,55px);letter-spacing:-.105em;gap:2px}
+ .ampm{font-size:9px;margin-left:4px}
+ .date{font-size:10px;margin-top:10px}
+ .timezone{font-size:7px;letter-spacing:.08em;margin-top:6px}
+ .dial-mark{font-size:7px}
+ .below-dial{width:min(84%,270px);margin-top:1px}
+ .day-label{font-size:7px;margin-bottom:6px}
+ .day-marks{font-size:7px;margin-top:4px}
+ .side-block.right{grid-column:1;grid-row:auto;order:1;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:7px;margin:0 auto;width:100%;max-width:390px}
+ .side-block.right .overline{display:none}
+ .side-data{grid-column:1;grid-row:1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;border-top:0}
+ .data-row{border:1px solid #273329;background:#0b100c;padding:6px 8px;display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:5px;font-size:7px}
+ .data-row span{font-size:6.5px;letter-spacing:.025em}
+ .data-row b{font-size:8px}
+ .format-box{grid-column:2;grid-row:1;display:flex;flex-direction:column;align-items:stretch;gap:5px;margin:0}
+ .format-label{display:none}
+ .format-switch{flex-direction:column;gap:2px;padding:2px}
+ .format-switch button{padding:7px 8px;font-size:7px}
+ .utility-section-head{margin:10px 0 0;padding-bottom:7px;gap:6px}
+ .utility-section-title{font-size:11px;margin-top:3px}
+ .utility-section-note{font-size:6px;letter-spacing:.06em}
+ .utility-grid{grid-column:1;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:7px}
+ .utility-card{padding:9px;min-height:137px}
+ .utility-top{margin-bottom:8px;font-size:6px;letter-spacing:.055em}
+ .utility-pill{font-size:6px;padding:3px}
+ .utility-row{gap:7px}
+ .utility-icon{width:24px;height:24px;font-size:12px}
+ .utility-title{font-size:9px}
+ .utility-value{font-size:19px;margin-top:4px}
+ .utility-subline{font-size:6.5px;min-height:9px;margin-top:4px}
+ .utility-desc{font-size:7.5px;line-height:1.35}
+ .utility-action{font-size:7px;padding:7px 4px;letter-spacing:.015em}
+ .battery-meter{margin-top:7px}
+ .weather-temp{font-size:22px}.weather-icon{width:24px;height:24px;font-size:20px}
+ .compass-row{gap:7px}.compass-face{width:54px;height:54px}
+ .compass-needle{height:29px}.compass-needle:before{border-bottom-width:14px}.compass-needle:after{top:14px;border-top-width:14px}
+ .compass-cardinal.n{top:4px}.compass-cardinal.e{right:4px}.compass-cardinal.s{bottom:4px}.compass-cardinal.w{left:4px}
+ .compass-heading{font-size:14px}
+ .footer{padding-top:8px;font-size:7px;gap:10px}
+}
+@media(max-width:370px){
+ .dial{width:min(100%,270px)}
+ .time{font-size:39px}
+ .utility-card{padding:8px;min-height:132px}
+ .utility-top{font-size:5.5px}
+ .utility-title{font-size:8px}
+ .compass-face{width:48px;height:48px}
+ .compass-heading{font-size:12px}
+ .utility-action{font-size:6.5px}
+}
+@media(prefers-reduced-motion:reduce){
+ .hud-sweep,.utility-card:after,.utility-card{animation:none!important;transition:none!important}
+}
+
 </style>
 </head>
 <body>
@@ -115,6 +248,7 @@ button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid var(--
         <circle class="progress" id="seconds-progress" cx="160" cy="160" r="140" transform="rotate(-90 160 160)"/>
         <circle cx="160" cy="160" r="117" fill="none" stroke="#b5d19a0b" stroke-width="1"/>
       </svg>
+      <div class="hud-sweep" aria-hidden="true"></div>
       <div class="orbit-dot"></div><div class="orbit-dot two"></div>
       <span class="dial-mark top">LOCAL</span><span class="dial-mark right">60</span><span class="dial-mark bottom">FT / 09</span><span class="dial-mark left">00</span>
       <div class="clock-core">
