@@ -1,6 +1,6 @@
-# BLACKSITE-09 — Wrist Terminal
+# BLACKSITE-09 — Security Workbench
 
-A compact, hardware-inspired wrist terminal built with vanilla HTML, CSS, and JavaScript. It uses a recessed display, rugged bezel, fixed function keys, monochrome phosphor text, scanlines, and animated status output.
+A browser-based security workbench built with vanilla HTML, CSS, and JavaScript. The interface uses a three-column workspace with a command terminal, quick-run tools, live browser/session status, and restrained green accents. No framework, build step, or backend is required.
 
 ## Commands that do real work
 
