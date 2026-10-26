@@ -1,22 +1,26 @@
 # BLACKSITE-09 — Wrist Terminal
 
-A compact, terminal-style wrist-device interface built with vanilla HTML, CSS, and JavaScript. The design uses a monochrome green phosphor display, fixed section menu, compact readouts, and a rugged terminal bezel.
+A compact, hardware-inspired wrist terminal built with vanilla HTML, CSS, and JavaScript. Its physical-console styling uses a recessed screen, rugged bezel, fastener details, fixed function keys, monochrome phosphor text, scanlines, and compact status output.
 
-## Real features
+## Real terminal commands
 
-- **Live local clock:** device time, date, and timezone.
-- **Connectivity status:** browser-reported online/offline state. Online does not guarantee internet reachability.
-- **Secure-context status:** reports whether the page is in a browser secure context.
-- **Screen wake lock:** requests that the browser keep the display awake when supported.
-- **Battery status:** battery level and charging state if the browser exposes the Battery Status API.
-- **Weather:** fetches current weather and daily high/low from Open-Meteo after the user presses the request button and grants location permission.
-- **Compass:** displays an absolute heading when the browser and device provide a usable sensor.
+Type `help` for a complete list. Supported commands:
 
-The interface is designed as a single scrollable terminal screen and adapts to mobile widths. It does not contain fake networks, made-up CPU/RAM stats, simulated scan results, pretend decryption, or fake command execution.
+- `time` / `date` — local device time, date, timezone, and UTC offset.
+- `status` — browser-reported online/offline state, secure context, timezone, and platform.
+- `battery` — battery level and charging status if the browser exposes its Battery Status API.
+- `wake on`, `wake off`, `wake status` — control the Screen Wake Lock API where supported.
+- `weather` — asks for location permission and then queries Open-Meteo for current weather and daily high/low.
+- `compass on`, `compass off`, `compass status` — enable or disable device orientation events where available.
+- `tools` — check which browser APIs are exposed.
+- `clear` — clear the terminal.
+- `about` — explain console limitations.
 
-## Run it locally
+The terminal only runs these documented browser actions. It is not an operating-system shell and does not scan hosts, run arbitrary commands, access private processes, invent CPU/RAM data, or simulate file decryption.
 
-Open `index.html` in a modern browser. No framework, package manager, build step, or backend is needed. Wake lock and orientation sensors may require HTTPS or localhost; API availability varies by browser and device.
+## Run locally
+
+Open `index.html` in a modern browser. No framework, package manager, build step, or backend is required. Wake lock and orientation sensors may require HTTPS or localhost; support varies by browser and hardware.
 
 ## Publish with GitHub Pages
 
@@ -25,14 +29,14 @@ Open `index.html` in a modern browser. No framework, package manager, build step
 3. Choose branch `main` and folder `/(root)`, then save.
 4. Expected URL: https://kaydenhaas49-sys.github.io/BLACKSITE-09-HALLOWEEN-PROJECT/
 
-The page may take a few minutes to publish after Pages is enabled.
+Publishing may take a few minutes after Pages is enabled.
 
 ## Privacy
 
-- Time and status readouts are processed in the browser.
-- Weather requests location only after the user presses the button; coordinates are sent to Open-Meteo for weather data and are not saved by this page.
+- Time and connection details are read locally in the browser.
+- Weather requests device location only after the user enters `weather` or selects the weather shortcut. Coordinates are sent to Open-Meteo to retrieve weather and are not saved by this page.
 - No account, analytics, backend, or local-storage persistence is used.
 
 ## File
 
-- `index.html` — interface, styles, and all functionality.
+- `index.html` — terminal UI, styling, and all functionality.
