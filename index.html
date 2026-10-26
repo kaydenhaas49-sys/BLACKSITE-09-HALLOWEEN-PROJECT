@@ -304,7 +304,7 @@ body:before{opacity:.2;background-image:radial-gradient(#8e956d 0.45px,transpare
 <div class="side-rails left"></div><div class="side-rails right"></div><div class="device-mark">FIELD DEVICE / TYPE 09</div><div class="device-mark right">OPERATOR TERMINAL</div>
 <div class="screen">
 <div class="statusbar"><div class="status-left"><span class="brand-id">BS09</span><span>WRIST TERMINAL</span></div><div class="status-right"><span><i class="led" id="link-led"></i><span id="link-label">LINK ?</span></span><span id="clock-mini">--:--:--</span></div></div>
-<div class="masthead"><div class="masthead-main"><div class="overline">BROWSER-BASED SECURITY TOOLS</div><div class="device-title" data-text="BLACKSITE-09">BLACKSITE-09</div><div class="subtitle">DNS · RDAP · SHA-256 · CONNECTIVITY</div></div><div class="unit-stamp">UNIT SERIAL<b>09-A</b>MODE<b>LOCAL</b></div></div>
+<div class="masthead"><div class="masthead-main"><div class="overline">BROWSER-BASED SECURITY TOOLS</div><div class="device-title" data-text="BLACKSITE-09">BLACKSITE-09</div><div class="subtitle">DNS · RDAP · SHA-256 · CONNECTIVITY</div></div><div class="unit-stamp">RUNTIME<b>WEB APP</b>CONTEXT<b id="context-stamp">CHECKING</b></div></div>
 
 <section class="hud-panel" aria-label="Live browser session diagnostics">
 <div class="hud-topline"><span><i class="mini-led"></i> SESSION DIAGNOSTICS</span><span id="session-mode">LIVE / BROWSER-SCOPED</span></div>
@@ -343,7 +343,7 @@ body:before{opacity:.2;background-image:radial-gradient(#8e956d 0.45px,transpare
 <div class="quickbar" aria-label="Quick commands"><button class="quick" data-command="dns example.com">DNS A TEST</button><button class="quick" data-command="rdap example.com">RDAP LOOKUP</button><button class="quick" data-command="hash hello world">SHA-256 TEST</button><button class="quick" data-command="netcheck">NET CHECK</button><button class="quick" data-command="motion on">MOTION API</button><button class="quick" data-command="pulse">HAPTIC TEST</button><button class="quick" data-command="battery">BATTERY API</button><button class="quick" data-command="weather">WEATHER API</button><button class="quick" data-command="clear">CLEAR LOG</button></div>
 <div class="footer"><span>BLACKSITE-09 / BROWSER SECURITY WORKBENCH</span><span>NO SHELL · NO UNREQUESTED SCANS</span></div>
 </div>
-<div class="hardware"><span class="screw"></span><span>BS09 / FIELD SYSTEMS</span><span>SEALED DISPLAY</span><span class="screw"></span></div>
+<div class="hardware"><span class="screw"></span><span>BS09 / SECURITY TOOLS</span><span>BROWSER-ONLY I/O</span><span class="screw"></span></div>
 </main>
 <script>
 (function(){
@@ -361,7 +361,7 @@ function updateSessionPanel(){
  net.textContent=online?"ONLINE":"OFFLINE";net.className=online?"telemetry-value is-good":"telemetry-value is-bad";
  $("dash-network-note").textContent=online?"Browser reports a network connection":"Browser reports offline";
  transport.textContent=secure?"SECURE":"INSECURE";transport.className=secure?"telemetry-value is-good":"telemetry-value is-bad";
- $("dash-transport-note").textContent=protocol+" / "+(secure?"secure context enabled":"secure context unavailable");
+ $("dash-transport-note").textContent=protocol+" / "+(secure?"secure context enabled":"secure context unavailable");$("context-stamp").textContent=secure?(protocol==="https:"?"HTTPS":"SECURE"):(protocol==="file:"?"LOCAL FILE":"INSECURE");
  origin.textContent=location.host||((protocol==="file:")?"LOCAL FILE":"LOCAL ORIGIN");
  $("dash-target").textContent=activeTargetText;$("last-command").textContent=lastCommandText;
  var elapsed=Math.max(0,Math.floor((Date.now()-sessionStarted)/1000)),hh=String(Math.floor(elapsed/3600)).padStart(2,"0"),mm=String(Math.floor((elapsed%3600)/60)).padStart(2,"0"),ss=String(elapsed%60).padStart(2,"0");
